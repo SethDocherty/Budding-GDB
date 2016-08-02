@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6b5d7f11-d112-4a77-a9e5-e31fde1587bb}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile />
+    <SearchPath>bin\</SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <InterpreterId>{2af0f10d-7135-4994-9156-5d01c9c11b7e}</InterpreterId>
+    <InterpreterVersion>2.7</InterpreterVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+    <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="bin\Add New Geometry.py" />
+    <Compile Include="bin\Add New Table Records.py" />
+    <Compile Include="bin\Update Attributes.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include=".git\" />
+    <Folder Include=".git\hooks\" />
+    <Folder Include=".git\info\" />
+    <Folder Include=".git\logs\" />
+    <Folder Include=".git\logs\refs\" />
+    <Folder Include=".git\logs\refs\heads\" />
+    <Folder Include=".git\logs\refs\remotes\" />
+    <Folder Include=".git\logs\refs\remotes\origin\" />
+    <Folder Include=".git\objects\" />
+    <Folder Include=".git\objects\info\" />
+    <Folder Include=".git\objects\pack\" />
+    <Folder Include=".git\refs\" />
+    <Folder Include=".git\refs\heads\" />
+    <Folder Include=".git\refs\remotes\" />
+    <Folder Include=".git\refs\remotes\origin\" />
+    <Folder Include=".git\refs\tags\" />
+    <Folder Include="bin" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterpreterReference Include="{2af0f10d-7135-4994-9156-5d01c9c11b7e}\2.7" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include=".git\config" />
+    <Content Include=".git\description" />
+    <Content Include=".git\HEAD" />
+    <Content Include=".git\hooks\README.sample" />
+    <Content Include=".git\index" />
+    <Content Include=".git\info\exclude" />
+    <Content Include=".git\logs\HEAD" />
+    <Content Include=".git\logs\refs\heads\master" />
+    <Content Include=".git\logs\refs\remotes\origin\Dev" />
+    <Content Include=".git\logs\refs\remotes\origin\master" />
+    <Content Include=".git\logs\refs\remotes\origin\Testing" />
+    <Content Include=".git\objects\pack\pack-f3e5e2f3af230459b7b143650104a1b96aaeadfb.idx" />
+    <Content Include=".git\objects\pack\pack-f3e5e2f3af230459b7b143650104a1b96aaeadfb.pack" />
+    <Content Include=".git\refs\heads\master" />
+    <Content Include=".git\refs\remotes\origin\Dev" />
+    <Content Include=".git\refs\remotes\origin\master" />
+    <Content Include=".git\refs\remotes\origin\Testing" />
+    <Content Include="README" />
+  </ItemGroup>
+  <Import Project="$(PtvsTargetsFile)" Condition="Exists($(PtvsTargetsFile))" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="!Exists($(PtvsTargetsFile))" />
+</Project>
