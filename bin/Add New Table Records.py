@@ -39,7 +39,7 @@ def Extract_File_Records(filename):
 def Remove_Fields(fc):
     fields = [f.name for f in arcpy.ListFields(fc)]
     for i,f in enumerate(fields):
-        if f == 'Shape' or f == 'Shape_Length' or f == 'OBJECTID':
+        if f == 'Shape' or f == 'Shape_Length' or f == 'OBJECTID' or f == 'GLOBALID':
             del fields[i]
     return fields
 
@@ -66,13 +66,13 @@ def Extract_Table_Records(fc):
     return records
 
 #Check if there is a filepath from the input layers. If not, pre-pend the path. Also extract the FC names.
-def InputCheck(Input):
-    if not split(Input)[0]:
-        InputPath = arcpy.Describe(Input).catalogPath #join(arcpy.Describe(Input).catalogPath,arcpy.Describe(Input).name)
-        InputName = arcpy.Describe(Input).name
+def InputCheck(input):
+    if not split(input)[0]:
+        InputPath = arcpy.Describe(input).catalogPath #join(arcpy.Describe(input).catalogPath,arcpy.Describe(input).name)
+        InputName = arcpy.Describe(input).name
     else:
-        InputPath = Input
-        InputName = arcpy.Describe(Input).name
+        InputPath = input
+        InputName = arcpy.Describe(input).name
     return InputPath, InputName
 
 #Reorder columns of .csv file to match a specific format
@@ -196,11 +196,6 @@ try:
     #User Input data
     #..............................................................................................................................
 
-##    FILE_INPUTPATH = r"U:\Projects\Tidelands\GIS Data Structure Prep\Excel and Tabular\Tables to import\TDI Table.csv"
-##    FC_INPUTPATH = r"\\dep-tcshared\shared\lum\lur-tidelands\GIS\Geodatabases\Tidelands Data Structure Case Manager Test\Tidelands Data Layers - DEMO V2.gdb\TDI_Table"
-##    INPUT_SCRATCHGDB = r"\\dep-tcshared\shared\lum\lur-tidelands\GIS\Geodatabases\Tidelands Data Structure Prep\Scratch Database.gdb"
-
-
     #Inputpath for .csv file
     FILE_INPUTPATH = arcpy.GetParameterAsText(0)
 
@@ -215,13 +210,11 @@ try:
     #..............................................................................................................................
 
     #Check if there is a filepath from the input layers. If not, pre-pend the path. Also extract the FC names.
-    FC_PATH = InputCheck(FC_INPUTPATH)[0]
-    FC_NAME = InputCheck(FC_INPUTPATH)[1]
+    FC_PATH, FC_NAME = InputCheck(FC_INPUTPATH)
 
     #Extracting File Paths for Feature Dataset and Scratch File Geodatabase
     arcpy.env.Workspace = INPUT_SCRATCHGDB
-    Scratch_GDBPath = InputCheck(INPUT_SCRATCHGDB)[0]
-    ScratchGDBName = InputCheck(INPUT_SCRATCHGDB)[1]
+    Scratch_GDBPath, ScratchGDBName = InputCheck(INPUT_SCRATCHGDB)
 
     #..............................................................................................................................
     #Preping Data
@@ -262,8 +255,6 @@ try:
     FC_Field_Type_Check(FC_PATH,temp_table_path)
 
     #Create empty lists to store records from the 2 ArcMap tables and Extract Records.
-    file_list = []
-    fc_list = []
     file_list = Extract_Table_Records(temp_table_path)
     fc_list = Extract_Table_Records(FC_PATH)
 

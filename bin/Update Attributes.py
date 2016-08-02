@@ -9,18 +9,18 @@
 #               - Target FC (FC with attributes that need to be updated)
 #               - Figure extent FC (FC that stores all the figures as objects)
 #               - Figure Key Field (this is the field that stores the names of all the figure extent object. This field is
-#                 required to be in the Target FC and spelled the same.  
+#                 required to be in the Target FC and spelled the same.
 #               - Source Key Field (This is the field that will be used for joining data to the Target FC)
 #               - Target Key Field (This is the field that will be used for joining data from the Source FC)
 #               - Fields to update (User selects fields in the Target FC that need to be updated.  This field is
 #                 required to be in the Target FC and spelled the same.)
 #               - Figures to update (User selects figures that will be updated)
-#           
+#
 #           The script has built in error checking to make sure:
 #               - Figure Key Field Exists
 #               - Check to see if Target FC has GIS features for given figure. If does not exists, skips to next figure.
 #
-#           The script performs a simple if conditional check comparing the attributes in the Target FC against the Source FC.  If 
+#           The script performs a simple if conditional check comparing the attributes in the Target FC against the Source FC.  If
 #           the attributes are not the same, Target FC updates to match the Source FC attributes.
 #
 # Log:
@@ -40,13 +40,13 @@ print startTime
 #Pull out recrods and make lists. Final List that is returned to variable
 def get_geodatabase_path(input_table):
   '''Return the Geodatabase path from the input table or feature class.
-  :param input_table: path to the input table or feature class 
+  :param input_table: path to the input table or feature class
   '''
   workspace = os.path.dirname(input_table)
   if [any(ext) for ext in ('.gdb', '.mdb', '.sde') if ext in os.path.splitext(workspace)]:
     return workspace
   else:
-    return os.path.dirname(workspace) 
+    return os.path.dirname(workspace)
 
 def ListRecords(fc,fields):
     records=[]
@@ -77,18 +77,6 @@ def FL_Exist(LayerName, FCPath, Expression):
     except:
         return arcpy.AddError(arcpy.GetMessages(2))
 
-def ReportFieldExist(Report_SampleFC, Figure_ExtentFC, KeyField): 
-    FC1 = arcpy.ListFields(Report_SampleFC, KeyField)
-    FC2 = arcpy.ListFields(Figure_ExtentFC, KeyField)
-    
-    FC1_cnt = len(FC1)
-    FC2_cnt = len(FC2)
-
-    if FC1_cnt == 1 and FC2_cnt == 1:
-        return True
-    else:
-        return False
-
 def FieldExist(FC,field):
     fc_check = arcpy.ListFields(FC, field)
     if len(fc_check) == 1:
@@ -100,16 +88,32 @@ def unique_values(table, field):
     with arcpy.da.SearchCursor(table, [field]) as cursor:
         return sorted({row[0] for row in cursor})
 
+def Get_Figure_List(FCpath, Keyfield, User_Selected_Figures):
+    FigureList=[]
+    if User_Selected_Figures == "0":
+        if arcpy.ListFields(FCpath,Keyfield,"String"): #Check if the field type of the of the Figure Extent Key field is a string or not.
+            Figures = ListRecords(FCpath,Keyfield)
+            FigureList = ["'" + item + "'" for item in Figures] #Adding single quotes at the beginning/end of each item.
+            arcpy.AddMessage(str(len(FigureList)) + " Figures are going to be updated")
+        else:
+            FigureList = ListRecords(FCpath,Keyfield)
+            arcpy.AddMessage(str(len(FigureList)) + " Figures are going to be updated")
+    elif arcpy.ListFields(FCpath,Keyfield,"String"):  #Check if the field type of the of the Figure Extent Key field is a string or not.
+        split = [item.strip("'") for item in User_Selected_Figures.split(";")] #List Comprehension which splits delimited string and removes any qoutes.
+        FigureList = ["'" + item.strip() + "'" for item in split] #List Comprehension which adds single quotes at the beginning/end of each item in the List. The qoutes are added for ArcMap Definition query expressions.
+        arcpy.AddMessage(str(len(FigureList)) + " Figure(s) are going to be updated")
+    else:
+        FigureList = [item.strip("'") for item in User_Selected_Figures.split(";")] #List Comprehension which splits delimited string and removes any qoutes that may be present in string.
+        arcpy.AddMessage(str(len(FigureList)) + " Figure(s) are going to be updated")
+    return FigureList
+
 def Update_Figures(Report_Sample, MasterSample, FigureExtent, FigureExtent_KeyField, SourceTableField, TargetTableField, input_field, input_figures):
-    MasterSamplepath = InputCheck(MasterSample)[0]
-    MasterSampleFC = InputCheck(MasterSample)[1]
-    Report_SampleFCpath = InputCheck(Report_Sample)[0]
-    Report_SampleFC = InputCheck(Report_Sample)[1]
-    FigureExtentpath = InputCheck(FigureExtent)[0]
-    FigureExtentFC = InputCheck(FigureExtent)[1]
+    MasterSamplepath, MasterSampleFC = InputCheck(MasterSample)
+    Report_SampleFCpath, Report_SampleFC = InputCheck(Report_Sample)
+    FigureExtentpath, FigureExtentFC = InputCheck(FigureExtent)
 
     #Check to see if all the Report feature classes have the FigureExtent Keyfield.
-    if (not ReportFieldExist(Report_SampleFCpath, FigureExtentpath, FigureExtent_KeyField)):
+    if not all(( FieldExist(Report_SampleFCpath,FigureExtent_KeyField), FieldExist(FigureExtentpath,FigureExtent_KeyField) )):
         arcpy.AddError(("The field {} does not exist in {} or {}".format(FigureExtent_KeyField,Report_SampleFC,Report_SampleFC)))
         sys.exit()
 
@@ -120,34 +124,49 @@ def Update_Figures(Report_Sample, MasterSample, FigureExtent, FigureExtent_KeyFi
     #  (for second argument, use False for unversioned data)
     edit.startEditing(False, False)
     edit.startOperation()
-    
-    #Getting the number of figures to update
-    FigureList=[]
-    if input_figures == "0":
-        if arcpy.ListFields(FigureExtentpath,FigureExtent_KeyField,"String"): #Check if the field type of the of the Figure Extent Key field is a string or not.
-            Figures = ListRecords(FigureExtentpath,FigureExtent_KeyField)
-            FigureList = ["'" + item + "'" for item in Figures] #Adding single quotes at the beginning/end of each item.
-            arcpy.AddMessage(str(len(FigureList)) + " Figures are going to be updated")
-        else:
-            FigureList = ListRecords(FigureExtentpath,FigureExtent_KeyField)
-            arcpy.AddMessage(str(len(FigureList)) + " Figures are going to be updated")
-    elif arcpy.ListFields(FigureExtentpath,FigureExtent_KeyField,"String"):  #Check if the field type of the of the Figure Extent Key field is a string or not.
-        split = [item.strip("'") for item in input_figures.split(";")] #List Comprehension which splits delimited string and removes any qoutes.
-        FigureList = ["'" + item.strip() + "'" for item in split] #List Comprehension which adds single quotes at the beginning/end of each item in the List. The qoutes are added for ArcMap Definition query expressions.
-        arcpy.AddMessage(str(len(FigureList)) + " Figure(s) are going to be updated")
-    else:
-        FigureList = [item.strip("'") for item in input_figures.split(";")] #List Comprehension which splits delimited string and removes any qoutes that may be present in string.
-        arcpy.AddMessage(str(len(FigureList)) + " Figure(s) are going to be updated")
+
+    FigureList = Get_Figure_List(FigureExtentpath, FigureExtent_KeyField, input_figures)
 
     #Formatting the input fields to be updated
     Field_to_update = input_field.split(";")
-    arcpy.AddMessage("The following fields are going to be updated: " + str(Field_to_update))
+    arcpy.AddMessage("The following fields are going to be updated: {}".format(str(Field_to_update)))
 
+    #Code to Loop through all figures and update Project Feature Class
+    for figure in FigureList:
+        clause = Does_Figure_Exist(childFC, figure, child_figure_list, figure_key_field)
+        if clause:
+
+
+
+
+def Update_Figures(childFC, childFCpath, figure, child_figure_list, figure_key_field):
+    # A list of all the unique figure names in the Report FC. This will be used for error checking.  There may be instances where a figure extent has been created but there
+    # are no sample locations stored in the figure extent.
+    ReportFC_FigureList = unique_values(childFCpath,figure_key_field)
+    ReportFC_FigureList = ["'" + item + "'" for item in figure_list]
+
+        print "Runtime: ", datetime.now()-startTime
+        arcpy.AddMessage(40*'.' + '\n' + "Runtime: {}".format((datetime.now()-startTime)))
+        print "Figure Name: {}" + str(figure)
+        arcpy.AddMessage(40*'.' + "Updating Figure: {}".format(str(figure)))
+        clause = ("{} = {}".format(figure_key_field,figure))
+
+        # Check to see if figure name exists in sample location FC
+        # If does not exists, skip to next figure.
+        if figure not in child_figure_list:
+            print ("{} is not in {}.  Skipping to next figure.".format(figure,childFC))
+            arcpy.AddMessage(("{} is not in {}.  Skipping to next figure.".format(figure,childFC)))
+            return False
+        else:
+            return clause
+
+
+'''
     # A list of all the unique figure names in the Report FC. This will be used for error checking.  There may be instances where a figure extent has been created but there
     # are no sample locations stored in the figure extent.
     ReportFC_FigureList = unique_values(Report_SampleFCpath,FigureExtent_KeyField)
     ReportFC_FigureList = ["'" + item + "'" for item in ReportFC_FigureList]
-    
+
     #Code to Loop through all figures and update Project Feature Class
     for Value in FigureList:
         print "Runtime: ", datetime.now()-startTime
@@ -162,13 +181,14 @@ def Update_Figures(Report_Sample, MasterSample, FigureExtent, FigureExtent_KeyFi
             print ("{} is not in {}.  Skipping to next figure.".format(Value,Report_SampleFC))
             arcpy.AddMessage(("{} is not in {}.  Skipping to next figure.".format(Value,Report_SampleFC)))
             continue
+'''
 
         # Comparing records from the master FC to the report FC
         for field in Field_to_update:
             if (not FieldExist(MasterSamplepath,field)):
               arcpy.AddMessage(("{} is not in {}.  Skipping to next field.".format(field,MasterSampleFC)))
               continue
-            
+
             print "."*25 + "Updating the following field: " + field + " (" + str(datetime.now()-startTime)+")"
             arcpy.AddMessage("."*25 + "Updating the following field: " + field + " (" + str(datetime.now()-startTime)+")")
             Master_dict = dict([(r[0], (r[1])) for r in arcpy.da.SearchCursor(MasterSamplepath, [SourceTableField,field])])
@@ -201,11 +221,9 @@ def Update_Figures(Report_Sample, MasterSample, FigureExtent, FigureExtent_KeyFi
     edit.stopEditing(True)
 
 def Update_All(Report_Sample, MasterSample, SourceTableField, TargetTableField, input_field):
-    MasterSamplepath = InputCheck(MasterSample)[0]
-    MasterSampleFC = InputCheck(MasterSample)[1]
-    Report_SampleFCpath = InputCheck(Report_Sample)[0]
-    Report_SampleFC = InputCheck(Report_Sample)[1]
-    
+    MasterSamplepath, MasterSampleFC = InputCheck(MasterSample)
+    Report_SampleFCpath, Report_SampleFC = InputCheck(Report_Sample)
+
     # Start an edit session. Must provide the worksapce.
     workspace = get_geodatabase_path(Report_SampleFCpath)
     edit = arcpy.da.Editor(workspace)
@@ -270,19 +288,19 @@ try:
 ##    input_figures  = "'SWMU 8'"
 
     MasterSample = arcpy.GetParameterAsText(0)
-    
+
     Report_Sample = arcpy.GetParameterAsText(1)
- 
+
     FigureExtent = arcpy.GetParameterAsText(2)
- 
+
     FigureExtent_KeyField = arcpy.GetParameterAsText(3)
-  
+
     SourceTableField = arcpy.GetParameterAsText(4) #The Master Feature Class
-  
-    TargetTableField = arcpy.GetParameterAsText(5) #The Project Feature Class 
-  
+
+    TargetTableField = arcpy.GetParameterAsText(5) #The Project Feature Class
+
     input_field = arcpy.GetParameterAsText(6)
-  
+
     input_figures = arcpy.GetParameterAsText(7)
 
     if input_figures == "None":
@@ -292,7 +310,7 @@ try:
 
     print "Script Runtime: ", datetime.now()-startTime
     arcpy.AddMessage("Script Runtime: " + str(datetime.now()-startTime))
-        
+
 except Exception, e:
     # If an error occurred, print line number and error message
     import traceback, sys
