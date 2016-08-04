@@ -103,19 +103,12 @@ def InputCheck(Input):
 		InputName = arcpy.Describe(Input).name
 	return InputPath, InputName 
 
-def ReportFieldExist(Report_SampleFC, Figure_ExtentFC, Secondary_BoundaryFC, KeyField): 
-	FC1 = arcpy.ListFields(Report_SampleFC, KeyField)
-	FC2 = arcpy.ListFields(Figure_ExtentFC, KeyField)
-	FC3 = arcpy.ListFields(Secondary_BoundaryFC, KeyField)
-	
-	FC1_cnt = len(FC1)
-	FC2_cnt = len(FC2)
-	FC3_cnt = len(FC3)
-	
-	if FC1_cnt == 1 and FC2_cnt == 1 and FC3_cnt == 1:
-		return True
-	else:
-		return False
+def FieldExist(FC,field):
+    fc_check = arcpy.ListFields(FC, field)
+    if len(fc_check) == 1:
+      return True
+    else:
+      return False
 
 def RecordCount(fc):
 	count = int((arcpy.GetCount_management(fc)).getOutput(0))
@@ -205,19 +198,18 @@ try:
 	#..............................................................................................................................
 
 	#Check if there is a filepath from the input layers. If not, pre-pend the path. Also extract the FC names.
-	MasterSamplepath = InputCheck(MasterSample)[0]
-	MasterSampleFC = InputCheck(MasterSample)[1]
-	Report_SampleFCpath = InputCheck(Report_Sample)[0]
-	Report_SampleFC = InputCheck(Report_Sample)[1]
-	FigureExtentpath = InputCheck(FigureExtent)[0]
-	FigureExtentFC = InputCheck(FigureExtent)[1]
-	GroupLocationBoundarypath = InputCheck(GroupLocationBoundary)[0]
-	GroupLocationBoundaryFC = InputCheck(GroupLocationBoundary)[1]
+	MasterSamplepath, MasterSampleFC = InputCheck(MasterSample)
+	Report_SampleFCpath, Report_SampleFC = InputCheck(Report_Sample)
+	FigureExtentpath, FigureExtentFC = InputCheck(FigureExtent)
+	GroupLocationBoundarypath, GroupLocationBoundaryFC = InputCheck(GroupLocationBoundary)
 
-	#Check to see if all the report feature classes have the FigureExtent Keyfield.
-	if (not ReportFieldExist(Report_SampleFCpath, FigureExtentpath, GroupLocationBoundarypath, FigureExtent_KeyField)):
-		arcpy.AddError("Field + KeyField + does not exist in " + Report_SampleFCpath + FigureExtentpath + GroupLocationBoundarypath + FigureExtent_KeyField)
-		sys.exit()
+    #Check to see if all the Report feature classes have the FigureExtent Keyfield.
+    if not all((FieldExist(Report_SampleFCpath,FigureExtent_KeyField), 
+                FieldExist(FigureExtentpath,FigureExtent_KeyField), 
+                FieldExist(GroupLocationBoundarypath,FigureExtent_KeyField))):
+        arcpy.AddError(("The field {} does not exist in {}, {} or {}".format(FigureExtent_KeyField,Report_SampleFC,FigureExtentFC,GroupLocationBoundaryFC)))
+        sys.exit()
+
 
 	#Extracting File Paths for Feature Dataset and Scratch File Geodatabase
 	if not split(Input_ScratchFD)[0]:

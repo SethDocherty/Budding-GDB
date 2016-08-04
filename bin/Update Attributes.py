@@ -88,6 +88,19 @@ def unique_values(table, field):
     with arcpy.da.SearchCursor(table, [field]) as cursor:
         return sorted({row[0] for row in cursor})
 
+def start_edit_session(fc_to_edit):
+    # Start an edit session. Must provide the worksapce.
+    workspace = get_geodatabase_path(fc_to_edit)
+    edit = arcpy.da.Editor(workspace)
+    # Edit session is started without an undo/redo stack for versioned data and starting edit operation
+    #  (for second argument, use False for unversioned data)
+    edit.startEditing(False, False)
+    edit.startOperation()
+
+def stop_edit_session():
+    edit.stopOperation()
+    edit.stopEditing(True)
+
 def Get_Figure_List(FCpath, Keyfield, User_Selected_Figures):
     FigureList=[]
     if User_Selected_Figures == "0":
@@ -107,206 +120,111 @@ def Get_Figure_List(FCpath, Keyfield, User_Selected_Figures):
         arcpy.AddMessage(str(len(FigureList)) + " Figure(s) are going to be updated")
     return FigureList
 
+def Does_Figure_Exist(childFCpath, childFC, figure, child_figure_list, figure_key_field):
+    print "Runtime: ", datetime.now()-startTime
+    arcpy.AddMessage(40*'.' + '\n' + "Runtime: {}".format((datetime.now()-startTime)))
+    print "Figure Name: {}" + str(figure)
+    arcpy.AddMessage(40*'.' + "Updating Figure: {}".format(str(figure)))
+    clause = ("{} = {}".format(figure_key_field,figure))
+
+    # Check to see if figure name exists in sample location FC
+    # If does not exists, skip to next figure.
+    if figure not in child_figure_list:
+        print ("{} is not in {}.  Skipping to next figure.".format(figure,childFC))
+        arcpy.AddMessage(("{} is not in {}.  Skipping to next figure.".format(figure,childFC)))
+        return False
+    else:
+        return clause
+
+def update_field(Sourcepath, targetpath, SourceTableField, TargetTableField, field, clause=''):
+    SourceFCpath, SourceFC = InputCheck(Sourcepath)
+    targetFCpath, targetFC = InputCheck(targetpath)
+
+    print "."*25 + "Updating the following field: " + field + " (" + str(datetime.now()-startTime)+")"
+    arcpy.AddMessage("."*25 + "Updating the following field: " + field + " (" + str(datetime.now()-startTime)+")")
+    Source_dict = dict([(r[0], (r[1])) for r in arcpy.da.SearchCursor(SourceFCpath, [SourceTableField,field])])
+    Target_dict = dict([(r[0], (r[1])) for r in arcpy.da.SearchCursor(targetFCpath,[TargetTableField,field],clause)])
+    updateRows = arcpy.da.UpdateCursor(targetFCpath,[TargetTableField,field],clause) #Cursor to be used to update attributes in project FC
+    Source_dictSet = set(Source_dict)
+    Target_dictSet = set(Target_dict)
+    Source_dictUpdate = dict()
+    for key in Source_dictSet.intersection(Target_dictSet):
+        if key not in Source_dictUpdate:
+            Source_dictUpdate[key] = dict()
+        Source_dictUpdate[key] = Source_dict[key]
+    ls = []
+    record_check = [Source_dictUpdate[k] == v for k, v in Target_dict.iteritems() if k in Source_dictUpdate] #Getting a count of values that are not the same in A:value and B:value
+    if record_check.count(False) == 0: #Count
+        print ("There are no records to update in {}".format(field))
+        arcpy.AddMessage(("There are no records to update in {}".format(field)))
+    else:
+        for updateRow in updateRows:
+            source_join = updateRow
+            if source_join[0] in Source_dictUpdate:
+                if source_join[1] != Source_dictUpdate[source_join[0]]:
+                    print ("Updating {} to {}".format(source_join[0], Source_dictUpdate[source_join[0]]))
+                    arcpy.AddMessage(("Updating {} to {}".format(source_join[0], Source_dictUpdate[source_join[0]])))
+                    updateRow[1] = Source_dictUpdate[source_join[0]]
+            updateRows.updateRow(updateRow)
+        del updateRow, updateRows
+
 def Update_Figures(Report_Sample, MasterSample, FigureExtent, FigureExtent_KeyField, SourceTableField, TargetTableField, input_field, input_figures):
     MasterSamplepath, MasterSampleFC = InputCheck(MasterSample)
     Report_SampleFCpath, Report_SampleFC = InputCheck(Report_Sample)
     FigureExtentpath, FigureExtentFC = InputCheck(FigureExtent)
 
-    #Check to see if all the Report feature classes have the FigureExtent Keyfield.
-    if not all(( FieldExist(Report_SampleFCpath,FigureExtent_KeyField), FieldExist(FigureExtentpath,FigureExtent_KeyField) )):
-        arcpy.AddError(("The field {} does not exist in {} or {}".format(FigureExtent_KeyField,Report_SampleFC,Report_SampleFC)))
-        sys.exit()
-
-    # Start an edit session. Must provide the worksapce.
-    workspace = get_geodatabase_path(Report_SampleFCpath)
-    edit = arcpy.da.Editor(workspace)
-    # Edit session is started without an undo/redo stack for versioned data and starting edit operation
-    #  (for second argument, use False for unversioned data)
-    edit.startEditing(False, False)
-    edit.startOperation()
-
-    FigureList = Get_Figure_List(FigureExtentpath, FigureExtent_KeyField, input_figures)
-
-    #Formatting the input fields to be updated
-    Field_to_update = input_field.split(";")
-    arcpy.AddMessage("The following fields are going to be updated: {}".format(str(Field_to_update)))
-
-    #Code to Loop through all figures and update Project Feature Class
-    for figure in FigureList:
-        clause = Does_Figure_Exist(childFC, figure, child_figure_list, figure_key_field)
-        if clause:
-
-
-
-
-def Update_Figures(childFC, childFCpath, figure, child_figure_list, figure_key_field):
-    # A list of all the unique figure names in the Report FC. This will be used for error checking.  There may be instances where a figure extent has been created but there
-    # are no sample locations stored in the figure extent.
-    ReportFC_FigureList = unique_values(childFCpath,figure_key_field)
-    ReportFC_FigureList = ["'" + item + "'" for item in figure_list]
-
-        print "Runtime: ", datetime.now()-startTime
-        arcpy.AddMessage(40*'.' + '\n' + "Runtime: {}".format((datetime.now()-startTime)))
-        print "Figure Name: {}" + str(figure)
-        arcpy.AddMessage(40*'.' + "Updating Figure: {}".format(str(figure)))
-        clause = ("{} = {}".format(figure_key_field,figure))
-
-        # Check to see if figure name exists in sample location FC
-        # If does not exists, skip to next figure.
-        if figure not in child_figure_list:
-            print ("{} is not in {}.  Skipping to next figure.".format(figure,childFC))
-            arcpy.AddMessage(("{} is not in {}.  Skipping to next figure.".format(figure,childFC)))
-            return False
-        else:
-            return clause
-
-
-'''
-    # A list of all the unique figure names in the Report FC. This will be used for error checking.  There may be instances where a figure extent has been created but there
-    # are no sample locations stored in the figure extent.
-    ReportFC_FigureList = unique_values(Report_SampleFCpath,FigureExtent_KeyField)
-    ReportFC_FigureList = ["'" + item + "'" for item in ReportFC_FigureList]
-
-    #Code to Loop through all figures and update Project Feature Class
-    for Value in FigureList:
-        print "Runtime: ", datetime.now()-startTime
-        arcpy.AddMessage(40*'.' + '\n' + "Runtime: " + str(datetime.now()-startTime))
-        print "Figure ID #" + str(Value)
-        arcpy.AddMessage(40*'.' + "Updating Figure: " + str(Value))
-        clause = ("{} = {}".format(FigureExtent_KeyField,Value))
-
-        # Check to see if figure name exists in sample location FC
-        # If does not exists, skip to next figure.
-        if Value not in ReportFC_FigureList:
-            print ("{} is not in {}.  Skipping to next figure.".format(Value,Report_SampleFC))
-            arcpy.AddMessage(("{} is not in {}.  Skipping to next figure.".format(Value,Report_SampleFC)))
-            continue
-'''
-
-        # Comparing records from the master FC to the report FC
-        for field in Field_to_update:
-            if (not FieldExist(MasterSamplepath,field)):
-              arcpy.AddMessage(("{} is not in {}.  Skipping to next field.".format(field,MasterSampleFC)))
-              continue
-
-            print "."*25 + "Updating the following field: " + field + " (" + str(datetime.now()-startTime)+")"
-            arcpy.AddMessage("."*25 + "Updating the following field: " + field + " (" + str(datetime.now()-startTime)+")")
-            Master_dict = dict([(r[0], (r[1])) for r in arcpy.da.SearchCursor(MasterSamplepath, [SourceTableField,field])])
-            Target_dict = dict([(r[0], (r[1])) for r in arcpy.da.SearchCursor(Report_SampleFCpath,[TargetTableField,field],clause)])
-            updateRows = arcpy.da.UpdateCursor(Report_SampleFCpath,[TargetTableField,field],clause) #Cursor to be used to update attributes in project FC
-            Master_dictSet = set(Master_dict)
-            Target_dictSet = set(Target_dict)
-            Master_dictUpdate = dict()
-            for key in Master_dictSet.intersection(Target_dictSet):
-                if key not in Master_dictUpdate:
-                    Master_dictUpdate[key] = dict()
-                Master_dictUpdate[key] = Master_dict[key]
-            ls = []
-            record_check = [Master_dictUpdate[k] == v for k, v in Target_dict.iteritems() if k in Master_dictUpdate] #Getting a count of values that are not the same in A:value and B:value
-            if record_check.count(False) == 0: #Count
-                print ("There are no records to update in {}".format(field))
-                arcpy.AddMessage(("There are no records to update in {}".format(field)))
-            else:
-              for updateRow in updateRows:
-                  source_join = updateRow
-                  if source_join[0] in Master_dictUpdate:
-                      if source_join[1] != Master_dictUpdate[source_join[0]]:
-                          print ("Updating {} to {}".format(source_join[0], Master_dictUpdate[source_join[0]]))
-                          arcpy.AddMessage(("Updating {} to {}".format(source_join[0], Master_dictUpdate[source_join[0]])))
-                          updateRow[1] = Master_dictUpdate[source_join[0]]
-                  updateRows.updateRow(updateRow)
-              del updateRow, updateRows
-    # Stop the edit session and save the changes
-    edit.stopOperation()
-    edit.stopEditing(True)
-
-def Update_All(Report_Sample, MasterSample, SourceTableField, TargetTableField, input_field):
-    MasterSamplepath, MasterSampleFC = InputCheck(MasterSample)
-    Report_SampleFCpath, Report_SampleFC = InputCheck(Report_Sample)
-
-    # Start an edit session. Must provide the worksapce.
-    workspace = get_geodatabase_path(Report_SampleFCpath)
-    edit = arcpy.da.Editor(workspace)
-    # Edit session is started without an undo/redo stack for versioned data and starting edit operation
-    #  (for second argument, use False for unversioned data)
-    edit.startEditing(False, False)
-    edit.startOperation()
-
-    #Formatting the input fields to be updated
-    Field_to_update = input_field.split(";")
-    arcpy.AddMessage("The following fields are going to be updated: " + str(Field_to_update))
-
-    # Comparing records from the master FC to the report FC
-    for field in Field_to_update:
-        arcpy.AddMessage(field + " : " + MasterSamplepath)
-        if (not FieldExist(MasterSamplepath,field)):
-           arcpy.AddMessage(("{} is not in {}.  Skipping to next field.".format(field,MasterSampleFC)))
-           continue
-        print "."*25 + "Updating the following field: " + field + " (" + str(datetime.now()-startTime)+")"
-        arcpy.AddMessage("."*25 + "Updating the following field: " + field + " (" + str(datetime.now()-startTime)+")")
-        Master_dict = dict([(r[0], (r[1])) for r in arcpy.da.SearchCursor(MasterSamplepath, [SourceTableField,field])])
-        Target_dict = dict([(r[0], (r[1])) for r in arcpy.da.SearchCursor(Report_SampleFCpath,[TargetTableField,field])])
-        updateRows = arcpy.da.UpdateCursor(Report_SampleFCpath,[TargetTableField,field]) #Cursor to be used to update attributes in project FC
-        Master_dictSet = set(Master_dict)
-        Target_dictSet = set(Target_dict)
-        Master_dictUpdate = dict()
-        for key in Master_dictSet.intersection(Target_dictSet):
-            if key not in Master_dictUpdate:
-                Master_dictUpdate[key] = dict()
-            Master_dictUpdate[key] = Master_dict[key]
-        ls = []
-        record_check = [Master_dictUpdate[k] == v for k, v in Target_dict.iteritems() if k in Master_dictUpdate] #Getting a count of values that are not the same in A:value and B:value
-        if record_check.count(False) == 0: #Count
-            print ("There are no records to update in {}".format(field))
-            arcpy.AddMessage(("There are no records to update in {}".format(field)))
-        else:
-          for updateRow in updateRows:
-              source_join = updateRow
-              if source_join[0] in Master_dictUpdate:
-                  if source_join[1] != Master_dictUpdate[source_join[0]]:
-                      print ("Updating {} to {}".format(source_join[0], Master_dictUpdate[source_join[0]]))
-                      arcpy.AddMessage(("Updating {} to {}".format(source_join[0], Master_dictUpdate[source_join[0]])))
-                      updateRow[1] = Master_dictUpdate[source_join[0]]
-              updateRows.updateRow(updateRow)
-          del updateRow, updateRows
-
-    # Stop the edit session and save the changes
-    edit.stopOperation()
-    edit.stopEditing(True)
-
-try:
-
-    # Script arguments
-
-##    Report_Sample = r"\\NJSOM02FS01\Projects\Projects\Chevron\DMS\Projects\ISS-ESS\GIS\ESS-ISS.gdb\Report_Sample_Locations\ESS_ISS_PDI_Samples"
-##    MasterSample = r"\\NJSOM02FS01\Projects\Projects\Chevron\DMS\GIS\Chevron Perth Amboy Geodatabase.gdb\Sample_Locations\Sample_Locations"
-##    FigureExtent= r"\\NJSOM02FS01\Projects\Projects\Chevron\DMS\Projects\ISS-ESS\GIS\ESS-ISS.gdb\Figure_Extents_and_Locations_Groups\PDI_Figure_Extent"
-##    FigureExtent_KeyField = "Figure_Area_Name"
-##    SourceTableField = "Location_ID"
-##    TargetTableField = "Location_ID"
-##    input_field = "Location_Type"
-##    input_figures  = "'SWMU 8'"
-
-    MasterSample = arcpy.GetParameterAsText(0)
-
-    Report_Sample = arcpy.GetParameterAsText(1)
-
-    FigureExtent = arcpy.GetParameterAsText(2)
-
-    FigureExtent_KeyField = arcpy.GetParameterAsText(3)
-
-    SourceTableField = arcpy.GetParameterAsText(4) #The Master Feature Class
-
-    TargetTableField = arcpy.GetParameterAsText(5) #The Project Feature Class
-
-    input_field = arcpy.GetParameterAsText(6)
-
-    input_figures = arcpy.GetParameterAsText(7)
+    start_edit_session(Report_SampleFCpath)
 
     if input_figures == "None":
-        Update_All(Report_Sample, MasterSample, SourceTableField, TargetTableField, input_field)
+        #Formatting the input fields to be updated
+        Field_to_update = input_field.split(";")
+        arcpy.AddMessage("The following fields are going to be updated: {}".format(str(Field_to_update)))
+        for field in Field_to_update:
+            if (not FieldExist(MasterSamplepath,field)):
+                arcpy.AddMessage(("{} is not in {}.  Skipping to next field.".format(field,MasterSampleFC)))
+            else:
+                update_field(MasterSamplepath, Report_SampleFCpath, SourceTableField, TargetTableField, field)
     else:
-        Update_Figures(Report_Sample, MasterSample, FigureExtent, FigureExtent_KeyField, SourceTableField, TargetTableField, input_field, input_figures)
+       #Check to see if all the Report feature classes have the FigureExtent Keyfield.
+        if not (FieldExist(Report_SampleFCpath,FigureExtent_KeyField)):
+            arcpy.AddError(("The field {} does not exist in {}".format(FigureExtent_KeyField,Report_SampleFC)))
+            sys.exit()
+   
+        # Getting List of values to update.  List is based on values from Figure Extent
+        FigureList = Get_Figure_List(FigureExtentpath, FigureExtent_KeyField, input_figures)
+    
+        #Get list of figures in the report FC
+        ReportFC_FigureList = unique_values(Report_SampleFCpath,figure_key_field)
+        ReportFC_FigureList = ["'" + item + "'" for item in ReportFC_FigureList]
+
+        #Formatting the input fields to be updated
+        Field_to_update = input_field.split(";")
+        arcpy.AddMessage("The following fields are going to be updated: {}".format(str(Field_to_update)))
+
+        #Loop through all figures and update Project Feature Class
+        for figure in FigureList:
+            clause = Does_Figure_Exist(Report_SampleFCpath, Report_SampleFC, figure, ReportFC_FigureList, figure_key_field)
+            if clause:
+                for field in Field_to_update:
+                    if (not FieldExist(MasterSamplepath,field)):
+                      arcpy.AddMessage(("{} is not in {}.  Skipping to next field.".format(field,MasterSampleFC)))
+                    else:
+                        update_field(MasterSamplepath, Report_SampleFCpath, SourceTableField, TargetTableField, field, clause)
+     
+    stop_edit_session()
+           
+try:
+
+    MasterSample = arcpy.GetParameterAsText(0)
+    Report_Sample = arcpy.GetParameterAsText(1)
+    FigureExtent = arcpy.GetParameterAsText(2)
+    FigureExtent_KeyField = arcpy.GetParameterAsText(3)
+    SourceTableField = arcpy.GetParameterAsText(4) #The Master Feature Class
+    TargetTableField = arcpy.GetParameterAsText(5) #The Project Feature Class
+    input_field = arcpy.GetParameterAsText(6)
+    input_figures = arcpy.GetParameterAsText(7)
+
+    Update_Figures(Report_Sample, MasterSample, FigureExtent, FigureExtent_KeyField, SourceTableField, TargetTableField, input_field, input_figures)
 
     print "Script Runtime: ", datetime.now()-startTime
     arcpy.AddMessage("Script Runtime: " + str(datetime.now()-startTime))
