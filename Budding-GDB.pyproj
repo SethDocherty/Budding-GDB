@@ -24,6 +24,9 @@
     <Compile Include="bin\Add New Geometry.py" />
     <Compile Include="bin\Add New Table Records.py" />
     <Compile Include="bin\Update Attributes.py" />
+    <Compile Include="helper_functions\helper.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include=".git\" />
@@ -43,6 +46,7 @@
     <Folder Include=".git\refs\remotes\origin\" />
     <Folder Include=".git\refs\tags\" />
     <Folder Include="bin" />
+    <Folder Include="helper_functions\" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="{2af0f10d-7135-4994-9156-5d01c9c11b7e}\2.7" />
