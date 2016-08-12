@@ -1,15 +1,16 @@
 import arcpy
+import sys
 import os
 from os.path import split, join
 from datetime import datetime
-arcpy.env.overwritearcpy.env.overwriteOutput = True
+arcpy.env.overwriteOutput = True
 
 #..............................................................................................................................
 # Creator - Seth Docherty
 #
 #   Helper functions for the Budding GDB toolset.  Make sure this script is called
 #   to import all functions.
-#   
+#
 #..............................................................................................................................
 
 
@@ -50,10 +51,10 @@ def Compare_Fields(fc1_path,fc2_path):
 
 def Delete_Values_From_FC(values_to_delete, key_field, FC, FC_Path):
     FC = str(FC) + "_Layer"
-    FL_Exist(FC,FC_Path,"")
+    Create_FL(FC,FC_Path,"")
     What_to_Delete = []
 
-    if values_to_delete:
+    if not values_to_delete:
         print "No features were selected to be deleted"
         arcpy.AddMessage("No features were selected to be deleted")
     else:
@@ -69,16 +70,17 @@ def Delete_Values_From_FC(values_to_delete, key_field, FC, FC_Path):
 #Find out if a Feature Class exists
 def FC_Exist(FCname, DatasetPath, Template):
     FCpath = os.path.join(DatasetPath,FCname)
-    FCtype = arcpy.Describe(FCpath).shapeType
+    FCtype = arcpy.Describe(Template).shapeType
     if arcpy.Exists(FCpath):
+        arcpy.AddMessage("Feature class, {}, already exists. Clearing records.......".format(FCname))
         if Compare_Fields(FCpath,Template):
-            arcpy.TruncateTable_management(FCpath)
-            #return FCpath
+            return arcpy.TruncateTable_management(FCpath)
         else:
             arcpy.Delete_management(FCpath)
-            arcpy.CreateFeatureclass_management(DatasetPath, FCname, FCtype, Template, "SAME_AS_TEMPLATE", "SAME_AS_TEMPLATE", Template)
+            return arcpy.CreateFeatureclass_management(DatasetPath, FCname, FCtype, Template, "SAME_AS_TEMPLATE", "SAME_AS_TEMPLATE", Template)
     else:
-        arcpy.CreateFeatureclass_management(DatasetPath, FCname, FCtype, Template, "SAME_AS_TEMPLATE", "SAME_AS_TEMPLATE", Template)
+        arcpy.AddMessage("Feature class, {}, does not exists. Creating now.......".format(FCname))
+        return arcpy.CreateFeatureclass_management(DatasetPath, FCname, FCtype, Template, "SAME_AS_TEMPLATE", "SAME_AS_TEMPLATE", Template)
 
 
 def Create_FL(LayerName, FCPath, expression =''):
@@ -103,64 +105,53 @@ def FieldExist(FC,field):
     else:
       return False
 
-def Find_New_Features(ChildPath, Group_Boundary_Selection_Path, TempCheck_Path, Feature_Check_Selection_Path, FigureExtent_KeyField,in_count):
+def Find_New_Features(Layer_To_Checkp, Initial_Checkp, Intermediate_Checkp, Final_Check, clause, in_count):
     #Make Feature Layer output names for all FC of interest and then run make feature layer tool
-    OutputLayer_TempCheck = TempCheck + "_Layer"
-    OutputLayer_Group_Boundary_Selection = Group_Boundary_Selection + "_Layer"
-    OutputLayer_ChildFC = ChildFC + "_Layer"
-    FL_Exist(OutputLayer_TempCheck, TempCheck_Path, Feature_Layer_Expression)
-    FL_Exist(OutputLayer_Group_Boundary_Selection, Group_Boundary_Selection_Path, Feature_Layer_Expression)
-    FL_Exist(OutputLayer_ChildFC, ChildPath, Feature_Layer_Expression)
+    Layer_To_Check = arcpy.Describe(Layer_To_Checkp).name+"_layer"
+    Initial_Check = arcpy.Describe(Initial_Checkp).name +"_layer"
+    Intermediate_Check = arcpy.Describe(Intermediate_Checkp).name +"_layer"
+
+    Create_FL(Layer_To_Check, Layer_To_Checkp, clause)
+    Create_FL(Initial_Check, Initial_Checkp, clause)
+    Create_FL(Intermediate_Check, Intermediate_Checkp, clause)
 
     #Select all features in the in bucket layer and append to temporary point check FC
-    arcpy.SelectLayerByLocation_management(OutputLayer_Group_Boundary_Selection, "INTERSECT", OutputLayer_Group_Boundary_Selection, "", "NEW_SELECTION")
-    arcpy.Append_management(OutputLayer_Group_Boundary_Selection, OutputLayer_TempCheck,"NO_TEST","","")
+    arcpy.SelectLayerByLocation_management(Initial_Check, "INTERSECT", Initial_Check, "", "NEW_SELECTION")
+    arcpy.Append_management(Initial_Check, Intermediate_Check,"NO_TEST","","")
     #Select all samples in the Report Sample FC
-    arcpy.SelectLayerByLocation_management(OutputLayer_ChildFC, "INTERSECT", OutputLayer_ChildFC, "", "NEW_SELECTION")
+    arcpy.SelectLayerByLocation_management(Layer_To_Check, "INTERSECT", Layer_To_Check, "", "NEW_SELECTION")
     #Select Features from Bucket FC that intersect the Report Sample FC and invert
-    arcpy.SelectLayerByLocation_management(OutputLayer_TempCheck, "INTERSECT", OutputLayer_ChildFC, "", "NEW_SELECTION")
-    arcpy.SelectLayerByLocation_management(OutputLayer_TempCheck, "INTERSECT", OutputLayer_TempCheck, "", "SWITCH_SELECTION")
+    arcpy.SelectLayerByLocation_management(Intermediate_Check, "INTERSECT", Layer_To_Check, "", "NEW_SELECTION")
+    arcpy.SelectLayerByLocation_management(Intermediate_Check, "INTERSECT", Intermediate_Check, "", "SWITCH_SELECTION")
     arcpy.AddMessage("Selecting the new features that fall inside the figure")
     print "Selecting the new records that fall inside the figure"
-            
     #Append selected features to Report Sample Location FC
-    arcpy.Append_management(OutputLayer_TempCheck, OutputLayer_Feature_Check_Selection,"NO_TEST","","")
-    out_count = int(arcpy.GetCount_management(OutputLayer_Feature_Check_Selection).getOutput(0))
+    arcpy.Append_management(Intermediate_Check, Final_Check,"NO_TEST","","")
+    out_count = int(arcpy.GetCount_management(Final_Check).getOutput(0))
     print "Number of new locations found in the figure: " + str(out_count - in_count)
     arcpy.AddMessage("Number of new locations found in the figure: " + str(out_count - in_count))
-    arcpy.AddMessage("Added the new locations to " + Feature_Check_Selection)
-    print "Added the new locations to " + Feature_Check_Selection
+    arcpy.AddMessage("Added the new locations to " + Final_Check)
+    print "Added the new locations to " + Final_Check
     return out_count
 
+##    #Search for locations that are intersect existing points.
+##    FigureGeometryCheck(Layer_To_Checkp, Initial_Checkp, Final_Checkp,clause)
 
-    #Search for locations that are intersect existing points.
-    FigureGeometryCheck(OutputLayer_ChildFC,OutputLayer_Group_Boundary_Selection,OutputLayer_Feature_Check_Selection,Feature_Layer_Expression)
-            
     #Delete Feature Layers
-    arcpy.Delete_management(OutputLayer_TempCheck)
-    arcpy.Delete_management(OutputLayer_Group_Boundary_Selection)
-    arcpy.Delete_management(OutputLayer_ChildFC)
+    arcpy.Delete_management(Intermediate_Check)
+    arcpy.Delete_management(Initial_Check)
+    arcpy.Delete_management(Layer_To_Check)
 
+#TODO Need to update my other scripts to use the BuildWhereClause Function that also use this function
 def Get_Figure_List(FCpath, Keyfield, User_Selected_Figures):
     '''Get_Figure_List(FCpath, Keyfield, User_Selected_Figures)
     Return a list that contains that names of figures that user has selected to edit.  If user did not specify
-    any figures in the tool parameters, a list of all figures will be returned.  The function will also return 
+    any figures in the tool parameters, a list of all figures will be returned.  The function will also return
     '''
     FigureList=[]
-    if User_Selected_Figures == "0":
-        if arcpy.ListFields(FCpath,Keyfield,"String"): #Check if the field type of the of the Figure Extent Key field is a string or not.
-            Figures = ListRecords(FCpath,Keyfield)
-            #FigureList = ["'" + item + "'" for item in Figures] #Adding single quotes at the beginning/end of each item. 
-            # Using the create delimiters arcpy function.  The above line was used to add single quotes aronund text values in order to create a definition query.
-            arcpy.AddMessage(str(len(FigureList)) + " Figures are going to be updated")
-        else:
-            FigureList = ListRecords(FCpath,Keyfield)
-            arcpy.AddMessage(str(len(FigureList)) + " Figures are going to be updated")
-    elif arcpy.ListFields(FCpath,Keyfield,"String"):  #Check if the field type of the of the Figure Extent Key field is a string or not.
-        split = [item.strip("'") for item in User_Selected_Figures.split(";")] #List Comprehension which splits delimited string and removes any qoutes.
-        #FigureList = ["'" + item.strip() + "'" for item in split] #List Comprehension which adds single quotes at the beginning/end of each item in the List. The qoutes are added for ArcMap Definition query expressions.
-        # Using the create delimiters arcpy function.  The above line was used to add single quotes aronund text values in order to create a definition query.
-        arcpy.AddMessage(str(len(FigureList)) + " Figure(s) are going to be updated")
+    if not User_Selected_Figures:
+        FigureList = ListRecords(FCpath,Keyfield)
+        arcpy.AddMessage(str(len(FigureList)) + " Figures are going to be updated")
     else:
         FigureList = [item.strip("'") for item in User_Selected_Figures.split(";")] #List Comprehension which splits delimited string and removes any qoutes that may be present in string.
         arcpy.AddMessage(str(len(FigureList)) + " Figure(s) are going to be updated")
@@ -184,9 +175,9 @@ def InputCheck(Input):
     else:
         InputPath = Input
         InputName = arcpy.Describe(Input).name
-    return InputPath, InputName 
+    return InputPath, InputName
 
-#Pull out records and make lists. Final List that is returned to variable 
+#Pull out records and make lists. Final List that is returned to variable
 def ListRecords(fc,fields):
     records=[]
     with arcpy.da.SearchCursor(fc,fields) as cursor:
@@ -230,14 +221,14 @@ def remove_underscore(fields):
     return field_update
 
 def Select_and_Append(feature_selection_path, select_from_path, append_path, clause=''):
-	FL_Exist("Feature_Selection", feature_selection_path, clause)
-	FL_Exist("Select_From", select_from_path, clause)
-	arcpy.SelectLayerByLocation_management("Feature_Selection", "INTERSECT", "Feature_Selection", "", "NEW_SELECTION")
-	arcpy.SelectLayerByLocation_management("Select_From", "INTERSECT", "Feature_Selection", "", "NEW_SELECTION")
-	arcpy.Append_management("Select_From",append_path,"NO_TEST","","")
+    Create_FL("Feature_Selection", feature_selection_path, clause)
+    Create_FL("Select_From", select_from_path, clause)
+    arcpy.SelectLayerByLocation_management("Feature_Selection", "INTERSECT", "Feature_Selection", "", "NEW_SELECTION")
+    arcpy.SelectLayerByLocation_management("Select_From", "INTERSECT", "Feature_Selection", "", "NEW_SELECTION")
+    arcpy.Append_management("Select_From", append_path, "NO_TEST", "", "")
 
-	arcpy.AddMessage("Selecting features from {} that intersect {} \nSelected features were appened to {}".format(os.path.basename(feature_selection_path),os.path.basename(select_from_path),os.path.basename(append_path)))
     print "Selecting features from {} that intersect {} \nSelected features were appened to {}".format(os.path.basename(feature_selection_path),os.path.basename(select_from_path),os.path.basename(append_path))
+    arcpy.AddMessage("Selecting features from {} that intersect {} \nSelected features were appened to {}".format(os.path.basename(feature_selection_path),os.path.basename(select_from_path),os.path.basename(append_path)))
 
     arcpy.Delete_management("Feature_Selection")
     arcpy.Delete_management("Select_From")
