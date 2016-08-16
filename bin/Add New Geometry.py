@@ -21,6 +21,9 @@ from os.path import split, join
 from helper import *
 arcpy.env.overwriteOutput = True
 
+startTime = datetime.now()
+print startTime
+
 try:
 
     #..............................................................................................................................
@@ -82,7 +85,7 @@ try:
     SpatialTmp = Scratch_FD + "_SpatialJoinTemp"
     SpatialTmpPath = os.path.join(in_mem_path,SpatialTmp)
     TempCheck = Scratch_FD + "_Point_CheckTmp"
-    TempCheck_Path = os.path.join(in_mem_path,TempCheck)
+    TempCheck_Path = os.path.join(Scratch_FDPath,TempCheck)
     Figure_Extent_Selection = Scratch_FD + "_Main_Boundary"
     Figure_Extent_Selection_Path = os.path.join(Scratch_FDPath,Figure_Extent_Selection)
     Group_Boundary_Selection = Scratch_FD + "_Secondary_Boundary"
@@ -194,8 +197,12 @@ except Exception, e:
     # If an error occurred, print line number and error message
     import traceback, sys
     tb = sys.exc_info()[2]
+    exc_type, exc_value, exc_traceback = sys.exc_info()
+    traceback.print_exc()
     print "line %i" % tb.tb_lineno
     print e.message
+    print repr(traceback.format_tb(exc_traceback))
     arcpy.AddMessage("line %i" % tb.tb_lineno)
+    arcpy.AddMessage(repr(traceback.extract_tb(exc_traceback)))
     arcpy.AddMessage(e.message)
 

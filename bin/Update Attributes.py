@@ -91,7 +91,15 @@ def Update_Figures(Report_Sample, MasterSample, FigureExtent, FigureExtent_KeyFi
     Report_SampleFCpath, Report_SampleFC = InputCheck(Report_Sample)
     FigureExtentpath, FigureExtentFC = InputCheck(FigureExtent)
 
-    start_edit_session(Report_SampleFCpath)
+    #start_edit_session(Report_SampleFCpath)
+
+    # Start an edit session. Must provide the worksapce.
+    workspace = get_geodatabase_path(Report_SampleFCpath)
+    edit = arcpy.da.Editor(workspace)
+    # Edit session is started without an undo/redo stack for versioned data and starting edit operation
+    #  (for second argument, use False for unversioned data)
+    edit.startEditing(False, False)
+    edit.startOperation()
 
     if not input_figures:
         #Formatting the input fields to be updated
@@ -112,8 +120,8 @@ def Update_Figures(Report_Sample, MasterSample, FigureExtent, FigureExtent_KeyFi
         FigureList = Get_Figure_List(FigureExtentpath, FigureExtent_KeyField, input_figures)
     
         #Get list of figures in the report FC
-        ReportFC_FigureList = unique_values(Report_SampleFCpath,figure_key_field)
-        ReportFC_FigureList = ["'" + item + "'" for item in ReportFC_FigureList]
+        ReportFC_FigureList = unique_values(Report_SampleFCpath,FigureExtent_KeyField)
+        #ReportFC_FigureList = ["'" + item + "'" for item in ReportFC_FigureList]
 
         #Formatting the input fields to be updated
         Field_to_update = input_field.split(";")
@@ -121,7 +129,7 @@ def Update_Figures(Report_Sample, MasterSample, FigureExtent, FigureExtent_KeyFi
 
         #Loop through all figures and update Project Feature Class
         for figure in FigureList:
-            clause = Does_Figure_Exist(Report_SampleFCpath, Report_SampleFC, figure, ReportFC_FigureList, figure_key_field)
+            clause = Does_Figure_Exist(Report_SampleFCpath, Report_SampleFC, figure, ReportFC_FigureList, FigureExtent_KeyField)
             if clause:
                 for field in Field_to_update:
                     if (not FieldExist(MasterSamplepath,field)):
@@ -129,7 +137,10 @@ def Update_Figures(Report_Sample, MasterSample, FigureExtent, FigureExtent_KeyFi
                     else:
                         Update_Field(MasterSamplepath, Report_SampleFCpath, SourceTableField, TargetTableField, field, clause)
      
-    stop_edit_session()
+    #stop_edit_session(Report_SampleFCpath)
+    edit.stopOperation()
+    edit.stopEditing(True)
+
            
 try:
 
@@ -151,7 +162,11 @@ except Exception, e:
     # If an error occurred, print line number and error message
     import traceback, sys
     tb = sys.exc_info()[2]
-    arcpy.AddError("Line %i" % tb.tb_lineno)
-    arcpy.AddError(e.message)
-    print "Line %i" % tb.tb_lineno
+    exc_type, exc_value, exc_traceback = sys.exc_info()
+    traceback.print_exc()
+    print "line %i" % tb.tb_lineno
     print e.message
+    print repr(traceback.format_tb(exc_traceback))
+    arcpy.AddMessage("line %i" % tb.tb_lineno)
+    arcpy.AddMessage(repr(traceback.extract_tb(exc_traceback)))
+    arcpy.AddMessage(e.message)

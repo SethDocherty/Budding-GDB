@@ -115,10 +115,11 @@ def FC_Exist(FCname, DatasetPath, Template):
     FCpath = os.path.join(DatasetPath,FCname)
     FCtype = arcpy.Describe(Template).shapeType
     if arcpy.Exists(FCpath):
-        arcpy.AddMessage("Feature class, {}, already exists. Clearing records.......".format(FCname))
         if Compare_Fields(FCpath,Template):
+            arcpy.AddMessage("Feature class, {}, already exists. Clearing records.......".format(FCname))
             return arcpy.TruncateTable_management(FCpath)
         else:
+            arcpy.AddMessage("Additional fields have been added since the Feature class, {}, was created. Recreating Feature class.......".format(FCname))
             arcpy.Delete_management(FCpath)
             return arcpy.CreateFeatureclass_management(DatasetPath, FCname, FCtype, Template, "SAME_AS_TEMPLATE", "SAME_AS_TEMPLATE", Template)
     else:
@@ -257,9 +258,13 @@ def start_edit_session(fc_to_edit):
     edit.startEditing(False, False)
     edit.startOperation()
 
-def stop_edit_session():
+def stop_edit_session(fc_to_edit):
+    #workspace = get_geodatabase_path(fc_to_edit)
+    #edit = arcpy.da.Editor(workspace)
+    # Stop the edit session and save the changes
     edit.stopOperation()
     edit.stopEditing(True)
+    
 
 def Select_and_Append(feature_selection_path, select_from_path, append_path, clause=''):
     Create_FL("Feature_Selection", feature_selection_path, clause)
