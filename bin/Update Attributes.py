@@ -135,11 +135,11 @@ try:
 
     Parent = arcpy.GetParameterAsText(0)
     Child = arcpy.GetParameterAsText(1)
-    FigureExtent = arcpy.GetParameterAsText(2)
-    FigureExtent_KeyField = arcpy.GetParameterAsText(3)
-    ParentTableField = arcpy.GetParameterAsText(4) #The Master Feature Class
-    ChildTableField = arcpy.GetParameterAsText(5) #The Project Feature Class
-    input_field = arcpy.GetParameterAsText(6)
+    ParentTableField = arcpy.GetParameterAsText(2) #The Master Feature Class
+    ChildTableField = arcpy.GetParameterAsText(3) #The Project Feature Class
+    input_field = arcpy.GetParameterAsText(4)
+    FigureExtent = arcpy.GetParameterAsText(5)
+    FigureExtent_KeyField = arcpy.GetParameterAsText(6)
     input_figures = arcpy.GetParameterAsText(7)
 
     Update_Figures(Child, Parent, FigureExtent, FigureExtent_KeyField, ParentTableField, ChildTableField, input_field, input_figures)

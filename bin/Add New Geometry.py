@@ -44,11 +44,11 @@ try:
     #If no location boundary is used for Report Figures, please choose the Figure Extent Feature Class.
     FigureExtent_KeyField = arcpy.GetParameterAsText(4)
 
-    #Input Feature Dataset in Scratch GDB
-    Input_ScratchFD = arcpy.GetParameterAsText(5)
-
     #SQL Expression to type in the figures that need to be updated.	If all figures need to be updated, please type in '0'.
-    input_figures = arcpy.GetParameterAsText(6)
+    input_figures = arcpy.GetParameterAsText(5)
+
+    #Input Feature Dataset in Scratch GDB
+    Input_ScratchFD = arcpy.GetParameterAsText(6)
 
     #Field that will be used to expression to delete necessary samples.  Please specify a field even if no values need to be deleted.
     Delete_Field = arcpy.GetParameterAsText(7)
