@@ -24,7 +24,7 @@
     <Compile Include="bin\Add New Geometry.py" />
     <Compile Include="bin\Add New Table Records.py" />
     <Compile Include="bin\Update Attributes.py" />
-    <Compile Include="helper_functions\helper.py">
+    <Compile Include="bin\helper.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

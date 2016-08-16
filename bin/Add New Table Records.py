@@ -23,57 +23,8 @@ import os, csv, arcpy, sys, operator
 from datetime import datetime
 from os.path import split, join
 from string import replace
+from helper import *
 arcpy.env.overwriteOutput = True
-
-#Load a .csv file and that is convereted into a list of tuples
-def Extract_File_Records(filename):
-    fp = open(filename, 'Ur')
-    #reader = csv.reader(fp)
-    data_list = []
-    for line in fp:#reader:
-        data_list.append(tuple(line.strip().split(',')))
-    fp.close()
-    return data_list
-
-#Remove default fields
-def Remove_Fields(fc):
-    fields = [f.name for f in arcpy.ListFields(fc)]
-    for i,f in enumerate(fields):
-        if f == 'Shape' or f == 'Shape_Length' or f == 'OBJECTID' or f == 'GLOBALID':
-            del fields[i]
-    return fields
-
-#Extract field name and type
-def Extract_Field_Info(fc):
-    field_info=[]
-    for field in arcpy.ListFields(fc):
-        if field.name == 'Shape' or field.name == 'Shape_Length' or field.name == 'OBJECTID' or field.name == 'RID':
-            pass
-        else:
-            item=[]
-            item.append(field.name)
-            item.append(field.type)
-            field_info.append(item)
-    return field_info
-
-#Load a ArcMap table and that is convereted into a list of tuples
-def Extract_Table_Records(fc):
-    fields = Remove_Fields(fc)
-    records=[]
-    with arcpy.da.SearchCursor(fc, fields) as cursor:
-        for row in cursor:
-            records.append(row)
-    return records
-
-#Check if there is a filepath from the input layers. If not, pre-pend the path. Also extract the FC names.
-def InputCheck(input):
-    if not split(input)[0]:
-        InputPath = arcpy.Describe(input).catalogPath #join(arcpy.Describe(input).catalogPath,arcpy.Describe(input).name)
-        InputName = arcpy.Describe(input).name
-    else:
-        InputPath = input
-        InputName = arcpy.Describe(input).name
-    return InputPath, InputName
 
 #Reorder columns of .csv file to match a specific format
 def Reorder_InputFile(input_file,header,csv_fields):
@@ -94,8 +45,8 @@ def Reorder_InputFile(input_file,header,csv_fields):
 
 def FC_Field_Type_Check(fc1,fc2):
     fix_fields=[]
-    fc1_fields = Extract_Field_Info(fc1)
-    fc2_fields = Extract_Field_Info(fc2)
+    fc1_fields = Extract_Field_NameType(fc1)
+    fc2_fields = Extract_Field_NameType(fc2)
     for x,y in zip(fc1_fields,fc2_fields):
         if x != y:
             fix_fields.append(x)
@@ -161,32 +112,6 @@ def schema_header_check(fc_header, csv_header):
                     revised_name.append(file_name)
     return revised_name
 
-def remove_space(fields):
-    field_update=[]
-    for field in fields:
-        if field.find(" ") > 0:
-            x=field.replace(' ','_')
-            field_update.append(x)
-        else:
-            field_update.append(field)
-    return field_update
-
-def remove_underscore(fields):
-    field_update=[]
-    for field in fields:
-        if field.find("_") > 0:
-            x=field.replace('_',' ')
-            field_update.append(x)
-        else:
-            field_update.append(field)
-    return field_update
-
-def extract_list_columns(input_list,index_list):
-    my_items = operator.itemgetter(*index_list)
-    new_list = [my_items(x) for x in input_list]
-    return new_list
-
-
 startTime = datetime.now()
 print startTime
 
@@ -221,7 +146,7 @@ try:
     #..............................................................................................................................
 
     # Extract Field Info from input FC and input file
-    FIELD_INFO = Extract_Field_Info(FC_PATH)
+    FIELD_INFO = Extract_Field_NameType(FC_PATH)
     header=[]
     for name,type in FIELD_INFO:
         header.append(name)

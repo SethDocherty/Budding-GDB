@@ -2,6 +2,7 @@ import arcpy
 import sys
 import os
 from os.path import split, join
+from string import replace
 from datetime import datetime
 arcpy.env.overwriteOutput = True
 
@@ -12,16 +13,6 @@ arcpy.env.overwriteOutput = True
 #   to import all functions.
 #
 #..............................................................................................................................
-
-
-#def EmptyFC(input,workspace):
-#	arcpy.env.workspace = workspace
-#	FC_Name = input.rsplit("\\",1)
-#	output = FC_Name[1] + "_Layer"
-#	arcpy.MakeFeatureLayer_management(input, output, "", "")
-#	arcpy.SelectLayerByLocation_management(output, "INTERSECT", output, "", "NEW_SELECTION")
-#	arcpy.DeleteRows_management(output)
-#	arcpy.Delete_management(output)
 
 def buildWhereClause(table, field, value):
     """Constructs a SQL WHERE clause to select rows having the specified value
@@ -40,6 +31,21 @@ def buildWhereClause(table, field, value):
     # Format WHERE clause
     whereClause = "{} = {}".format(fieldDelimited, value)
     return whereClause
+
+def Create_FL(LayerName, FCPath, expression =''):
+    '''
+    Create a Feature layer from a feature class. Optionally, an expression clause can be passed in to
+    filter out a subset of data.
+    '''
+    if arcpy.Exists(LayerName):
+        arcpy.Delete_management(LayerName)
+    try:
+        if expression:
+            return arcpy.MakeFeatureLayer_management(FCPath, LayerName, expression, "")
+        else:
+            return arcpy.MakeFeatureLayer_management(FCPath, LayerName, "", "")
+    except:
+        return arcpy.AddError(arcpy.GetMessages(2))
 
 def Compare_Fields(fc1_path,fc2_path):
     fc1_fields = [field.name for field in arcpy.ListFields(fc1_path)]
@@ -67,6 +73,43 @@ def Delete_Values_From_FC(values_to_delete, key_field, FC, FC_Path):
             arcpy.DeleteRows_management(OutputLayer_InputFC2)
     arcpy.Delete_management(FC)
 
+#Load a ArcMap table and that is convereted into a list of tuples
+def Extract_Table_Records(fc):
+    fields = Remove_Fields(fc)
+    records=[]
+    with arcpy.da.SearchCursor(fc, fields) as cursor:
+        for row in cursor:
+            records.append(row)
+    return records
+
+#Extract field name and type
+def Extract_Field_NameType(fc):
+    field_info=[]
+    for field in arcpy.ListFields(fc):
+        if field.name == 'Shape' or field.name == 'Shape_Length' or field.name == 'OBJECTID' or field.name == 'RID':
+            pass
+        else:
+            item=[]
+            item.append(field.name)
+            item.append(field.type)
+            field_info.append(item)
+    return field_info
+
+#Load a .csv file and that is convereted into a list of tuples
+def Extract_File_Records(filename):
+    fp = open(filename, 'Ur')
+    #reader = csv.reader(fp)
+    data_list = []
+    for line in fp:#reader:
+        data_list.append(tuple(line.strip().split(',')))
+    fp.close()
+    return data_list
+
+def extract_list_columns(input_list,index_list):
+    my_items = operator.itemgetter(*index_list)
+    new_list = [my_items(x) for x in input_list]
+    return new_list
+
 #Find out if a Feature Class exists
 def FC_Exist(FCname, DatasetPath, Template):
     FCpath = os.path.join(DatasetPath,FCname)
@@ -82,21 +125,6 @@ def FC_Exist(FCname, DatasetPath, Template):
         arcpy.AddMessage("Feature class, {}, does not exists. Creating now.......".format(FCname))
         return arcpy.CreateFeatureclass_management(DatasetPath, FCname, FCtype, Template, "SAME_AS_TEMPLATE", "SAME_AS_TEMPLATE", Template)
 
-
-def Create_FL(LayerName, FCPath, expression =''):
-    '''
-    Create a Feature layer from a feature class. Optionally, an expression clause can be passed in to
-    filter out a subset of data.
-    '''
-    if arcpy.Exists(LayerName):
-        arcpy.Delete_management(LayerName)
-    try:
-        if expression:
-            return arcpy.MakeFeatureLayer_management(FCPath, LayerName, expression, "")
-        else:
-            return arcpy.MakeFeatureLayer_management(FCPath, LayerName, "", "")
-    except:
-        return arcpy.AddError(arcpy.GetMessages(2))
 
 def FieldExist(FC,field):
     fc_check = arcpy.ListFields(FC, field)
@@ -153,7 +181,7 @@ def Get_Figure_List(FCpath, Keyfield, User_Selected_Figures):
         FigureList = ListRecords(FCpath,Keyfield)
         arcpy.AddMessage(str(len(FigureList)) + " Figures are going to be updated")
     else:
-        FigureList = [item.strip("'") for item in User_Selected_Figures.split(";")] #List Comprehension which splits delimited string and removes any qoutes that may be present in string.
+        FigureList = [item.strip() for item in User_Selected_Figures.split(";")] #List Comprehension which splits delimited string and removes any qoutes that may be present in string.
         arcpy.AddMessage(str(len(FigureList)) + " Figure(s) are going to be updated")
     return FigureList
 
@@ -220,6 +248,19 @@ def remove_underscore(fields):
             field_update.append(field)
     return field_update
 
+def start_edit_session(fc_to_edit):
+    # Start an edit session. Must provide the worksapce.
+    workspace = get_geodatabase_path(fc_to_edit)
+    edit = arcpy.da.Editor(workspace)
+    # Edit session is started without an undo/redo stack for versioned data and starting edit operation
+    #  (for second argument, use False for unversioned data)
+    edit.startEditing(False, False)
+    edit.startOperation()
+
+def stop_edit_session():
+    edit.stopOperation()
+    edit.stopEditing(True)
+
 def Select_and_Append(feature_selection_path, select_from_path, append_path, clause=''):
     Create_FL("Feature_Selection", feature_selection_path, clause)
     Create_FL("Select_From", select_from_path, clause)
@@ -236,3 +277,32 @@ def Select_and_Append(feature_selection_path, select_from_path, append_path, cla
 def unique_values(fc,field):
     with arcpy.da.SearchCursor(fc,[field])as cur:
         return sorted({row[0] for row in cur})
+
+# TODO
+
+#def FigureGeometryCheck(fc1,fc2,fc3,expression):
+#	fc1_lyr1 = "lyr1"
+#	fcl_lyr2 = "lyr2"
+#	fcl_lyr3 = "lyr3"
+#	Create_FL(fc1_lyr1,fc1,expression)
+#	Create_FL(fcl_lyr2,fc2,expression)
+#	Create_FL(fcl_lyr3,fc3,expression)
+#	fc1_count = RecordCount(fc1_lyr1)
+#	fc2_count = RecordCount(fcl_lyr2)
+#	field = "Location_ID"
+#	if fc1_count == fc2_count:
+#		pass
+#	else:
+#		fc1_list = unique_values(fc1_lyr1,field)
+#		fc2_list = unique_values(fcl_lyr2,field)
+#		fc3_list = unique_values(fcl_lyr3,field)
+#		difference = list(set(fc2_list) - set(fc1_list)- set(fc3_list))
+#		if len(difference) != 0:
+#			print str(len(difference)) + " additional locations have been found that intersect previous locations that are in the figure. They are:\n"
+#			arcpy.AddMessage(str(len(difference)) + " additional locations have been found that intersect previous locations that are in the figure. They are:\n")
+#			for record in difference:
+#				clause =  '"' + field + '"' + " = '" + record + "'"
+#				arcpy.SelectLayerByAttribute_management(fcl_lyr2,"ADD_TO_SELECTION",clause)
+#				arcpy.AddMessage(str(record))
+#				print str(record)
+#			arcpy.Append_management(fcl_lyr2, fcl_lyr3,"NO_TEST","","")
