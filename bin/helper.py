@@ -73,15 +73,6 @@ def Delete_Values_From_FC(values_to_delete, key_field, FC, FC_Path):
             arcpy.DeleteRows_management(OutputLayer_InputFC2)
     arcpy.Delete_management(FC)
 
-#Load a ArcMap table and that is convereted into a list of tuples
-def Extract_Table_Records(fc):
-    fields = Remove_Fields(fc)
-    records=[]
-    with arcpy.da.SearchCursor(fc, fields) as cursor:
-        for row in cursor:
-            records.append(row)
-    return records
-
 #Extract field name and type
 def Extract_Field_NameType(fc):
     field_info=[]
@@ -109,6 +100,23 @@ def extract_list_columns(input_list,index_list):
     my_items = operator.itemgetter(*index_list)
     new_list = [my_items(x) for x in input_list]
     return new_list
+
+#Load a ArcMap table and that is convereted into a list of tuples
+def Extract_Table_Records(fc, fields=''):
+    if fields: # User has provided a list of fields for extraction
+        fields = Remove_DBMS_Specific_Fields(fc)
+        records=[]
+        with arcpy.da.SearchCursor(fc, fields) as cursor:
+            for row in cursor:
+                records.append(row)
+        return records
+    else: #User has not provided a list. Will default to all fields.
+        fields = Remove_DBMS_Specific_Fields(fc)
+        records=[]
+        with arcpy.da.SearchCursor(fc, fields) as cursor:
+            for row in cursor:
+                records.append(row)
+        return records
 
 #Find out if a Feature Class exists
 def FC_Exist(FCname, DatasetPath, Template):
@@ -222,10 +230,11 @@ def RecordCount(fc):
     return count
 
 #Remove default fields
-def Remove_Fields(fc):
+def Remove_DBMS_Specific_Fields(fc):
     fields = [f.name for f in arcpy.ListFields(fc)]
+    fields_to_remove = ['Shape', 'SHAPE_Area', 'Shape_Length', 'OBJECTID', 'GLOBALID']
     for i,f in enumerate(fields):
-        if f == 'Shape' or f == 'Shape_Length' or f == 'OBJECTID' or f == 'GLOBALID':
+        if f in fields_to_remove:
             del fields[i]
     return fields
 
@@ -257,10 +266,9 @@ def start_edit_session(fc_to_edit):
     #  (for second argument, use False for unversioned data)
     edit.startEditing(False, False)
     edit.startOperation()
+    return edit
 
-def stop_edit_session(fc_to_edit):
-    #workspace = get_geodatabase_path(fc_to_edit)
-    #edit = arcpy.da.Editor(workspace)
+def stop_edit_session(edit):
     # Stop the edit session and save the changes
     edit.stopOperation()
     edit.stopEditing(True)
@@ -311,3 +319,24 @@ def unique_values(fc,field):
 #				arcpy.AddMessage(str(record))
 #				print str(record)
 #			arcpy.Append_management(fcl_lyr2, fcl_lyr3,"NO_TEST","","")
+
+
+#FigureGeometryCheck(Layer_To_Checkp, Initial_Checkp, Final_Checkp,clause)
+def Check_Coincident_Features(Layer_To_Checkp, Initial_Checkp, Final_Checkp):
+       
+    #Get field names:
+    field1,type1 = Extract_Field_NameType(Layer_To_Checkp)
+    field2,type2 = Extract_Field_NameType(Final_Checkp)
+    fields = list(set(field1) - set(field2))
+
+    Extract_Table_Records(Layer_To_Checkp, fields)
+    Extract_Table_Records(Initial_Checkp, fields)
+    Extract_Table_Records(Final_Checkp, fields)
+    difference = list(set(Initial_Checkp) - set(Layer_To_Checkp) - set(Final_Checkp))
+    print len(difference)
+    #Get list of records from layer to check
+    #Get list of records from initial check
+    #Get list of records from final check
+    #different = list(set(initial check) - set(layer to check) - set(final check))
+    #print len(differnece)
+    #append difference to final check

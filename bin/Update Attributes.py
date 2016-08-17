@@ -91,15 +91,7 @@ def Update_Figures(Report_Sample, MasterSample, FigureExtent, FigureExtent_KeyFi
     Report_SampleFCpath, Report_SampleFC = InputCheck(Report_Sample)
     FigureExtentpath, FigureExtentFC = InputCheck(FigureExtent)
 
-    #start_edit_session(Report_SampleFCpath)
-
-    # Start an edit session. Must provide the worksapce.
-    workspace = get_geodatabase_path(Report_SampleFCpath)
-    edit = arcpy.da.Editor(workspace)
-    # Edit session is started without an undo/redo stack for versioned data and starting edit operation
-    #  (for second argument, use False for unversioned data)
-    edit.startEditing(False, False)
-    edit.startOperation()
+    edit_session = start_edit_session(Report_SampleFCpath)
 
     if not input_figures:
         #Formatting the input fields to be updated
@@ -121,7 +113,6 @@ def Update_Figures(Report_Sample, MasterSample, FigureExtent, FigureExtent_KeyFi
     
         #Get list of figures in the report FC
         ReportFC_FigureList = unique_values(Report_SampleFCpath,FigureExtent_KeyField)
-        #ReportFC_FigureList = ["'" + item + "'" for item in ReportFC_FigureList]
 
         #Formatting the input fields to be updated
         Field_to_update = input_field.split(";")
@@ -137,10 +128,7 @@ def Update_Figures(Report_Sample, MasterSample, FigureExtent, FigureExtent_KeyFi
                     else:
                         Update_Field(MasterSamplepath, Report_SampleFCpath, SourceTableField, TargetTableField, field, clause)
      
-    #stop_edit_session(Report_SampleFCpath)
-    edit.stopOperation()
-    edit.stopEditing(True)
-
+    stop_edit_session(edit_session)
            
 try:
 
