@@ -336,6 +336,6 @@ def Check_Coincident_Features(Layer_To_Check, Initial_Check, Final_Check):
     
     if len(difference) != 0:
         arcpy.AddMessage("{} features have been found which were coincident".format(len(difference)))
-        arcpy.Append_management(
+        #arcpy.Append_management()
 
     #append difference to final check
