@@ -55,6 +55,7 @@ def Compare_Fields(fc1_path,fc2_path):
     else:
         return False
 
+
 def Delete_Values_From_FC(values_to_delete, key_field, FC, FC_Path):
     FC = str(FC) + "_Layer"
     Create_FL(FC,FC_Path,"")
@@ -134,9 +135,9 @@ def FC_Exist(FCname, DatasetPath, Template):
         return arcpy.CreateFeatureclass_management(DatasetPath, FCname, FCtype, Template, "SAME_AS_TEMPLATE", "SAME_AS_TEMPLATE", Template)
 
 
-def FieldExist(FC,field):
-    fc_check = arcpy.ListFields(FC, field)
-    if len(fc_check) == 1:
+def FieldExist(FC,field_to_check):
+    fields = [field.name for field in arcpy.ListFields(FC)]
+    if field_to_check in fields:
       return True
     else:
       return False
@@ -177,6 +178,12 @@ def Find_New_Features(Layer_To_Checkp, Initial_Checkp, Intermediate_Checkp, Fina
     arcpy.Delete_management(Intermediate_Check)
     arcpy.Delete_management(Initial_Check)
     arcpy.Delete_management(Layer_To_Check)
+
+
+def Get_Field_Type(fc,field_to_check):
+    fields = [[field.name,field.type] for field in arcpy.ListFields(fc)]
+    type = [type for field,type in fields if field_to_check == field][0]
+    return type
 
 #TODO Need to update my other scripts to use the BuildWhereClause Function that also use this function
 def Get_Figure_List(FCpath, Keyfield, User_Selected_Figures):
