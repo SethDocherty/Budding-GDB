@@ -60,6 +60,15 @@ def Update_Field(Sourcepath, targetpath, SourceTableField, TargetTableField, fie
 
     print "."*25 + "Updating the following field: " + field + " (" + str(datetime.now()-startTime)+")"
     arcpy.AddMessage("."*25 + "Updating the following field: " + field + " (" + str(datetime.now()-startTime)+")")
+
+    if Get_Field_Type(SourceFCpath,field) != Get_Field_Type(targetFCpath,field):
+        arcpy.AddMessage("....\n.... \
+                         \nThe field, {}, in {} and {} do not have matching data types. Please correct by updating the field data \
+                         type to {} for {} in {}. \
+                         \nSkipping to next field................. \
+                         \n....\n....".format(field, SourceFC, targetFC, str(Get_Field_Type(SourceFCpath,field)), field, targetFC))
+        return
+
     Source_dict = dict([(r[0], (r[1])) for r in arcpy.da.SearchCursor(SourceFCpath, [SourceTableField,field])])
     Target_dict = dict([(r[0], (r[1])) for r in arcpy.da.SearchCursor(targetFCpath,[TargetTableField,field],clause)])
     updateRows = arcpy.da.UpdateCursor(targetFCpath,[TargetTableField,field],clause) #Cursor to be used to update attributes in project FC
@@ -89,7 +98,6 @@ def Update_Field(Sourcepath, targetpath, SourceTableField, TargetTableField, fie
 def Update_Figures(Report_Sample, MasterSample, FigureExtent, FigureExtent_KeyField, SourceTableField, TargetTableField, input_field, input_figures):
     MasterSamplepath, MasterSampleFC = InputCheck(MasterSample)
     Report_SampleFCpath, Report_SampleFC = InputCheck(Report_Sample)
-    FigureExtentpath, FigureExtentFC = InputCheck(FigureExtent)
 
     edit_session = start_edit_session(Report_SampleFCpath)
 
@@ -103,6 +111,7 @@ def Update_Figures(Report_Sample, MasterSample, FigureExtent, FigureExtent_KeyFi
             else:
                 Update_Field(MasterSamplepath, Report_SampleFCpath, SourceTableField, TargetTableField, field)
     else:
+        FigureExtentpath, FigureExtentFC = InputCheck(FigureExtent)
        #Check to see if all the Report feature classes have the FigureExtent Keyfield.
         if not (FieldExist(Report_SampleFCpath,FigureExtent_KeyField)):
             arcpy.AddError(("The field {} does not exist in {}".format(FigureExtent_KeyField,Report_SampleFC)))

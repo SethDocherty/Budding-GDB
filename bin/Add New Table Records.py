@@ -14,10 +14,8 @@
 #           TabletoTable_Conversion tool, and appened to ArcMap table.
 #
 # Log:
-#       1) Added in definition to create schema.ini file. This will ensure that the field types are correctly mapped for
-#          as the inputfile is exported as an ArcMap Table - 6/5/2015
-#       2) Added a line of code to sort difference list by elements in the first slot e.g. first item in the list. 1/6/2016
-#       3) Added additional line to creating schema.ini file. Setting MaxScaneRows = 0 while scan whole file to determine column data type. 1/14/2015
+#       1. Complete overhaul of code. 08/12/2016
+#
 #..............................................................................................................................
 import os, csv, arcpy, sys, operator
 from datetime import datetime
@@ -77,9 +75,9 @@ def create_schema_file(file_path, fields, csv_fields):
             type.append('Long')
         else:
             type.append(b)
-    name = schema_header_check(name, csv_fields)
+    name = schema_header_check(name, csv_fields)    
     fields=zip(name,type)
-
+    
     directory = os.path.dirname(os.path.normpath(file_path))
     print ("Creating schema.ini file in {}".format(directory))
     arcpy.AddMessage(("Creating schema.ini file in {}".format(directory)))
@@ -121,14 +119,9 @@ try:
     #User Input data
     #..............................................................................................................................
 
-    #Inputpath for .csv file
-    FILE_INPUTPATH = arcpy.GetParameterAsText(0)
-
-    # Inputpath for Feature Class
-    FC_INPUTPATH = arcpy.GetParameterAsText(1)
-
-    #Input Scratch GDB
-    INPUT_SCRATCHGDB= arcpy.GetParameterAsText(2)
+    FILE_INPUTPATH = arcpy.GetParameterAsText(0) #Inputpath for .csv file
+    FC_INPUTPATH = arcpy.GetParameterAsText(1) # Inputpath for Feature Class
+    INPUT_SCRATCHGDB= arcpy.GetParameterAsText(2) #Input Scratch GDB
 
     #..............................................................................................................................
     #Hard Coded Data
@@ -154,8 +147,8 @@ try:
     csv_header = Extract_File_Records(FILE_INPUTPATH).pop(0)
     input_list_header = remove_space(csv_header)
 
-    #check to see if all the fields in the input file match the files in the ArcMap Table. The difference are the fields that
-    #were not matched in the ArcMap table.
+    # check to see if all the fields in the input file match the files in the ArcMap Table. The difference are the fields that
+    # were not matched in the ArcMap table.
     field_check = list(set(header)-set(input_list_header))
     if len(field_check) != 0:
         print "Format error....\n Missing the following fields from the input .csv file: "
@@ -192,17 +185,24 @@ try:
         #Properties for the temp .csv file output
         OUTFILE_PATH = os.path.join(os.path.dirname(os.path.normpath(FILE_INPUTPATH)),"new_records.csv")
         OUTFILE = open(OUTFILE_PATH, 'wb')
-        OUTPUT = csv.writer((OUTFILE), delimiter=',', quoting=csv.QUOTE_ALL)#, quotechar='') #dialect='excel', # If you get the following error: Error: need to escape, but no escapechar set, try  setting quoting=csv.QUOTE_NONNUMERIC or QUOTE_MINIMAL. Originally Set as QUOTE_NONE
+        try:
+            OUTPUT = csv.writer((OUTFILE), delimiter=',', quoting=csv.QUOTE_NONE) #, quotechar='') #dialect='excel', 
+        except:
+            import traceback, sys
+            tb = sys.exc_info()[2]
+            arcpy.AddWarning('  If you get the following error:  "Error: need to escape, but no escape char set" \
+                            \n  try setting quoting=csv.QUOTE_NONNUMERIC, QUOTE_MINIMAL or QUOTE_ALL on line {} of this script \
+                            \n  Quoting is currently set to QUOTE_NONE'.format(tb.tb_lineno))
+            sys.exit()
+
         print "A total of " + str(len(difference)) + " new record(s) were found.  The new record(s) are:"
         arcpy.AddMessage("A total of " + str(len(difference)) + " new records were found.  The new records are:")
         difference = sorted(difference, key=lambda sl: sl[0])
         for item in difference:
-            #print item
             arcpy.AddMessage(item)
         difference.insert(0,header)
         for item in difference:
             OUTPUT.writerow(item)
-        #OUTPUT.writerows(difference)
         OUTFILE.close()
 
         create_schema_file(OUTFILE_PATH,FIELD_INFO,Extract_File_Records(OUTFILE_PATH).pop(0))
@@ -235,7 +235,11 @@ except Exception, e:
     # If an error occurred, print line number and error message
     import traceback, sys
     tb = sys.exc_info()[2]
+    exc_type, exc_value, exc_traceback = sys.exc_info()
+    traceback.print_exc()
     print "line %i" % tb.tb_lineno
     print e.message
+    print repr(traceback.format_tb(exc_traceback))
     arcpy.AddMessage("line %i" % tb.tb_lineno)
+    arcpy.AddMessage(repr(traceback.extract_tb(exc_traceback)))
     arcpy.AddMessage(e.message)

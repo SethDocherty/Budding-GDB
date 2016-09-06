@@ -55,6 +55,7 @@ def Compare_Fields(fc1_path,fc2_path):
     else:
         return False
 
+
 def Delete_Values_From_FC(values_to_delete, key_field, FC, FC_Path):
     FC = str(FC) + "_Layer"
     Create_FL(FC,FC_Path,"")
@@ -104,7 +105,6 @@ def extract_list_columns(input_list,index_list):
 #Load a ArcMap table and that is convereted into a list of tuples
 def Extract_Table_Records(fc, fields=''):
     if fields: # User has provided a list of fields for extraction
-        fields = Remove_DBMS_Specific_Fields(fc)
         records=[]
         with arcpy.da.SearchCursor(fc, fields) as cursor:
             for row in cursor:
@@ -135,9 +135,9 @@ def FC_Exist(FCname, DatasetPath, Template):
         return arcpy.CreateFeatureclass_management(DatasetPath, FCname, FCtype, Template, "SAME_AS_TEMPLATE", "SAME_AS_TEMPLATE", Template)
 
 
-def FieldExist(FC,field):
-    fc_check = arcpy.ListFields(FC, field)
-    if len(fc_check) == 1:
+def FieldExist(FC,field_to_check):
+    fields = [field.name for field in arcpy.ListFields(FC)]
+    if field_to_check in fields:
       return True
     else:
       return False
@@ -178,6 +178,12 @@ def Find_New_Features(Layer_To_Checkp, Initial_Checkp, Intermediate_Checkp, Fina
     arcpy.Delete_management(Intermediate_Check)
     arcpy.Delete_management(Initial_Check)
     arcpy.Delete_management(Layer_To_Check)
+
+
+def Get_Field_Type(fc,field_to_check):
+    fields = [[field.name,field.type] for field in arcpy.ListFields(fc)]
+    type = [type for field,type in fields if field_to_check == field][0]
+    return type
 
 #TODO Need to update my other scripts to use the BuildWhereClause Function that also use this function
 def Get_Figure_List(FCpath, Keyfield, User_Selected_Figures):
@@ -232,7 +238,7 @@ def RecordCount(fc):
 #Remove default fields
 def Remove_DBMS_Specific_Fields(fc):
     fields = [f.name for f in arcpy.ListFields(fc)]
-    fields_to_remove = ['Shape', 'SHAPE_Area', 'Shape_Length', 'OBJECTID', 'GLOBALID']
+    fields_to_remove = ['SHAPE_Area', 'SHAPE_Length', 'OBJECTID', 'GLOBALID', 'SHAPE', "RID"]
     for i,f in enumerate(fields):
         if f in fields_to_remove:
             del fields[i]
@@ -322,21 +328,21 @@ def unique_values(fc,field):
 
 
 #FigureGeometryCheck(Layer_To_Checkp, Initial_Checkp, Final_Checkp,clause)
-def Check_Coincident_Features(Layer_To_Checkp, Initial_Checkp, Final_Checkp):
+def Check_Coincident_Features(Layer_To_Check, Initial_Check, Final_Check):
        
     #Get field names:
-    field1,type1 = Extract_Field_NameType(Layer_To_Checkp)
-    field2,type2 = Extract_Field_NameType(Final_Checkp)
-    fields = list(set(field1) - set(field2))
+    field1 = Remove_DBMS_Specific_Fields(Layer_To_Check) #[f.name for f in arcpy.ListFields(Layer_To_Checkp)]
+    field2 = Remove_DBMS_Specific_Fields(Final_Check) #[f.name for f in arcpy.ListFields(Final_Checkp)]
+    fields = list(set(field1)&set(field2))
+    fields.remove("SHAPE")
 
-    Extract_Table_Records(Layer_To_Checkp, fields)
-    Extract_Table_Records(Initial_Checkp, fields)
-    Extract_Table_Records(Final_Checkp, fields)
-    difference = list(set(Initial_Checkp) - set(Layer_To_Checkp) - set(Final_Checkp))
-    print len(difference)
-    #Get list of records from layer to check
-    #Get list of records from initial check
-    #Get list of records from final check
-    #different = list(set(initial check) - set(layer to check) - set(final check))
-    #print len(differnece)
+    table1 = Extract_Table_Records(Layer_To_Checkp, fields)
+    table2 = Extract_Table_Records(Initial_Checkp, fields)
+    table3 = Extract_Table_Records(Final_Checkp, fields)
+    difference = list(set(table1) - set(table3) - set(table2))
+    
+    if len(difference) != 0:
+        arcpy.AddMessage("{} features have been found which were coincident".format(len(difference)))
+        #arcpy.Append_management()
+
     #append difference to final check
