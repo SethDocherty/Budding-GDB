@@ -161,9 +161,11 @@ except Exception, e:
     tb = sys.exc_info()[2]
     exc_type, exc_value, exc_traceback = sys.exc_info()
     traceback.print_exc()
+    tb_error = traceback.format_tb(exc_traceback)
     print "line %i" % tb.tb_lineno
-    print e.message
-    print repr(traceback.format_tb(exc_traceback))
     arcpy.AddMessage("line %i" % tb.tb_lineno)
-    arcpy.AddMessage(repr(traceback.extract_tb(exc_traceback)))
+    for item in tb_error:
+        print item
+        arcpy.AddMessage(item)
+    print e.message
     arcpy.AddMessage(e.message)
