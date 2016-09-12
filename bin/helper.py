@@ -24,9 +24,9 @@ def buildWhereClause(table, field, value):
     # Determine field type
     fieldType = arcpy.ListFields(table, field)[0].type
 
-    # Add single-quotes for string field values
-    if str(fieldType) == 'String':
-        value = "'{}'".format(value)
+    ## Add single-quotes for string field values
+    #if str(fieldType) == 'String':
+    #    value = "'{}'".format(value)
 
     # Format WHERE clause
     whereClause = "{} = {}".format(fieldDelimited, value)

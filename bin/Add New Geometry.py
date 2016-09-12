@@ -113,6 +113,7 @@ try:
     #Selecting the records found the Figure list
     for value in FigureList:
         clause = buildWhereClause(OutputLayer_FigureExtentFC, FigureExtent_KeyField, value)
+        arcpy.AddMessage(clause)
         arcpy.SelectLayerByAttribute_management(OutputLayer_FigureExtentFC,"ADD_TO_SELECTION", clause)
 
     #Copy all selected records to a standalone Feature Class which holds the all figure that will be updated.
