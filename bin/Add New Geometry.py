@@ -123,14 +123,16 @@ try:
     arcpy.AddMessage("Successfully created the Features Class, {}, which contains the figures to be updated.".format(FigSelection))
     print "Successfully created the Features Class, {}, which contains the figures to be updated.".format(FigSelection)
 
-    print "......................................................................Runtime: ", datetime.now()-startTime
-    arcpy.AddMessage("......................................................................Runtime: " + str(datetime.now()-startTime))
+    print "......................................................................Initial Setup Runtime: {} (Total Runtime: {})".format(datetime.now()-startTime, datetime.now()-startTime)
+    arcpy.AddMessage("......................................................................Initial Setup Runtime: {} (Total Runtime: {})".format(datetime.now()-startTime, datetime.now()-startTime))
+
 
     #..............................................................................................................................
     # PART 1
     # Samples within Figure Extent - Part of the program that performs a spatial join of sample locations from the Master GDB and
     # the selected figures in the figure selection feature classes
     #..............................................................................................................................
+    part1time = datetime.now()
     print "Part 1: Selecting all locations that fall within the figure extents and deleting user specified sample types...\n...\n...\n..."
     arcpy.AddMessage("Part 1: Selecting all locations that fall within the figure extents and deleting user specified sample types...\n...\n...\n...")
 
@@ -143,8 +145,8 @@ try:
 
     Delete_Values_From_FC(What_To_Delete_List, Delete_Field, Figure_Extent_Selection, Figure_Extent_Selection_Path)
 
-    print "......................................................................Runtime at the end of Part 1: ", datetime.now()-startTime
-    arcpy.AddMessage("......................................................................Runtime at the end of Part 1: " + str(datetime.now()-startTime))
+    print "......................................................................Part 1 Runtime: {} (Total Runtime: {})".format(datetime.now()-part1time, datetime.now()-startTime)
+    arcpy.AddMessage("......................................................................Part 1 Runtime: {} (Total Runtime: {})".format(datetime.now()-part1time, datetime.now()-startTime))
 
     #.....................................................................................................................................................
     # PART 2
@@ -153,6 +155,7 @@ try:
     # This part of the program basically creates a sub-selection of points that fall inside the figure extent. e.g. 10 samples fall inside
     # figure extent but out of that 10, 5 fall in the location group boundary. If there is no location group boundary, just select the Figure Extent Feature Class.
     #.....................................................................................................................................................
+    part2time = datetime.now()
     print "Part 2: Selecting the locations within each figure extent that fall within the group boundary...\n...\n...\n..."
     arcpy.AddMessage("Part 2: Selecting the locations within each figure extent that fall within the group boundary...\n...\n...\n...")
 
@@ -162,8 +165,8 @@ try:
         clause = buildWhereClause(Figure_Extent_Selection_Path, FigureExtent_KeyField, value)
         Select_and_Append(GroupLocationBoundarypath, Figure_Extent_Selection_Path, Group_Boundary_Selection_Path,clause)
 
-    print "......................................................................Runtime at the end of Part 2: ", datetime.now()-startTime
-    arcpy.AddMessage("......................................................................Runtime at the end of Part 2: " + str(datetime.now()-startTime))
+    print "......................................................................Part 2 Runtime: {} (Total Runtime: {})".format(datetime.now()-part2time, datetime.now()-startTime)
+    arcpy.AddMessage("......................................................................Part 2 Runtime: {} Total Runtime: {})".format(datetime.now()-part2time, datetime.now()-startTime))
 
     #..............................................................................................................................
     # PART 3
@@ -173,6 +176,7 @@ try:
     # in the sample bucket FC that intersetct the Report sample FC.  An inverse selection is performed which now selects features that were
     # not selected in the intersection.  This selection are the new samples that will be added to the Report sample FC.
     #..............................................................................................................................
+    part3time = datetime.now()
     print "Part 3: Find New Locations in each figure...\n...\n...\n..."
     arcpy.AddMessage("Part 3: Find New Locations in each figure...\n...\n...\n...")
 
@@ -191,8 +195,8 @@ try:
         count = Find_New_Features(ChildPath, Group_Boundary_Selection_Path, TempCheck_Path, OutputLayer_Feature_Check_Selection, clause, count)
     arcpy.Delete_management(OutputLayer_Feature_Check_Selection)
 
-    print "......................................................................Runtime at the end of Part 3: ", datetime.now()-startTime
-    arcpy.AddMessage("......................................................................Runtime at the end of Part 3: " + str(datetime.now()-startTime))
+    print "......................................................................Part 3 Runtime: {} (Total Runtime: {})".format(datetime.now()-part3time, datetime.now()-startTime)
+    arcpy.AddMessage("......................................................................Part 3 Runtime: {} (Total Runtime: {})".format(datetime.now()-part3time, datetime.now()-startTime))
 
 except Exception, e:
     # If an error occurred, print line number and error message

@@ -143,8 +143,8 @@ try:
 
     Parent = arcpy.GetParameterAsText(0)
     Child = arcpy.GetParameterAsText(1)
-    ParentTableField = arcpy.GetParameterAsText(2) #The Master Feature Class
-    ChildTableField = arcpy.GetParameterAsText(3) #The Project Feature Class
+    ParentTableField = arcpy.GetParameterAsText(2) #The Master/Source Feature Class
+    ChildTableField = arcpy.GetParameterAsText(3) #The Project/Target Feature Class
     input_field = arcpy.GetParameterAsText(4)
     FigureExtent = arcpy.GetParameterAsText(5)
     FigureExtent_KeyField = arcpy.GetParameterAsText(6)

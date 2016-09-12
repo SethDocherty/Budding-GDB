@@ -70,8 +70,8 @@ def Delete_Values_From_FC(values_to_delete, key_field, FC, FC_Path):
             arcpy.AddMessage("Deleting the following from {}...........................{}".format(FC,value))
             print "Deleting the following from {}...........................{}".format(FC,value)
             clause = buildWhereClause(FC_Path, key_field, value)
-            arcpy.SelectLayerByAttribute_management(OutputLayer_InputFC2, "NEW_SELECTION", clause)
-            arcpy.DeleteRows_management(OutputLayer_InputFC2)
+            arcpy.SelectLayerByAttribute_management(FC, "NEW_SELECTION", clause)
+            arcpy.DeleteRows_management(FC)
     arcpy.Delete_management(FC)
 
 #Extract field name and type

@@ -191,7 +191,7 @@ try:
             import traceback, sys
             tb = sys.exc_info()[2]
             arcpy.AddWarning('  If you get the following error:  "Error: need to escape, but no escape char set" \
-                            \n  try setting quoting=csv.QUOTE_NONNUMERIC, QUOTE_MINIMAL or QUOTE_ALL on line {} of this script \
+                            \n  Try setting quoting=csv.QUOTE_NONNUMERIC, QUOTE_MINIMAL or QUOTE_ALL on line {} of this script \
                             \n  Quoting is currently set to QUOTE_NONE'.format(tb.tb_lineno))
             sys.exit()
 
