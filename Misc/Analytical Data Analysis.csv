@@ -1,0 +1,2120 @@
+Location ID,Lead,Arsenic,Benzene,Number of CoCs Above
+S1,Above,Above,Below,2
+S100,Below,Below,Below,0
+S1000,Below,Below,Below,0
+S1001,Below,Below,Below,0
+S1002,Below,Below,Below,0
+S1003,Below,Below,Below,0
+S1004,Below,Below,Below,0
+S1005,Above,No Sample,No Sample,1
+S1006,Above,No Sample,No Sample,1
+S1007,Above,No Sample,No Sample,1
+S1008,Below,No Sample,No Sample,0
+S1009,Above,No Sample,No Sample,1
+S101,Below,Below,Below,0
+S1010,Below,No Sample,No Sample,0
+S1011,Below,No Sample,No Sample,0
+S1012,Below,No Sample,No Sample,0
+S1013,Above,No Sample,No Sample,1
+S1014,Above,No Sample,No Sample,1
+S1015,Above,No Sample,No Sample,1
+S1016,Above,No Sample,No Sample,1
+S1017,Above,No Sample,No Sample,1
+S1018,Above,Above,Below,2
+S1019,Below,Below,Below,0
+S102,Below,Below,Below,0
+S1020,Above,Above,Below,2
+S1021,Above,Above,No Sample,2
+S1022,Below,Below,Below,0
+S1023,Below,Below,No Sample,0
+S1025,Below,Below,Below,0
+S1026,Above,Above,Below,2
+S1027,Below,Below,Below,0
+S1028,Below,Below,Below,0
+S1029,Below,Below,Below,0
+S1030,Above,Above,Above,3
+S1031,Below,Below,Above,1
+S1032,Below,Above,Below,1
+S1033,Below,Below,Below,0
+S1034,Below,Below,Above,1
+S1035,Below,Above,Above,2
+S1036,Below,Below,Below,0
+S1037,Below,Above,Below,1
+S1038,Below,Below,Below,0
+S1039,Below,Below,Below,0
+S1040,Below,Below,Below,0
+S1041,Below,Below,Below,0
+S1042,Below,Below,Below,0
+S1043,Above,Below,Below,1
+S1044,Below,Below,Below,0
+S1045,Below,Below,Below,0
+S1046,Below,Below,Below,0
+S1047,Above,Above,Below,2
+S1048,Above,Above,Below,2
+S1049,Below,Above,Below,1
+S105,Below,No Sample,Above,1
+S1050,Above,Above,Below,2
+S1051,Below,No Sample,Above,1
+S1052,Below,No Sample,Below,0
+S1053,Below,Below,Below,0
+S1054,Below,Below,Below,0
+S1055,Below,Below,Below,0
+S1056,Below,Below,Below,0
+S1057,Below,Below,Below,0
+S1058,Below,Above,Below,1
+S1059,Below,Below,Below,0
+S106,Below,No Sample,Below,0
+S1060,Below,Below,Below,0
+S1061,Below,Below,Below,0
+S1062,Below,Below,Below,0
+S1063,Below,Below,Below,0
+S1064,Below,Below,Below,0
+S1065,Below,Below,Below,0
+S1066,Below,Below,Below,0
+S1067,Below,Below,Below,0
+S1068,Below,Below,Below,0
+S1069,Below,Below,Below,0
+S107,Below,No Sample,Below,0
+S1070,Below,Below,Below,0
+S1071,Below,Above,Above,2
+S1072,Above,Above,Below,2
+S1073,Below,Below,Below,0
+S1074,Below,Below,Above,1
+S1075,Below,Above,Above,2
+S1076,Above,Above,Below,2
+S1077,Below,Above,Below,1
+S1078,Below,Below,Below,0
+S1079,Below,Below,Below,0
+S108,Below,No Sample,Below,0
+S1080,Below,Below,Below,0
+S1081,Below,Below,Below,0
+S1082,Below,Above,Below,1
+S1083,Below,Above,Below,1
+S1084,Above,Above,Below,2
+S1085,Below,Above,Below,1
+S1086,Below,Below,Below,0
+S1087,Below,Below,Below,0
+S1088,Below,Below,Below,0
+S1089,Below,Below,Below,0
+S109,Below,Below,Below,0
+S1090,Below,Below,Below,0
+S1091,Above,Above,Below,2
+S1092,Below,Below,Below,0
+S1093,Below,Below,Below,0
+S1094,Below,Above,Below,1
+S1095,Below,Above,Below,1
+S1096,Below,Above,Below,1
+S1097,Below,Above,Below,1
+S1098,Above,Above,No Sample,2
+S1099,Above,Above,Below,2
+S1100,Above,Above,Below,2
+S1101,Above,Above,Below,2
+S1102,Above,Above,Below,2
+S1103,Below,Above,Below,1
+S1104,Below,Below,Below,0
+S1105,Below,Below,Below,0
+S1106,Above,Above,Below,2
+S1107,Above,Above,Below,2
+S1108,Above,Above,Below,2
+S1109,Below,Below,Below,0
+S1110,Above,Above,Below,2
+S1111,Below,Below,Below,0
+S1112,Below,Above,Below,1
+S1113,Below,Above,Below,1
+S1114,Below,Above,Below,1
+S1115,Above,Above,Below,2
+S1116,Below,Above,Below,1
+S1117,Above,Above,Above,3
+S1118,Below,Below,Below,0
+S1119,Above,Above,Below,2
+S112,Below,Below,Below,0
+S1120,Below,Below,Below,0
+S1121,Below,Below,Below,0
+S1122,Below,Below,Below,0
+S1123,Below,Below,Below,0
+S1124,Below,Below,Below,0
+S1125,Below,Above,Below,1
+S1126,Below,Below,No Sample,0
+S1127,Below,Above,Below,1
+S1128,Below,Below,No Sample,0
+S1129,Below,Below,Below,0
+S113,Below,Below,Below,0
+S1130,Below,Below,Below,0
+S1131,Below,Above,Below,1
+S1132,Below,Below,Below,0
+S1133,Above,Above,Below,2
+S1134,Below,Below,Below,0
+S1135,Below,Below,Below,0
+S1136,Below,Above,Below,1
+S1137,Below,Below,Below,0
+S1138,Below,Above,Below,1
+S1139,Above,Above,Below,2
+S114,Below,Below,Below,0
+S1140,Below,Above,Below,1
+S1141,Above,Below,Below,1
+S1142,Below,Below,Below,0
+S1143,Above,Above,Below,2
+S1144,Above,Above,Below,2
+S1145,Below,Below,Below,0
+S1146,Below,Below,Below,0
+S1147,Below,Below,Below,0
+S1148,Below,Below,Below,0
+S1149,Above,Above,Below,2
+S115,Below,Below,Below,0
+S1150,Below,Below,Below,0
+S1151,Below,Below,Below,0
+S1152,Below,Below,Below,0
+S1153,Below,Below,Below,0
+S1154,Below,Below,Below,0
+S1155,Below,Above,No Sample,1
+S1156,Below,Above,Below,1
+S1157,Below,Below,Below,0
+S1158,Below,Below,Above,1
+S1159,Above,Above,No Sample,2
+S116,Below,Below,Below,0
+S1160,Below,Below,Below,0
+S1161,Below,Above,Below,1
+S1162,Below,Above,Below,1
+S1163,Below,Above,Below,1
+S1164,Below,Below,Below,0
+S1165,Above,Above,Below,2
+S1166,Below,Above,Below,1
+S1167,Below,Below,No Sample,0
+S1168,Above,Above,Below,2
+S1169,Above,Above,Below,2
+S117,Below,Below,Below,0
+S1170,Below,Below,Below,0
+S1171,Below,Below,Below,0
+S1172,Below,Above,Below,1
+S1173,Above,Below,Below,1
+S1174,Below,Below,Below,0
+S1175,Above,Above,Below,2
+S1176,Above,Above,Below,2
+S1177,Below,Below,Below,0
+S1178,Above,Below,Below,1
+S1179,Below,Below,Below,0
+S118,Below,Below,Below,0
+S1180,Below,Below,Below,0
+S1181,Below,Below,Below,0
+S1182,Below,Below,Below,0
+S1183,Below,Below,Below,0
+S1184,Below,Below,Below,0
+S1185,Above,Below,Below,1
+S1186,Below,Below,Below,0
+S1187,Above,Above,Below,2
+S1188,Above,Above,Below,2
+S1189,Below,Above,Below,1
+S119,Below,Below,Below,0
+S1190,Below,Below,Below,0
+S1191,Above,Above,Below,2
+S1192,Below,Above,Below,1
+S1193,Below,Above,Below,1
+S1194,Below,Below,Below,0
+S1195,Below,Above,Below,1
+S1196,Below,Above,Below,1
+S1197,Above,Below,Below,1
+S1198,Below,Below,Below,0
+S1199,Below,Below,Below,0
+S120,Below,Below,Below,0
+S1200,Above,Above,Below,2
+S1201,Above,Above,Below,2
+S1202,Below,Below,Below,0
+S1203,Below,Below,Below,0
+S1204,Above,Above,Below,2
+S1205,Below,Below,No Sample,0
+S1206,Above,Above,Below,2
+S1207,Above,Below,Below,1
+S1208,Below,Below,Below,0
+S1209,Below,Above,Below,1
+S121,Below,Below,Below,0
+S1210,Below,Below,Below,0
+S1211,Below,Above,Below,1
+S1212,Above,Above,Below,2
+S1213,Above,Above,Below,2
+S1214,Below,Above,Below,1
+S1215,Below,Below,Below,0
+S1216,Below,Below,Below,0
+S1217,Below,Below,Below,0
+S1218,Below,Above,Below,1
+S1219,Above,Below,Below,1
+S122,Below,Below,Below,0
+S1220,Above,Above,Below,2
+S1221,Below,Below,Above,1
+S1222,Below,Below,Below,0
+S1223,Below,Below,Below,0
+S1224,Above,Above,Below,2
+S1225,Above,Above,Above,3
+S1226,Above,Above,Below,2
+S1227,Above,Above,Below,2
+S1228,Above,Above,Below,2
+S1229,Below,Below,Below,0
+S123,Below,Above,Below,1
+S1230,Below,Above,Below,1
+S1231,Above,Above,Above,3
+S1232,Above,Above,Above,3
+S1233,Above,Above,Below,2
+S1234,Above,Above,Above,3
+S1235,Above,Above,Above,3
+S1236,Above,Below,Below,1
+S1237,Above,Above,Above,3
+S1238,Above,Above,Above,3
+S124,Below,Above,Below,1
+S1240,Below,Below,No Sample,0
+S1241,Below,Below,No Sample,0
+S1243,Below,Below,No Sample,0
+S1244,Above,Above,No Sample,2
+S1245,Below,Below,No Sample,0
+S1246,Below,Above,No Sample,1
+S1247,Below,Below,No Sample,0
+S1248,Above,Below,No Sample,1
+S1249,Below,Below,No Sample,0
+S125,Below,Above,Above,2
+S1250,Below,Below,No Sample,0
+S1251,Below,Below,No Sample,0
+S1252,Below,Above,No Sample,1
+S1253,Below,Below,No Sample,0
+S1254,Below,Below,No Sample,0
+S1255,Below,Below,No Sample,0
+S1256,Below,Below,No Sample,0
+S1257,Below,Below,No Sample,0
+S1258,Below,Below,No Sample,0
+S1259,Below,Above,No Sample,1
+S126,Below,Above,Above,2
+S1261,Below,Above,No Sample,1
+S1263,Below,Below,No Sample,0
+S1265,Below,Below,No Sample,0
+S1268,Below,Below,No Sample,0
+S127,Above,Above,Below,2
+S1270,Above,Above,No Sample,2
+S1271,Below,Below,No Sample,0
+S1273,Below,Below,No Sample,0
+S1274,Below,Below,No Sample,0
+S1275,Below,Below,No Sample,0
+S1276,Below,Below,No Sample,0
+S1277,Below,Below,No Sample,0
+S1278,Above,Above,No Sample,2
+S1279,Below,Below,No Sample,0
+S128,Above,Above,Below,2
+S1280,Below,Below,No Sample,0
+S1281,Below,Below,No Sample,0
+S1282,Below,Below,No Sample,0
+S1283,Below,Below,No Sample,0
+S1284,Below,Above,No Sample,1
+S1285,Below,Below,No Sample,0
+S1286,Below,Below,No Sample,0
+S1287,Below,Below,No Sample,0
+S1288,Below,Above,No Sample,1
+S1289,Below,Below,No Sample,0
+S129,Below,Above,Below,1
+S1290,Below,Above,No Sample,1
+S1291,Below,Above,No Sample,1
+S1292,Above,Above,No Sample,2
+S1293,Below,Above,No Sample,1
+S1294,Above,Above,No Sample,2
+S1295,Below,Above,No Sample,1
+S1296,Below,Below,No Sample,0
+S1297,Below,Above,No Sample,1
+S1298,Below,Above,No Sample,1
+S1299,Below,Above,No Sample,1
+S130,Above,Above,Above,3
+S1300,Below,Below,No Sample,0
+S1304,Above,Above,No Sample,2
+S1306,Below,Below,Below,0
+S1307,Below,Below,Below,0
+S1308,Below,Below,Above,1
+S1309,Below,Below,Above,1
+S131,Below,Below,Below,0
+S1310,Below,Below,Below,0
+S1311,Below,Below,Below,0
+S1312,Below,Below,Below,0
+S1313,Above,Below,Above,2
+S1314,Below,Below,Above,1
+S1315,Below,Below,Below,0
+S1316,Below,Above,Above,2
+S1317,Below,Below,Below,0
+S1318,Above,No Sample,No Sample,1
+S1319,Below,No Sample,No Sample,0
+S132,Below,Below,Above,1
+S1320,Below,No Sample,No Sample,0
+S1321,Above,No Sample,No Sample,1
+S1322,Above,No Sample,No Sample,1
+S1323,Above,No Sample,No Sample,1
+S1324,Below,No Sample,No Sample,0
+S1325,Above,No Sample,No Sample,1
+S1326,Above,No Sample,No Sample,1
+S1327,Above,No Sample,No Sample,1
+S1328,Above,No Sample,No Sample,1
+S1329,Above,No Sample,No Sample,1
+S133,Below,No Sample,Below,0
+S1330,Above,No Sample,No Sample,1
+S1331,Below,No Sample,No Sample,0
+S1332,Above,No Sample,No Sample,1
+S1333,Below,Above,No Sample,1
+S1334,Below,Below,No Sample,0
+S1335,Below,Below,No Sample,0
+S1336,Below,Below,No Sample,0
+S1337,Below,Above,No Sample,1
+S1338,Below,Below,No Sample,0
+S1339,Below,Below,No Sample,0
+S134,Below,No Sample,Below,0
+S1340,Above,Above,No Sample,2
+S1341,Below,Above,No Sample,1
+S1342,Below,Below,No Sample,0
+S1343,Below,Below,No Sample,0
+S1344,Below,Below,No Sample,0
+S1345,Below,Below,No Sample,0
+S1346,Below,Above,No Sample,1
+S1347,Above,Above,No Sample,2
+S1348,Below,Below,No Sample,0
+S1349,Below,Above,No Sample,1
+S135,Below,No Sample,Above,1
+S1350,Below,Above,No Sample,1
+S1351,Below,Below,No Sample,0
+S1352,Below,Below,No Sample,0
+S1353,Below,Below,No Sample,0
+S1354,Above,Above,No Sample,2
+S1355,Below,Above,No Sample,1
+S1356,Below,Above,No Sample,1
+S1357,Below,Above,No Sample,1
+S1358,Below,Above,No Sample,1
+S1359,Below,Above,No Sample,1
+S136,Below,No Sample,Below,0
+S1360,Below,Above,No Sample,1
+S1361,Below,Above,No Sample,1
+S1362,Below,Below,No Sample,0
+S1363,Below,Above,No Sample,1
+S1364,Below,Above,No Sample,1
+S1365,Below,Above,No Sample,1
+S1366,Below,Below,No Sample,0
+S1367,Below,Above,No Sample,1
+S1368,Above,Above,No Sample,2
+S1369,Below,Above,No Sample,1
+S137,Below,No Sample,Above,1
+S1370,Below,Above,No Sample,1
+S1371,Below,Above,No Sample,1
+S1372,Below,Above,No Sample,1
+S1373,Below,Above,No Sample,1
+S1374,Below,Above,No Sample,1
+S1375,Below,Above,No Sample,1
+S1376,Below,Above,No Sample,1
+S1377,Below,Below,No Sample,0
+S1378,Above,Above,No Sample,2
+S1379,Below,Below,No Sample,0
+S138,Below,No Sample,Below,0
+S1380,Above,Below,No Sample,1
+S1381,Below,Below,No Sample,0
+S1382,Below,Below,No Sample,0
+S1383,Below,Below,No Sample,0
+S1384,Below,Below,No Sample,0
+S1385,Below,Below,No Sample,0
+S1386,Below,Below,No Sample,0
+S1387,Below,Below,No Sample,0
+S1388,Below,Below,No Sample,0
+S1389,Below,Below,No Sample,0
+S139,Below,No Sample,Below,0
+S1390,Above,Above,No Sample,2
+S1391,Above,Above,No Sample,2
+S1392,Above,Below,No Sample,1
+S1393,Above,Above,No Sample,2
+S1394,Above,Above,No Sample,2
+S1395,Below,Below,No Sample,0
+S1396,Above,Above,No Sample,2
+S1397,Above,Above,No Sample,2
+S1398,Below,Above,No Sample,1
+S1399,Below,Above,No Sample,1
+S140,Below,No Sample,Below,0
+S1400,Below,Below,No Sample,0
+S1401,Below,Above,No Sample,1
+S1402,Below,Below,No Sample,0
+S1403,Below,Below,No Sample,0
+S1404,Below,Below,No Sample,0
+S1405,Below,Below,No Sample,0
+S1406,Below,Below,No Sample,0
+S1407,Below,Below,No Sample,0
+S1408,Below,Above,No Sample,1
+S1409,Above,Above,No Sample,2
+S141,Above,No Sample,Above,2
+S1410,Below,Above,No Sample,1
+S1411,Above,Above,No Sample,2
+S1412,Below,Below,No Sample,0
+S1413,Below,Below,No Sample,0
+S1414,Below,Below,No Sample,0
+S1415,Below,Below,No Sample,0
+S1416,Above,Above,No Sample,2
+S1417,Below,Below,No Sample,0
+S1418,Below,Above,No Sample,1
+S142,Below,No Sample,Below,0
+S1422,Above,Above,No Sample,2
+S1423,Below,Above,No Sample,1
+S1424,Below,Below,No Sample,0
+S1425,Below,Above,No Sample,1
+S1426,Below,Above,No Sample,1
+S1427,Below,Below,No Sample,0
+S1428,Below,Below,No Sample,0
+S1429,Below,Below,No Sample,0
+S143,Below,No Sample,Below,0
+S1430,Below,Above,No Sample,1
+S1431,Above,Above,No Sample,2
+S1432,Below,Below,No Sample,0
+S1433,Below,Below,No Sample,0
+S1436,Below,Below,Above,1
+S1437,Below,Below,Above,1
+S1439,Below,Below,Below,0
+S144,Below,No Sample,Below,0
+S1440,Below,Below,Above,1
+S1442,Below,Below,Above,1
+S1443,Below,Below,Above,1
+S1444,Below,Below,Above,1
+S1445,Below,Below,No Sample,0
+S1446,Below,Below,No Sample,0
+S1447,Below,Below,No Sample,0
+S1448,Above,Above,No Sample,2
+S1449,Below,Below,No Sample,0
+S145,Below,No Sample,Below,0
+S1450,Below,Above,No Sample,1
+S1451,Below,Below,No Sample,0
+S1452,Below,Above,No Sample,1
+S1453,Below,Below,No Sample,0
+S1454,Below,Below,No Sample,0
+S1455,Below,Below,No Sample,0
+S1456,Below,Below,No Sample,0
+S1457,Above,Below,No Sample,1
+S1458,Below,Below,No Sample,0
+S1459,Above,Above,No Sample,2
+S146,Below,No Sample,Below,0
+S1460,Below,Below,No Sample,0
+S1461,Above,Above,No Sample,2
+S1462,Above,Above,No Sample,2
+S1463,Below,Above,No Sample,1
+S1464,Below,Below,No Sample,0
+S1467,Above,Above,Above,3
+S1469,Above,Above,Below,2
+S147,Below,No Sample,Below,0
+S1478,Below,Below,No Sample,0
+S1479,Below,Above,No Sample,1
+S148,Below,No Sample,Below,0
+S1483,Below,Below,Below,0
+S1484,Below,Below,Below,0
+S1486,Below,Below,Below,0
+S1487,Below,Below,Below,0
+S1488,Below,Below,Below,0
+S1489,Below,Below,Below,0
+S149,Below,No Sample,Below,0
+S1490,Below,Below,Below,0
+S1491,Below,Below,Below,0
+S1492,Below,Below,Below,0
+S1493,Below,Below,Above,1
+S1494,Below,Below,Above,1
+S1495,Above,Above,Below,2
+S1496,Above,Below,Below,1
+S1497,Below,Below,Below,0
+S1498,Below,Below,Below,0
+S1499,Below,Below,No Sample,0
+S150,Below,No Sample,Below,0
+S1500,Below,Above,Below,1
+S1501,Below,Above,No Sample,1
+S1502,Below,Below,No Sample,0
+S1503,Below,Below,No Sample,0
+S1504,Above,Above,No Sample,2
+S1505,Below,Below,Below,0
+S1506,Below,Above,No Sample,1
+S1507,Above,Above,No Sample,2
+S1508,Below,Below,No Sample,0
+S1509,Below,Below,No Sample,0
+S151,Below,No Sample,Below,0
+S1510,Below,Above,No Sample,1
+S1511,Below,Above,Below,1
+S1512,Above,Above,Below,2
+S1513,Below,Above,No Sample,1
+S1514,Below,Above,Below,1
+S1515,Below,Above,No Sample,1
+S1516,Above,Above,No Sample,2
+S1517,Above,Above,Below,2
+S1518,Above,Above,No Sample,2
+S1519,Below,Below,No Sample,0
+S152,Below,No Sample,Below,0
+S1520,Below,Below,No Sample,0
+S1521,Below,Below,No Sample,0
+S1522,Below,Below,No Sample,0
+S1523,Above,Above,Above,3
+S1524,Above,Above,Above,3
+S1525,Above,Above,Above,3
+S1526,Above,Above,Above,3
+S1527,Above,Above,Above,3
+S1528,Above,No Sample,Above,2
+S1529,Below,No Sample,No Sample,0
+S153,Below,No Sample,Below,0
+S1530,Below,No Sample,No Sample,0
+S1531,Above,No Sample,No Sample,1
+S1532,Above,No Sample,Below,1
+S1533,Above,No Sample,No Sample,1
+S1534,Above,No Sample,Above,2
+S1535,Above,No Sample,Below,1
+S154,Below,No Sample,Below,0
+S1540,Below,No Sample,No Sample,0
+S1541,Above,No Sample,No Sample,1
+S1542,Above,No Sample,No Sample,1
+S1543,Above,No Sample,No Sample,1
+S1544,Above,No Sample,No Sample,1
+S1545,Above,No Sample,Above,2
+S1546,Below,No Sample,No Sample,0
+S1547,Above,Above,Below,2
+S1548,Above,No Sample,No Sample,1
+S1549,Above,Above,Below,2
+S155,Below,No Sample,Below,0
+S1551,Above,No Sample,Above,2
+S1552,Above,No Sample,Above,2
+S1553,Above,Above,No Sample,2
+S1554,Above,No Sample,Below,1
+S1555,Below,No Sample,No Sample,0
+S1556,Above,Above,Above,3
+S1557,Above,No Sample,Below,1
+S1558,Below,No Sample,No Sample,0
+S1559,Above,Above,Above,3
+S156,Below,No Sample,Below,0
+S1560,Above,No Sample,No Sample,1
+S1561,Above,Above,No Sample,2
+S1562,Above,No Sample,Above,2
+S1563,Above,Above,Below,2
+S1564,Above,No Sample,No Sample,1
+S1565,Above,No Sample,No Sample,1
+S1566,Above,No Sample,No Sample,1
+S1567,Below,No Sample,No Sample,0
+S1568,Above,No Sample,Above,2
+S1569,Below,No Sample,Below,0
+S157,Below,No Sample,Below,0
+S1570,Below,No Sample,No Sample,0
+S1571,Above,Above,No Sample,2
+S1572,Above,Below,Above,2
+S1573,Below,No Sample,Below,0
+S1574,Above,No Sample,No Sample,1
+S1575,Below,No Sample,No Sample,0
+S1576,Above,No Sample,No Sample,1
+S1577,Below,No Sample,Above,1
+S1578,Below,No Sample,No Sample,0
+S1579,Below,No Sample,No Sample,0
+S158,Below,No Sample,Below,0
+S1580,Above,No Sample,Above,2
+S1581,Below,No Sample,Below,0
+S1582,Above,No Sample,Below,1
+S1583,Below,No Sample,No Sample,0
+S1584,Below,No Sample,No Sample,0
+S1585,Above,No Sample,Below,1
+S1586,Above,No Sample,No Sample,1
+S1587,Below,No Sample,No Sample,0
+S1588,Above,No Sample,No Sample,1
+S1589,Below,No Sample,No Sample,0
+S159,Below,No Sample,Below,0
+S1590,Below,No Sample,No Sample,0
+S1591,Above,No Sample,Below,1
+S1592,Above,No Sample,No Sample,1
+S1593,Above,No Sample,No Sample,1
+S1594,Below,No Sample,No Sample,0
+S1595,Above,No Sample,No Sample,1
+S1596,Above,No Sample,No Sample,1
+S1597,Below,No Sample,No Sample,0
+S1598,Below,No Sample,No Sample,0
+S1599,Below,No Sample,No Sample,0
+S160,Below,No Sample,Below,0
+S1600,Above,Above,No Sample,2
+S1601,Above,Above,No Sample,2
+S1602,Above,No Sample,No Sample,1
+S1603,Above,No Sample,No Sample,1
+S1604,Above,No Sample,No Sample,1
+S1605,Below,No Sample,No Sample,0
+S1606,Below,No Sample,No Sample,0
+S1607,Above,No Sample,No Sample,1
+S1608,Below,No Sample,No Sample,0
+S161,Below,No Sample,Below,0
+S162,Below,No Sample,Below,0
+S1622,Below,No Sample,No Sample,0
+S1623,Below,No Sample,No Sample,0
+S1624,Below,No Sample,No Sample,0
+S1625,Below,No Sample,No Sample,0
+S1626,Below,No Sample,No Sample,0
+S1627,Below,No Sample,No Sample,0
+S1628,Above,No Sample,No Sample,1
+S1629,Above,No Sample,No Sample,1
+S163,Below,No Sample,Below,0
+S1630,Below,No Sample,No Sample,0
+S1631,Above,No Sample,No Sample,1
+S1632,Below,No Sample,No Sample,0
+S1639,Below,Below,Below,0
+S164,Below,No Sample,Below,0
+S1640,Below,Above,Below,1
+S1641,Below,Below,Above,1
+S1642,Above,Above,Below,2
+S1643,Below,Below,Above,1
+S1644,Below,Below,Above,1
+S1645,Below,Below,No Sample,0
+S1646,Below,Below,No Sample,0
+S1647,Below,Below,No Sample,0
+S1648,Below,Above,Below,1
+S1649,Below,Below,Above,1
+S1650,Above,Above,No Sample,2
+S1651,Below,Above,Below,1
+S1652,Above,Above,Below,2
+S1653,Below,Below,Below,0
+S1654,Below,Below,No Sample,0
+S1655,Below,Above,Below,1
+S1658,Below,No Sample,Above,1
+S1659,Below,No Sample,Above,1
+S1660,Below,Below,No Sample,0
+S1661,Above,Above,No Sample,2
+S1662,Below,Below,No Sample,0
+S1663,Below,Below,No Sample,0
+S1665,Below,Below,Below,0
+S1666,Below,Below,Below,0
+S1667,Below,Below,Below,0
+S1668,Above,Above,No Sample,2
+S1669,Above,Above,No Sample,2
+S1670,Above,Above,No Sample,2
+S1671,Above,Below,No Sample,1
+S1672,Above,Below,No Sample,1
+S1673,Above,Below,No Sample,1
+S1674,Above,Below,No Sample,1
+S1675,Above,Below,No Sample,1
+S1676,Above,Below,No Sample,1
+S1677,Above,Above,No Sample,2
+S1678,Above,Above,No Sample,2
+S1679,Above,Above,Above,3
+S1680,Above,No Sample,No Sample,1
+S1681,Above,Below,No Sample,1
+S1682,Above,Above,No Sample,2
+S1683,Above,Below,Below,1
+S1684,Above,Above,No Sample,2
+S1685,Above,Below,Above,2
+S1686,Above,Below,Above,2
+S1687,Above,Below,Above,2
+S1688,Above,Below,Above,2
+S1689,Above,Above,Below,2
+S1690,Above,Below,No Sample,1
+S1691,Below,No Sample,No Sample,0
+S1692,Above,Above,No Sample,2
+S1693,Above,Below,No Sample,1
+S1694,Above,Below,Above,2
+S1695,Above,No Sample,No Sample,1
+S1696,Above,No Sample,No Sample,1
+S1697,Above,Below,No Sample,1
+S1698,Below,Below,Below,0
+S1699,Above,Above,No Sample,2
+S1700,Below,Above,No Sample,1
+S1701,Above,Above,No Sample,2
+S1702,Below,Below,No Sample,0
+S1703,Below,Above,No Sample,1
+S1704,Below,Above,Above,2
+S1705,Above,Above,No Sample,2
+S1706,Below,Above,Below,1
+S1707,Above,Above,No Sample,2
+S1708,Above,Above,No Sample,2
+S1709,Below,Below,Above,1
+S171,Above,Below,Below,1
+S1710,Below,Above,Above,2
+S1711,Below,Below,Above,1
+S1712,Below,Above,Above,2
+S1713,Below,Below,Above,1
+S1714,Below,Below,Below,0
+S1715,Below,Above,Below,1
+S1716,Below,Below,Below,0
+S172,Above,Above,Above,3
+S1722,Above,Below,No Sample,1
+S1723,Above,No Sample,No Sample,1
+S1724,Above,Above,No Sample,2
+S1725,Above,No Sample,No Sample,1
+S1726,Above,Above,No Sample,2
+S1727,Above,No Sample,No Sample,1
+S1728,Above,No Sample,No Sample,1
+S1729,Above,Above,No Sample,2
+S173,Above,Below,Above,2
+S1730,Above,No Sample,No Sample,1
+S1731,Above,Below,No Sample,1
+S1732,Above,No Sample,No Sample,1
+S1733,Above,Above,No Sample,2
+S1734,Above,No Sample,No Sample,1
+S1735,Above,Above,No Sample,2
+S1736,Above,Below,No Sample,1
+S1737,Above,Below,No Sample,1
+S1738,Above,No Sample,No Sample,1
+S1739,Above,Above,No Sample,2
+S174,Above,Above,Below,2
+S1740,Above,No Sample,No Sample,1
+S1741,Above,No Sample,No Sample,1
+S1742,Above,Above,No Sample,2
+S1743,Above,Below,Above,2
+S1744,Above,Above,No Sample,2
+S1745,Above,Below,No Sample,1
+S1746,Above,No Sample,No Sample,1
+S1747,Below,Above,Above,2
+S1748,Below,Above,Above,2
+S1749,Below,Below,Below,0
+S175,Below,No Sample,Below,0
+S1750,Below,Above,Below,1
+S1751,Below,Above,Above,2
+S1752,Below,Below,Above,1
+S1753,Below,Above,Above,2
+S1754,Below,No Sample,No Sample,0
+S1755,Below,Below,Above,1
+S1756,Below,Below,No Sample,0
+S1757,Below,Below,No Sample,0
+S1758,Below,Below,No Sample,0
+S1759,Above,Below,Below,1
+S176,Below,No Sample,Below,0
+S1760,Below,Below,No Sample,0
+S1761,Below,Above,Below,1
+S1762,Above,Above,No Sample,2
+S1763,Above,Above,No Sample,2
+S1764,Above,No Sample,No Sample,1
+S1765,Above,No Sample,No Sample,1
+S1766,Above,Below,No Sample,1
+S1767,Above,Above,No Sample,2
+S1768,Below,No Sample,No Sample,0
+S1769,Above,Below,No Sample,1
+S177,Below,No Sample,Above,1
+S1770,Above,Below,No Sample,1
+S1771,Above,No Sample,No Sample,1
+S1772,Above,No Sample,No Sample,1
+S1773,Above,No Sample,No Sample,1
+S1774,Above,No Sample,No Sample,1
+S1775,Above,No Sample,No Sample,1
+S1776,Above,No Sample,No Sample,1
+S1777,Below,No Sample,No Sample,0
+S1778,Above,No Sample,No Sample,1
+S1779,Above,No Sample,No Sample,1
+S178,Below,Below,Below,0
+S1780,Above,No Sample,No Sample,1
+S1781,Above,No Sample,No Sample,1
+S1782,Above,No Sample,No Sample,1
+S1783,Above,Above,No Sample,2
+S1784,Above,No Sample,No Sample,1
+S1785,Above,No Sample,No Sample,1
+S1786,Above,No Sample,No Sample,1
+S1787,Below,No Sample,No Sample,0
+S1788,Above,No Sample,No Sample,1
+S1789,Above,No Sample,No Sample,1
+S179,Below,No Sample,Below,0
+S1790,Above,No Sample,No Sample,1
+S1791,Above,Below,No Sample,1
+S1792,Above,No Sample,No Sample,1
+S1793,Above,No Sample,No Sample,1
+S1794,Above,Below,No Sample,1
+S1795,Above,Below,No Sample,1
+S1796,Above,No Sample,No Sample,1
+S1797,Above,No Sample,No Sample,1
+S1798,Above,Below,No Sample,1
+S1799,Above,No Sample,No Sample,1
+S180,Below,No Sample,Below,0
+S1800,Above,No Sample,No Sample,1
+S1801,Above,Above,No Sample,2
+S1802,Below,Below,No Sample,0
+S1803,Below,Below,No Sample,0
+S1804,Below,Below,No Sample,0
+S1805,Below,Below,No Sample,0
+S1806,Below,Below,No Sample,0
+S1807,Above,Above,No Sample,2
+S1808,Below,Above,No Sample,1
+S1809,Above,No Sample,No Sample,1
+S181,Below,No Sample,Below,0
+S1810,Above,No Sample,No Sample,1
+S1811,Above,No Sample,No Sample,1
+S1812,Above,Below,No Sample,1
+S1813,Above,No Sample,No Sample,1
+S1814,Above,Above,No Sample,2
+S1815,Below,No Sample,No Sample,0
+S1816,Below,No Sample,No Sample,0
+S1817,Above,No Sample,No Sample,1
+S1818,Above,No Sample,No Sample,1
+S1819,Above,No Sample,No Sample,1
+S182,Below,Below,Below,0
+S1820,Above,Below,No Sample,1
+S1821,Above,No Sample,No Sample,1
+S1822,Above,No Sample,No Sample,1
+S1823,Above,No Sample,No Sample,1
+S1824,Above,No Sample,No Sample,1
+S183,Below,No Sample,Below,0
+S1834,Above,Above,No Sample,2
+S1837,Below,Below,Below,0
+S1838,Below,Above,Below,1
+S1839,Below,Below,Below,0
+S184,Below,Below,Below,0
+S1840,Below,Below,Below,0
+S1841,Below,Below,Below,0
+S1842,Below,Above,Below,1
+S1843,Below,Below,Below,0
+S1844,Below,Above,Below,1
+S1845,Below,Below,Below,0
+S1846,Below,Below,Below,0
+S1847,Below,Above,Below,1
+S1848,Below,Below,Below,0
+S1849,Below,Above,Below,1
+S185,Below,No Sample,Below,0
+S1850,Below,Below,Below,0
+S1851,Below,Below,Below,0
+S1852,Below,Below,Below,0
+S1853,Below,Below,Below,0
+S1854,Below,Below,Below,0
+S1855,Above,Above,Below,2
+S1856,Below,Below,Below,0
+S1857,Below,Above,Below,1
+S1858,Below,Above,Below,1
+S1859,Below,Below,Below,0
+S186,Below,No Sample,Below,0
+S1860,Below,Below,Below,0
+S1861,Above,Above,Below,2
+S1862,Below,Below,Below,0
+S1863,Below,Above,Below,1
+S1864,Below,Above,Below,1
+S1865,Below,Below,Below,0
+S1866,Below,Below,Below,0
+S1867,Below,Below,Above,1
+S1868,Below,Below,Below,0
+S1869,Below,Above,Below,1
+S187,Below,No Sample,Below,0
+S1870,Below,Below,Above,1
+S1871,Below,Below,Below,0
+S1872,Below,Below,Below,0
+S1873,Below,Below,Below,0
+S1874,Below,Below,Below,0
+S1875,Above,Above,Below,2
+S1876,Below,Above,Below,1
+S1877,Below,Below,Below,0
+S1878,Below,Below,Below,0
+S1879,Below,Above,Below,1
+S188,Below,No Sample,Below,0
+S1880,Below,Below,Below,0
+S1881,Below,Below,Below,0
+S1882,Below,Above,Below,1
+S1883,Below,Below,Below,0
+S1884,Below,Below,Below,0
+S1885,Below,Below,Below,0
+S1886,Below,Above,Below,1
+S1887,Below,Above,Below,1
+S1888,Above,Below,Below,1
+S1889,Below,Above,Below,1
+S189,Below,No Sample,Below,0
+S1890,Above,Above,Below,2
+S1891,Below,Below,Below,0
+S1892,Below,Below,Below,0
+S1895,Above,Above,No Sample,2
+S1896,Below,No Sample,No Sample,0
+S1897,Above,Above,No Sample,2
+S1898,Below,No Sample,No Sample,0
+S1899,Below,No Sample,No Sample,0
+S190,Below,Below,Below,0
+S1900,Above,Above,No Sample,2
+S1901,Below,No Sample,No Sample,0
+S1902,Below,No Sample,No Sample,0
+S1903,Below,No Sample,No Sample,0
+S1904,Below,No Sample,No Sample,0
+S1905,Above,No Sample,No Sample,1
+S1906,Above,No Sample,No Sample,1
+S1907,Above,Above,No Sample,2
+S1908,Above,Below,No Sample,1
+S1909,Above,Below,No Sample,1
+S191,Below,Below,Below,0
+S1910,Below,Below,No Sample,0
+S1911,Above,Above,No Sample,2
+S1912,Below,Above,No Sample,1
+S1913,Below,Below,No Sample,0
+S1914,Above,Above,No Sample,2
+S192,Below,Below,Below,0
+S1921,Above,Below,No Sample,1
+S1922,Above,No Sample,No Sample,1
+S1923,Above,No Sample,No Sample,1
+S1924,Above,No Sample,No Sample,1
+S1925,Below,Above,No Sample,1
+S1926,Below,No Sample,No Sample,0
+S1927,Above,Below,No Sample,1
+S1928,Below,No Sample,No Sample,0
+S1929,Above,Below,No Sample,1
+S193,Below,Below,Below,0
+S1930,Above,No Sample,No Sample,1
+S1931,Above,No Sample,No Sample,1
+S1932,Below,Above,Below,1
+S1933,Below,Above,Below,1
+S1934,Below,Above,Below,1
+S1935,Below,Below,Below,0
+S1936,Below,Below,Below,0
+S1937,Below,Below,Below,0
+S1938,Below,Above,Below,1
+S1939,Above,Below,Below,1
+S194,Below,Below,Below,0
+S1940,Below,Below,Below,0
+S1941,Below,Below,Below,0
+S1942,Below,Below,Below,0
+S1943,Below,Below,Below,0
+S1944,Below,Below,Below,0
+S1945,Below,Below,Below,0
+S1946,Below,Below,No Sample,0
+S1947,Above,Below,No Sample,1
+S1948,Below,Above,No Sample,1
+S1949,Below,Below,No Sample,0
+S195,Above,Above,Below,2
+S1950,Above,No Sample,No Sample,1
+S1951,Below,Above,No Sample,1
+S1952,Below,Above,No Sample,1
+S1953,Below,Above,No Sample,1
+S196,Below,Below,Below,0
+S197,Above,Above,Above,3
+S1974,Above,Above,Below,2
+S1975,Above,Above,Above,3
+S1976,Below,Below,Below,0
+S1977,Below,Below,Below,0
+S1978,Above,Above,Below,2
+S1979,Below,Below,Below,0
+S198,Below,Below,Below,0
+S1980,Above,Above,Below,2
+S1982,Below,Below,Below,0
+S1983,Below,Above,Below,1
+S1984,Below,Above,Below,1
+S1985,Below,Above,Below,1
+S1986,Below,Above,Below,1
+S1987,Below,Above,Below,1
+S1988,Below,Below,Above,1
+S1989,Above,Above,Above,3
+S199,Below,Above,Below,1
+S1990,Above,Above,Above,3
+S1991,Below,Above,Above,2
+S1992,Above,Above,Below,2
+S1993,Below,Above,Below,1
+S1994,Below,Below,Below,0
+S1995,Below,Below,Above,1
+S1996,Below,Below,Below,0
+S1997,Below,Below,Above,1
+S1998,Below,Below,Below,0
+S1999,Below,Below,Above,1
+S2,Below,Below,Below,0
+S200,Below,Below,Below,0
+S2000,Below,Above,Above,2
+S2001,Below,Below,Above,1
+S2002,Below,Above,Below,1
+S2003,Below,Below,Above,1
+S2007,Below,No Sample,No Sample,0
+S2008,Above,No Sample,No Sample,1
+S201,Below,Below,Below,0
+S2011,Below,No Sample,No Sample,0
+S2012,Above,Below,No Sample,1
+S2013,Above,Below,No Sample,1
+S2014,Above,Above,No Sample,2
+S2015,Above,Below,No Sample,1
+S2016,Above,Below,No Sample,1
+S2017,Above,No Sample,No Sample,1
+S2018,Above,Above,No Sample,2
+S2019,Above,Below,No Sample,1
+S2025,Above,No Sample,No Sample,1
+S2026,Below,No Sample,No Sample,0
+S2027,Below,No Sample,No Sample,0
+S2028,Below,No Sample,No Sample,0
+S2029,Above,No Sample,No Sample,1
+S203,Above,Below,Above,2
+S2030,Below,No Sample,No Sample,0
+S2032,Below,No Sample,No Sample,0
+S2033,Above,Below,No Sample,1
+S2034,Below,No Sample,No Sample,0
+S2035,Above,No Sample,No Sample,1
+S2036,Above,No Sample,No Sample,1
+S2037,Above,Below,No Sample,1
+S2038,Above,No Sample,No Sample,1
+S2039,Above,Above,No Sample,2
+S204,Below,No Sample,Above,1
+S2041,Below,No Sample,No Sample,0
+S2042,Below,No Sample,No Sample,0
+S2043,Above,Below,No Sample,1
+S2044,Above,No Sample,No Sample,1
+S2045,Above,No Sample,No Sample,1
+S2046,Above,No Sample,No Sample,1
+S2047,Above,Above,No Sample,2
+S2048,Below,Above,Above,2
+S2049,Below,Above,Above,2
+S205,Below,No Sample,Above,1
+S2050,Below,Below,Above,1
+S2051,Below,Below,Above,1
+S2052,Below,Below,Below,0
+S2053,Below,Below,Below,0
+S2054,Below,Below,Below,0
+S2055,Below,Below,Below,0
+S2056,Above,Above,Above,3
+S2057,Below,Above,Above,2
+S2058,Below,Below,Below,0
+S2059,Below,Below,Below,0
+S206,Above,No Sample,Above,2
+S2060,Below,Below,Below,0
+S2061,Below,Below,Below,0
+S2062,Below,Below,Below,0
+S2063,Below,Below,Below,0
+S2064,Below,Below,Below,0
+S2065,Below,Below,Below,0
+S2066,Below,Below,Below,0
+S2067,Below,Below,Below,0
+S2068,Below,Below,Below,0
+S2069,Below,Below,Below,0
+S207,Above,No Sample,Above,2
+S2070,Below,No Sample,Above,1
+S2071,Above,No Sample,Above,2
+S2072,Below,No Sample,Below,0
+S2073,Below,Below,Below,0
+S2074,Below,No Sample,Above,1
+S2075,Below,No Sample,Below,0
+S2076,Below,Below,Below,0
+S2077,Above,Below,Above,2
+S2078,Below,No Sample,Below,0
+S2079,Below,No Sample,Below,0
+S208,Above,No Sample,Above,2
+S2080,Above,No Sample,Below,1
+S2081,Below,No Sample,Below,0
+S2082,Above,No Sample,Above,2
+S2083,Above,No Sample,Below,1
+S2084,Below,Below,Below,0
+S2086,Above,No Sample,Below,1
+S2087,Below,Below,Below,0
+S2088,Below,No Sample,Below,0
+S2089,Above,No Sample,Below,1
+S209,Above,No Sample,Above,2
+S2090,Below,No Sample,Below,0
+S2091,Above,No Sample,Below,1
+S2092,Below,No Sample,Below,0
+S2093,Below,No Sample,Below,0
+S2094,Below,No Sample,Below,0
+S2095,Below,No Sample,Below,0
+S2096,Below,No Sample,Below,0
+S2097,Below,No Sample,Below,0
+S2098,Below,No Sample,Below,0
+S2099,Below,No Sample,Below,0
+S210,Below,No Sample,Below,0
+S2100,Below,No Sample,Below,0
+S2101,Below,No Sample,Below,0
+S2102,Below,No Sample,Below,0
+S2103,Below,No Sample,Below,0
+S2104,Below,No Sample,Below,0
+S2105,Below,Below,Below,0
+S2106,Below,No Sample,Below,0
+S2107,Below,No Sample,Below,0
+S2108,Below,No Sample,Below,0
+S2109,Below,No Sample,Below,0
+S211,Below,Below,Above,1
+S2110,Above,No Sample,Above,2
+S212,Below,No Sample,Above,1
+S2126,Below,No Sample,Below,0
+S2127,Below,Below,Below,0
+S2128,Below,Below,Below,0
+S2129,Below,Below,Below,0
+S213,Below,No Sample,Below,0
+S2130,Below,Below,Below,0
+S2131,Below,Below,Below,0
+S2132,Below,Below,Below,0
+S2133,Below,Below,Below,0
+S2134,Below,No Sample,Below,0
+S2135,Below,Below,Below,0
+S2136,Below,Below,Below,0
+S2137,Below,Below,Below,0
+S2138,Below,Below,Below,0
+S2139,Below,Below,Below,0
+S214,Below,No Sample,Below,0
+S2140,Below,Below,Below,0
+S2142,Above,Above,Below,2
+S2143,Below,Below,Below,0
+S2144,Below,Below,Below,0
+S2145,Below,Below,Below,0
+S2146,Below,Below,Below,0
+S2147,Below,Below,Below,0
+S2148,Below,Below,Below,0
+S215,Below,No Sample,Below,0
+S2154,Below,No Sample,Below,0
+S2155,Below,No Sample,Below,0
+S2156,Below,No Sample,Below,0
+S2157,Below,No Sample,Below,0
+S2158,Below,No Sample,Below,0
+S216,Below,No Sample,Below,0
+S2160,Above,Below,Below,1
+S2161,Below,Below,Below,0
+S2162,Below,Below,Below,0
+S2163,Below,Below,Below,0
+S2164,Below,Below,Below,0
+S2165,Below,Below,Above,1
+S2166,Below,Below,Below,0
+S2169,Below,Below,Below,0
+S217,Below,No Sample,Below,0
+S2170,Below,Above,Below,1
+S2171,Below,Below,Below,0
+S2172,Below,No Sample,Below,0
+S2173,Below,No Sample,Below,0
+S2174,Below,No Sample,Below,0
+S2175,Below,No Sample,Below,0
+S2176,Below,No Sample,Below,0
+S2177,Below,No Sample,Below,0
+S2178,Below,No Sample,Below,0
+S2179,Below,No Sample,Below,0
+S218,Below,No Sample,Below,0
+S2180,Below,No Sample,Below,0
+S2181,Below,No Sample,Below,0
+S2182,Below,No Sample,Below,0
+S2183,Below,No Sample,Below,0
+S2185,Below,No Sample,Below,0
+S2186,Below,No Sample,No Sample,0
+S2187,Below,No Sample,Below,0
+S2188,Below,No Sample,Below,0
+S2189,Below,No Sample,Below,0
+S219,Below,Below,Below,0
+S2190,Below,No Sample,Below,0
+S2191,Below,No Sample,Below,0
+S2192,Below,No Sample,Below,0
+S2193,Below,No Sample,Below,0
+S2194,Below,No Sample,Below,0
+S2195,Below,No Sample,No Sample,0
+S2196,Below,No Sample,Below,0
+S2197,Below,No Sample,No Sample,0
+S2198,Below,No Sample,No Sample,0
+S2199,Below,No Sample,Below,0
+S2200,Below,Below,Below,0
+S2201,Below,Below,Below,0
+S2202,Below,Below,Below,0
+S2203,Below,Below,Below,0
+S2204,Below,Below,Below,0
+S2205,Below,Below,Below,0
+S2206,Below,Below,Below,0
+S2207,Below,Below,Below,0
+S2208,Below,Below,Below,0
+S2209,Below,Below,Below,0
+S221,Below,Above,Above,2
+S2210,Below,Below,Below,0
+S2211,Below,Below,Below,0
+S2212,Below,Below,Below,0
+S2213,Below,Below,Below,0
+S2214,Below,Below,Below,0
+S2215,Below,Below,Below,0
+S2216,Below,Below,Above,1
+S2217,Below,Below,Below,0
+S2218,Below,Below,Below,0
+S2219,Below,Below,Below,0
+S222,Below,Below,Below,0
+S2220,Above,Below,Below,1
+S2221,Below,Below,Below,0
+S2222,Below,Below,Below,0
+S2223,Below,Below,Below,0
+S2224,Below,Below,Below,0
+S2225,Below,Below,Below,0
+S2226,Below,Below,Below,0
+S2227,Below,Below,Below,0
+S2228,Below,Below,Below,0
+S2229,Below,Below,Below,0
+S223,Below,Below,Below,0
+S2230,Below,Below,Below,0
+S2231,Below,Below,Below,0
+S2232,Below,Below,Below,0
+S2233,Below,Below,Below,0
+S2234,Below,Below,Below,0
+S2235,Below,Below,Below,0
+S2239,Below,Below,Below,0
+S224,Below,Below,Below,0
+S2240,Below,Below,Below,0
+S2241,Below,Below,Below,0
+S2242,Below,Below,Below,0
+S2243,Below,Below,Below,0
+S2244,Below,Below,Below,0
+S2245,Above,Above,Below,2
+S2246,Below,Below,Below,0
+S2247,Below,Above,Above,2
+S2248,Below,Below,Below,0
+S2249,Above,Above,Below,2
+S225,Below,Below,Below,0
+S2250,Below,Below,Below,0
+S2251,Below,Below,Below,0
+S2252,Below,Above,Below,1
+S2253,Below,Above,Below,1
+S2254,Below,Above,Below,1
+S2255,Below,Above,Below,1
+S226,Below,Below,Below,0
+S227,Below,Below,Below,0
+S228,Above,Above,Below,2
+S229,Above,Above,Above,3
+S230,Below,Below,Below,0
+S231,Below,Below,Below,0
+S232,Below,Above,Above,2
+S233,Above,Below,Below,1
+S234,Above,No Sample,Below,1
+S235,Above,Above,Above,3
+S236,Above,Above,Above,3
+S237,Below,Below,Below,0
+S238,Below,Below,Below,0
+S239,Below,Above,Above,2
+S240,Below,Above,Below,1
+S241,Below,Below,Below,0
+S242,Below,Below,Below,0
+S243,Below,Above,Above,2
+S244,Above,Below,Below,1
+S245,Below,Below,Below,0
+S246,Below,Above,Above,2
+S247,Above,Below,Below,1
+S248,Below,Below,Below,0
+S249,Below,Above,Above,2
+S250,Above,Above,Below,2
+S251,Below,Below,Below,0
+S252,Above,Below,Below,1
+S253,Below,Below,Below,0
+S254,Below,Below,Above,1
+S255,Above,Above,Below,2
+S256,Below,Above,Above,2
+S257,Below,Below,Below,0
+S258,Below,Above,Below,1
+S259,Below,Above,Below,1
+S260,Below,No Sample,Below,0
+S261,Above,Above,Above,3
+S262,Above,No Sample,Above,2
+S263,Below,No Sample,Below,0
+S264,Above,Below,Below,1
+S265,Below,Below,Below,0
+S266,Below,No Sample,Below,0
+S267,Below,No Sample,Below,0
+S268,Above,Below,Above,2
+S269,Above,No Sample,Below,1
+S270,Above,No Sample,No Sample,1
+S271,Above,No Sample,No Sample,1
+S272,Below,Below,Below,0
+S273,Below,Below,Below,0
+S274,Below,Below,Below,0
+S275,Below,Above,Below,1
+S276,Below,Below,Below,0
+S277,Below,Below,Below,0
+S278,Below,Below,Below,0
+S279,Below,Below,Below,0
+S280,Below,Below,Below,0
+S281,Below,Below,Below,0
+S282,Below,Below,Below,0
+S283,Below,Below,Below,0
+S284,Below,Below,Below,0
+S285,Below,Above,Below,1
+S286,Below,Above,Below,1
+S287,Above,Above,Below,2
+S288,Below,Below,Below,0
+S289,Below,Above,Above,2
+S290,Below,Below,Below,0
+S291,Below,Below,Below,0
+S292,Below,Above,Above,2
+S293,Above,Above,Below,2
+S294,Below,Above,Below,1
+S295,Above,Below,Below,1
+S296,Below,Below,Below,0
+S297,Below,Below,Below,0
+S298,Below,Below,Below,0
+S299,Below,Above,Below,1
+S3,Below,No Sample,No Sample,0
+S300,Below,Above,Below,1
+S301,Below,Below,Below,0
+S302,Below,Above,Below,1
+S303,Above,Above,Above,3
+S304,Above,Above,Above,3
+S305,Below,Below,Below,0
+S306,Below,Above,Below,1
+S307,Above,Below,Above,2
+S308,Below,Below,Below,0
+S309,Below,Below,Below,0
+S310,Below,Below,Below,0
+S311,Below,Above,Above,2
+S312,Below,Below,Below,0
+S313,Below,Above,Below,1
+S314,Below,Below,Below,0
+S315,Below,Below,Below,0
+S316,Below,Above,Below,1
+S317,Above,Below,Below,1
+S318,Below,Below,Below,0
+S319,Below,Above,Below,1
+S320,Above,Above,Below,2
+S321,Below,Above,Below,1
+S322,Below,Below,Below,0
+S323,Below,Below,Below,0
+S324,Below,Below,Below,0
+S325,Below,Below,Below,0
+S326,Below,Below,Below,0
+S327,Below,Below,Below,0
+S328,Below,Below,Below,0
+S329,Below,Below,Below,0
+S330,Below,Above,Below,1
+S331,Below,Below,Below,0
+S332,Below,Below,Below,0
+S333,Below,Below,Below,0
+S334,Below,Below,Below,0
+S335,Below,Below,Below,0
+S336,Below,Below,Below,0
+S337,Above,Above,Below,2
+S338,Below,Below,Below,0
+S339,Below,Below,Below,0
+S340,Above,Above,Below,2
+S341,Below,Below,Below,0
+S342,Below,Below,Below,0
+S343,Below,Below,Below,0
+S344,Below,Below,Below,0
+S345,Below,Below,Below,0
+S346,Below,Below,Below,0
+S347,Below,Above,Below,1
+S348,Below,Below,Below,0
+S349,Below,Below,Below,0
+S350,Below,Below,Below,0
+S351,Above,Above,Below,2
+S352,Below,Below,Below,0
+S353,Below,Below,Below,0
+S354,Below,Below,Below,0
+S355,Below,Below,Below,0
+S356,Below,Below,Below,0
+S357,Above,Above,Below,2
+S358,Below,Below,Below,0
+S359,Above,Above,Below,2
+S360,Above,Above,Below,2
+S361,Above,Above,Below,2
+S362,Below,Above,Below,1
+S363,Below,Below,Below,0
+S364,Below,Below,Below,0
+S365,Below,Below,Below,0
+S366,Below,Below,Below,0
+S367,Below,Below,Below,0
+S368,Below,Below,Below,0
+S369,Below,Below,Below,0
+S370,Below,Below,Below,0
+S371,Below,Below,Below,0
+S372,Below,Below,Below,0
+S373,Below,Below,Below,0
+S374,Below,Below,Below,0
+S375,Below,Below,Below,0
+S376,Below,Below,Below,0
+S377,Above,Below,Below,1
+S378,Below,Below,Below,0
+S379,Below,Below,Above,1
+S380,Below,Below,Below,0
+S381,Above,Below,Below,1
+S382,Below,Below,Below,0
+S383,Below,Below,Below,0
+S384,Below,Below,Above,1
+S385,Below,Below,Above,1
+S386,Below,Below,Below,0
+S387,Below,Below,Below,0
+S388,Below,Above,Above,2
+S389,Below,Below,Above,1
+S390,Below,Below,Below,0
+S391,Below,Above,Below,1
+S392,Below,Below,Below,0
+S393,Below,Below,Below,0
+S394,Below,Below,Below,0
+S395,Below,Below,Below,0
+S396,Below,Below,Below,0
+S397,Below,Below,Below,0
+S398,Below,Below,Below,0
+S399,Below,Below,Below,0
+S4,Below,Below,Below,0
+S400,Below,Below,Below,0
+S401,Below,Below,Below,0
+S402,Below,Below,Below,0
+S403,Below,Below,Below,0
+S404,Below,Below,Below,0
+S405,Below,Below,Below,0
+S406,Below,Below,Below,0
+S407,Below,Above,Below,1
+S408,Below,Above,Below,1
+S409,Below,Below,Below,0
+S410,Below,Below,Below,0
+S411,Below,Below,Below,0
+S412,Below,Below,Below,0
+S413,Below,Below,Below,0
+S414,Below,Below,Below,0
+S415,Below,Below,Below,0
+S416,Below,Below,Below,0
+S417,Below,Below,Below,0
+S418,Below,Below,Below,0
+S419,Below,Below,Below,0
+S420,Below,Below,Below,0
+S421,Below,Below,Below,0
+S422,Below,Below,Below,0
+S423,Below,Below,Below,0
+S424,Above,Above,Above,3
+S425,Below,Above,Below,1
+S426,Below,Above,Below,1
+S427,Above,Below,Below,1
+S428,Above,No Sample,Below,1
+S429,Above,Below,No Sample,1
+S430,Above,Below,Above,2
+S431,Above,Above,Above,3
+S432,Below,Below,Above,1
+S433,Below,Below,Below,0
+S434,Below,Below,Below,0
+S436,Above,No Sample,Above,2
+S437,Below,Below,Above,1
+S438,Above,No Sample,Above,2
+S439,Below,Above,Below,1
+S442,Below,No Sample,Below,0
+S443,Below,Below,Below,0
+S470,Below,Below,Below,0
+S471,Above,Above,Below,2
+S472,Above,Above,Above,3
+S473,Below,Above,Above,2
+S475,Below,No Sample,No Sample,0
+S476,Below,No Sample,No Sample,0
+S477,Above,No Sample,No Sample,1
+S481,Below,No Sample,No Sample,0
+S483,Below,Below,Below,0
+S484,Above,Above,Above,3
+S485,Above,Above,No Sample,2
+S486,Below,Above,Below,1
+S487,Above,Above,Below,2
+S488,Below,Below,Below,0
+S491,Below,No Sample,Below,0
+S492,Above,Above,Below,2
+S493,Above,No Sample,Below,1
+S494,Below,Above,Below,1
+S496,Below,Below,Below,0
+S497,Below,Below,Above,1
+S499,Below,Above,No Sample,1
+S5,Below,Below,Above,1
+S500,Above,Above,No Sample,2
+S503,Above,No Sample,Above,2
+S504,Below,No Sample,Above,1
+S505,Below,No Sample,Above,1
+S508,Below,Above,Below,1
+S509,Below,Below,Below,0
+S510,Below,Below,Below,0
+S511,Below,Below,Below,0
+S512,Below,Below,Below,0
+S513,Below,Below,Below,0
+S514,Below,Below,Below,0
+S515,Below,Above,Below,1
+S516,Below,Below,Below,0
+S517,Below,Above,Below,1
+S518,Below,Below,Below,0
+S519,Below,Below,Below,0
+S577,Below,Below,Below,0
+S578,Below,Below,Below,0
+S579,Above,Above,Above,3
+S580,Below,Above,Below,1
+S581,Below,Below,Below,0
+S582,Below,Below,Below,0
+S583,Below,Below,Below,0
+S584,Below,Below,Below,0
+S585,Below,Below,Below,0
+S586,Below,Below,Below,0
+S587,Below,Below,Below,0
+S588,Below,Below,Below,0
+S589,Below,Below,Below,0
+S590,Below,Below,Below,0
+S591,Below,Below,Below,0
+S592,Below,Below,Below,0
+S593,Below,Below,Below,0
+S594,Below,Below,Below,0
+S595,Below,Below,Below,0
+S597,Above,No Sample,No Sample,1
+S598,Above,No Sample,No Sample,1
+S599,Above,No Sample,No Sample,1
+S6,Below,Below,Below,0
+S60,Below,Below,Below,0
+S600,Above,No Sample,No Sample,1
+S601,Below,Below,Below,0
+S602,Below,Below,Below,0
+S603,Below,Below,Below,0
+S607,Below,Below,Below,0
+S608,Above,Below,Below,1
+S609,Above,Below,Below,1
+S61,Below,Below,Below,0
+S610,Below,Below,Above,1
+S611,Above,Below,Above,2
+S612,Below,Below,Above,1
+S613,Below,Below,Above,1
+S614,Above,Below,Above,2
+S615,Below,Below,Above,1
+S616,Below,Below,Above,1
+S618,Below,Below,Below,0
+S619,Below,Below,Below,0
+S62,Below,Below,Below,0
+S620,Below,Below,Below,0
+S621,Below,Above,Below,1
+S622,Below,Below,Above,1
+S629,Below,Below,Below,0
+S63,Below,Below,Below,0
+S634,Below,Below,Above,1
+S635,Below,Below,Above,1
+S636,Below,Below,Below,0
+S637,Below,Below,Above,1
+S638,Below,Below,Above,1
+S639,Below,Below,Below,0
+S64,Below,Below,Below,0
+S641,Below,Below,Below,0
+S642,Below,Below,Below,0
+S643,Below,Below,Below,0
+S644,Below,Below,Below,0
+S646,Below,Below,Above,1
+S647,Below,Below,Below,0
+S648,Above,Above,Above,3
+S649,Above,Below,Above,2
+S65,Below,Below,Below,0
+S650,Below,Below,Above,1
+S651,Below,Below,Above,1
+S652,Below,Above,Below,1
+S653,Below,Below,Above,1
+S654,Above,Above,Above,3
+S656,Below,Below,Above,1
+S658,Below,Below,Below,0
+S659,Below,Below,Above,1
+S66,Below,Below,Below,0
+S660,Above,No Sample,Above,2
+S661,Below,No Sample,No Sample,0
+S662,Above,No Sample,No Sample,1
+S663,Above,No Sample,Above,2
+S664,Below,Below,Below,0
+S665,Below,Above,Above,2
+S67,Above,Below,Below,1
+S68,Below,Below,Below,0
+S689,Below,No Sample,Above,1
+S69,Above,Above,Below,2
+S691,Above,No Sample,Above,2
+S695,Below,No Sample,Above,1
+S696,Above,No Sample,No Sample,1
+S697,Above,No Sample,Above,2
+S70,Below,Above,Below,1
+S702,Above,No Sample,Above,2
+S703,Above,No Sample,Above,2
+S704,Above,No Sample,Above,2
+S707,Below,No Sample,No Sample,0
+S709,Above,No Sample,Above,2
+S71,Below,Above,Below,1
+S710,Above,No Sample,No Sample,1
+S711,Above,No Sample,Below,1
+S712,Above,No Sample,No Sample,1
+S713,Above,No Sample,Above,2
+S714,Below,No Sample,No Sample,0
+S72,Below,Below,Below,0
+S724,Above,No Sample,Above,2
+S725,Above,No Sample,Above,2
+S726,Below,No Sample,No Sample,0
+S727,Above,No Sample,Above,2
+S73,Below,Below,Below,0
+S734,Above,Below,Above,2
+S735,Below,Below,Above,1
+S736,Above,Above,Above,3
+S737,Below,Below,Above,1
+S738,Above,Above,Above,3
+S739,Below,Below,Above,1
+S74,Below,Below,Below,0
+S740,Below,Below,Above,1
+S741,Below,Above,Above,2
+S742,Below,Above,Above,2
+S743,Below,Below,Above,1
+S744,Below,Below,Above,1
+S745,Above,Below,Above,2
+S746,Below,Below,Above,1
+S747,Below,Below,Above,1
+S748,Below,Below,Above,1
+S749,Above,Above,Above,3
+S75,Below,Below,Below,0
+S750,Below,Below,Above,1
+S751,Above,Above,Above,3
+S752,Below,Below,Above,1
+S753,Below,Below,Above,1
+S754,Above,Above,Above,3
+S755,Below,Below,Above,1
+S756,Below,Below,Above,1
+S757,Below,Below,Above,1
+S758,Above,Above,Above,3
+S759,Below,Below,Above,1
+S76,Below,Below,Below,0
+S760,Above,Below,Above,2
+S761,Above,Above,Above,3
+S762,Below,Below,Above,1
+S763,Above,Above,Above,3
+S764,Above,Below,Above,2
+S765,Below,Below,Above,1
+S766,Below,Below,Above,1
+S767,Below,Below,Above,1
+S768,Below,Above,Above,2
+S769,Below,Below,Above,1
+S77,Below,Below,Below,0
+S770,Above,Above,Above,3
+S771,Above,Above,Above,3
+S772,Above,Above,Above,3
+S773,Below,Above,Above,2
+S78,Below,Below,Below,0
+S79,Below,Below,Below,0
+S80,Below,Below,Below,0
+S81,Below,Below,Below,0
+S82,Below,Below,Below,0
+S83,Below,Below,Below,0
+S833,Above,No Sample,No Sample,1
+S834,Above,No Sample,No Sample,1
+S836,Above,No Sample,No Sample,1
+S837,Above,No Sample,No Sample,1
+S84,Below,Below,Below,0
+S840,Above,No Sample,No Sample,1
+S842,Above,No Sample,No Sample,1
+S844,Above,No Sample,No Sample,1
+S85,Below,Below,Below,0
+S852,Below,No Sample,No Sample,0
+S853,Above,No Sample,No Sample,1
+S854,Above,No Sample,No Sample,1
+S855,Above,No Sample,No Sample,1
+S856,Above,No Sample,No Sample,1
+S857,Above,No Sample,No Sample,1
+S858,Above,No Sample,No Sample,1
+S859,Above,No Sample,No Sample,1
+S86,Below,Below,Below,0
+S860,Above,No Sample,No Sample,1
+S863,Below,Below,Below,0
+S87,Below,Below,Below,0
+S871,Below,No Sample,Above,1
+S88,Below,Below,Below,0
+S880,Above,No Sample,Above,2
+S881,Above,No Sample,No Sample,1
+S884,Below,No Sample,Below,0
+S885,Above,No Sample,Below,1
+S886,Above,No Sample,No Sample,1
+S889,Below,No Sample,Above,1
+S89,Below,Below,Below,0
+S890,Above,No Sample,No Sample,1
+S891,Below,No Sample,Above,1
+S892,Above,No Sample,Below,1
+S894,Above,No Sample,Above,2
+S895,Above,No Sample,Above,2
+S899,Above,No Sample,No Sample,1
+S90,Below,Below,Below,0
+S900,Above,No Sample,No Sample,1
+S901,Above,No Sample,No Sample,1
+S902,Above,No Sample,No Sample,1
+S903,Below,No Sample,No Sample,0
+S904,Above,No Sample,No Sample,1
+S905,Below,No Sample,No Sample,0
+S906,Below,No Sample,No Sample,0
+S907,Below,No Sample,Above,1
+S908,Above,No Sample,Above,2
+S909,Above,No Sample,Below,1
+S91,Below,Below,Below,0
+S910,Below,No Sample,Below,0
+S911,Above,No Sample,Below,1
+S912,Below,No Sample,Below,0
+S913,Below,No Sample,No Sample,0
+S914,Below,No Sample,Above,1
+S915,Below,Below,Below,0
+S916,Below,Below,Below,0
+S917,Below,Below,Below,0
+S918,Below,Below,Below,0
+S919,Below,Below,Below,0
+S92,Below,Below,Below,0
+S920,Below,Below,Below,0
+S921,Below,Below,Below,0
+S922,Below,Below,Below,0
+S923,Below,Below,Below,0
+S924,Below,Below,Below,0
+S925,Below,Above,Below,1
+S926,Below,Above,Below,1
+S927,Below,Above,Below,1
+S928,Below,Below,Below,0
+S929,Below,Below,Below,0
+S93,Below,Below,Below,0
+S930,Below,Below,Below,0
+S931,Below,Below,Below,0
+S932,Below,Below,Below,0
+S933,Below,Above,Below,1
+S934,Below,Below,Below,0
+S935,Below,Below,Below,0
+S936,Below,Below,Below,0
+S937,Below,Below,Below,0
+S939,Above,Above,Below,2
+S94,Below,Below,Below,0
+S940,Below,Above,Above,2
+S941,Below,Below,Below,0
+S942,Below,Below,Above,1
+S943,Below,Above,Below,1
+S944,Below,Below,Below,0
+S945,Below,Below,Below,0
+S946,Below,Below,Below,0
+S947,Below,Below,Below,0
+S948,Below,Below,Below,0
+S949,Above,Below,Below,1
+S95,Below,Below,Below,0
+S950,Below,Below,Below,0
+S951,Below,Below,Below,0
+S952,Below,Below,Below,0
+S953,Below,Below,Below,0
+S954,Below,Below,Below,0
+S955,Below,Below,Below,0
+S956,Below,Below,Below,0
+S957,Below,Below,Below,0
+S958,Below,Below,Below,0
+S959,Below,Below,Below,0
+S96,Below,Below,Below,0
+S960,Below,Below,Below,0
+S961,Below,Below,Below,0
+S962,Below,Below,Below,0
+S963,Below,Below,Above,1
+S964,Below,Below,Below,0
+S965,Below,Above,Below,1
+S966,Below,Below,Below,0
+S967,Below,Below,Below,0
+S968,Below,Below,Above,1
+S969,Below,Above,Below,1
+S97,Below,Below,Below,0
+S970,Below,Below,Below,0
+S971,Below,Below,Below,0
+S972,Above,Below,Below,1
+S973,Below,Below,Below,0
+S974,Below,Below,Below,0
+S975,Below,Below,Below,0
+S976,Below,Below,Below,0
+S977,Below,Below,Below,0
+S978,Below,Below,Below,0
+S979,Below,Above,Below,1
+S98,Below,Below,Below,0
+S980,Below,Above,Above,2
+S981,Below,Above,Below,1
+S982,Below,Above,Above,2
+S983,Below,Below,Below,0
+S984,Below,Below,Below,0
+S985,Below,Below,Below,0
+S986,Below,Above,Above,2
+S99,Below,Below,Below,0
+S991,Above,Above,Above,3
+S999,Below,Below,Below,0
+S10,No Sample,No Sample,Below,0
+S103,No Sample,No Sample,Below,0
+S104,No Sample,No Sample,Below,0
+S11,No Sample,No Sample,Below,0
+S110,No Sample,No Sample,Below,0
+S111,No Sample,No Sample,Below,0
+S12,No Sample,No Sample,Below,0
+S13,No Sample,No Sample,Below,0
+S1305,No Sample,No Sample,Below,0
+S14,No Sample,No Sample,Below,0
+S1434,No Sample,No Sample,Above,1
+S1435,No Sample,No Sample,Above,1
+S1438,No Sample,No Sample,Below,0
+S1441,No Sample,No Sample,Above,1
+S1465,No Sample,No Sample,Above,1
+S1466,No Sample,No Sample,Above,1
+S1468,No Sample,No Sample,Below,0
+S1470,No Sample,No Sample,Above,1
+S1471,No Sample,No Sample,Above,1
+S1472,No Sample,No Sample,Below,0
+S1473,No Sample,No Sample,Above,1
+S1474,No Sample,No Sample,Above,1
+S1475,No Sample,No Sample,Above,1
+S1485,No Sample,No Sample,Below,0
+S15,No Sample,No Sample,Below,0
+S1550,No Sample,No Sample,Below,0
+S1611,No Sample,No Sample,Above,1
+S1612,No Sample,No Sample,Above,1
+S1613,No Sample,No Sample,Above,1
+S1614,No Sample,No Sample,Above,1
+S1615,No Sample,No Sample,Below,0
+S1616,No Sample,No Sample,Below,0
+S1618,No Sample,No Sample,Below,0
+S1619,No Sample,No Sample,Below,0
+S1620,No Sample,No Sample,Above,1
+S1621,No Sample,No Sample,Above,1
+S1635,No Sample,No Sample,Below,0
+S1636,No Sample,No Sample,Below,0
+S1637,No Sample,No Sample,Below,0
+S1638,No Sample,No Sample,Below,0
+S168,No Sample,No Sample,Below,0
+S169,No Sample,No Sample,Below,0
+S170,No Sample,No Sample,Below,0
+S1720,No Sample,No Sample,Below,0
+S1721,No Sample,No Sample,Below,0
+S18,No Sample,No Sample,Below,0
+S1825,No Sample,No Sample,Above,1
+S1826,No Sample,No Sample,Above,1
+S1827,No Sample,No Sample,Below,0
+S1828,No Sample,No Sample,Above,1
+S1829,No Sample,No Sample,Above,1
+S1830,No Sample,No Sample,Above,1
+S1831,No Sample,No Sample,Below,0
+S1832,No Sample,No Sample,Above,1
+S1833,No Sample,No Sample,Below,0
+S1835,No Sample,No Sample,Above,1
+S1836,No Sample,No Sample,Above,1
+S1893,No Sample,No Sample,Above,1
+S1894,No Sample,No Sample,Above,1
+S1915,No Sample,No Sample,Below,0
+S1916,No Sample,No Sample,Below,0
+S1917,No Sample,No Sample,Above,1
+S1918,No Sample,No Sample,Below,0
+S1919,No Sample,No Sample,Below,0
+S1920,No Sample,No Sample,Above,1
+S1981,No Sample,No Sample,Below,0
+S2085,No Sample,No Sample,Below,0
+S21,No Sample,No Sample,Below,0
+S2111,No Sample,No Sample,Below,0
+S2112,No Sample,No Sample,Below,0
+S2113,No Sample,No Sample,Below,0
+S2114,No Sample,No Sample,Below,0
+S2115,No Sample,No Sample,Below,0
+S2116,No Sample,No Sample,Below,0
+S2117,No Sample,No Sample,Below,0
+S2118,No Sample,No Sample,Below,0
+S2119,No Sample,No Sample,Below,0
+S2120,No Sample,No Sample,Below,0
+S2121,No Sample,No Sample,Below,0
+S2122,No Sample,No Sample,Below,0
+S2123,No Sample,No Sample,Below,0
+S2124,No Sample,No Sample,Below,0
+S2125,No Sample,No Sample,Below,0
+S2141,No Sample,No Sample,Below,0
+S2149,No Sample,No Sample,Below,0
+S2150,No Sample,No Sample,Below,0
+S2151,No Sample,No Sample,Below,0
+S2152,No Sample,No Sample,Below,0
+S2153,No Sample,No Sample,Below,0
+S2159,No Sample,No Sample,Above,1
+S2167,No Sample,No Sample,Below,0
+S2168,No Sample,No Sample,Below,0
+S2184,No Sample,No Sample,Below,0
+S2236,No Sample,No Sample,Below,0
+S2237,No Sample,No Sample,Below,0
+S2238,No Sample,No Sample,Below,0
+S27,No Sample,No Sample,Below,0
+S31,No Sample,No Sample,Below,0
+S32,No Sample,No Sample,Below,0
+S38,No Sample,No Sample,Above,1
+S39,No Sample,No Sample,Below,0
+S40,No Sample,No Sample,Below,0
+S41,No Sample,No Sample,Below,0
+S435,No Sample,No Sample,Below,0
+S44,No Sample,No Sample,Below,0
+S444,No Sample,Below,Below,0
+S445,No Sample,Below,Below,0
+S474,No Sample,Above,Below,1
+S480,No Sample,No Sample,Below,0
+S482,No Sample,No Sample,Below,0
+S49,No Sample,No Sample,Below,0
+S495,No Sample,Below,Below,0
+S498,No Sample,Below,Above,1
+S501,No Sample,Below,Below,0
+S502,No Sample,Below,Above,1
+S506,No Sample,No Sample,Below,0
+S507,No Sample,No Sample,Below,0
+S521,No Sample,No Sample,Below,0
+S522,No Sample,No Sample,Below,0
+S523,No Sample,No Sample,Above,1
+S524,No Sample,No Sample,Above,1
+S525,No Sample,No Sample,Above,1
+S526,No Sample,No Sample,Above,1
+S527,No Sample,No Sample,Below,0
+S528,No Sample,No Sample,Above,1
+S532,No Sample,No Sample,Above,1
+S533,No Sample,No Sample,Below,0
+S534,No Sample,No Sample,Below,0
+S535,No Sample,No Sample,Below,0
+S536,No Sample,No Sample,Above,1
+S537,No Sample,No Sample,Above,1
+S538,No Sample,No Sample,Below,0
+S539,No Sample,No Sample,Above,1
+S54,No Sample,No Sample,Below,0
+S540,No Sample,No Sample,Above,1
+S541,No Sample,No Sample,Above,1
+S543,No Sample,No Sample,Below,0
+S544,No Sample,No Sample,Below,0
+S545,No Sample,No Sample,Below,0
+S546,No Sample,No Sample,Below,0
+S547,No Sample,No Sample,Above,1
+S548,No Sample,No Sample,Below,0
+S549,No Sample,No Sample,Below,0
+S55,No Sample,No Sample,Below,0
+S550,No Sample,No Sample,Below,0
+S551,No Sample,No Sample,Below,0
+S552,No Sample,No Sample,Below,0
+S553,No Sample,No Sample,Above,1
+S554,No Sample,No Sample,Below,0
+S555,No Sample,No Sample,Below,0
+S556,No Sample,No Sample,Above,1
+S557,No Sample,No Sample,Above,1
+S558,No Sample,No Sample,Above,1
+S559,No Sample,No Sample,Above,1
+S56,No Sample,No Sample,Below,0
+S560,No Sample,No Sample,Above,1
+S561,No Sample,No Sample,Above,1
+S562,No Sample,No Sample,Above,1
+S563,No Sample,No Sample,Above,1
+S564,No Sample,No Sample,Above,1
+S565,No Sample,No Sample,Below,0
+S566,No Sample,No Sample,Above,1
+S567,No Sample,No Sample,Above,1
+S568,No Sample,No Sample,Above,1
+S57,No Sample,No Sample,Below,0
+S570,No Sample,No Sample,Below,0
+S571,No Sample,No Sample,Below,0
+S572,No Sample,No Sample,Below,0
+S573,No Sample,No Sample,Above,1
+S574,No Sample,No Sample,Below,0
+S575,No Sample,No Sample,Below,0
+S576,No Sample,No Sample,Above,1
+S58,No Sample,No Sample,Below,0
+S59,No Sample,No Sample,Below,0
+S604,No Sample,No Sample,Below,0
+S617,No Sample,No Sample,Above,1
+S623,No Sample,No Sample,Below,0
+S624,No Sample,No Sample,Below,0
+S625,No Sample,No Sample,Below,0
+S626,No Sample,No Sample,Below,0
+S627,No Sample,No Sample,Below,0
+S628,No Sample,No Sample,Below,0
+S630,No Sample,No Sample,Below,0
+S631,No Sample,No Sample,Below,0
+S632,No Sample,No Sample,Below,0
+S633,No Sample,No Sample,Above,1
+S640,No Sample,Above,Below,1
+S645,No Sample,Below,Below,0
+S655,No Sample,No Sample,Below,0
+S657,No Sample,Above,Below,1
+S666,No Sample,No Sample,Above,1
+S667,No Sample,No Sample,Above,1
+S668,No Sample,No Sample,Above,1
+S670,No Sample,No Sample,Above,1
+S671,No Sample,No Sample,Above,1
+S672,No Sample,No Sample,Above,1
+S673,No Sample,No Sample,Above,1
+S674,No Sample,No Sample,Above,1
+S675,No Sample,No Sample,Above,1
+S676,No Sample,No Sample,Below,0
+S677,No Sample,No Sample,Below,0
+S678,No Sample,No Sample,Above,1
+S679,No Sample,No Sample,Above,1
+S680,No Sample,No Sample,Above,1
+S681,No Sample,No Sample,Above,1
+S682,No Sample,No Sample,Above,1
+S684,No Sample,No Sample,Above,1
+S685,No Sample,No Sample,Above,1
+S686,No Sample,No Sample,Above,1
+S687,No Sample,No Sample,Above,1
+S688,No Sample,No Sample,Above,1
+S690,No Sample,No Sample,Above,1
+S692,No Sample,No Sample,Above,1
+S693,No Sample,No Sample,Above,1
+S694,No Sample,No Sample,Above,1
+S698,No Sample,No Sample,Above,1
+S699,No Sample,No Sample,Above,1
+S7,No Sample,No Sample,Below,0
+S700,No Sample,No Sample,Above,1
+S705,No Sample,No Sample,Above,1
+S706,No Sample,No Sample,Above,1
+S715,No Sample,No Sample,Above,1
+S716,No Sample,No Sample,Above,1
+S717,No Sample,No Sample,Above,1
+S718,No Sample,No Sample,Above,1
+S719,No Sample,No Sample,Above,1
+S720,No Sample,No Sample,Above,1
+S721,No Sample,No Sample,Above,1
+S723,No Sample,No Sample,Above,1
+S728,No Sample,No Sample,Above,1
+S729,No Sample,No Sample,Above,1
+S730,No Sample,No Sample,Above,1
+S731,No Sample,No Sample,Above,1
+S732,No Sample,No Sample,Above,1
+S733,No Sample,No Sample,Above,1
+S774,No Sample,No Sample,Below,0
+S775,No Sample,No Sample,Below,0
+S776,No Sample,No Sample,Above,1
+S777,No Sample,No Sample,Below,0
+S778,No Sample,No Sample,Above,1
+S779,No Sample,No Sample,Above,1
+S780,No Sample,No Sample,Below,0
+S781,No Sample,No Sample,Below,0
+S782,No Sample,No Sample,Below,0
+S783,No Sample,No Sample,Above,1
+S784,No Sample,No Sample,Below,0
+S785,No Sample,No Sample,Below,0
+S786,No Sample,No Sample,Below,0
+S787,No Sample,No Sample,Below,0
+S788,No Sample,No Sample,Below,0
+S789,No Sample,No Sample,Above,1
+S790,No Sample,No Sample,Below,0
+S791,No Sample,No Sample,Above,1
+S792,No Sample,Above,Below,1
+S794,No Sample,No Sample,Below,0
+S795,No Sample,No Sample,Below,0
+S797,No Sample,No Sample,Below,0
+S798,No Sample,No Sample,Above,1
+S799,No Sample,No Sample,Above,1
+S8,No Sample,No Sample,Below,0
+S800,No Sample,No Sample,Below,0
+S801,No Sample,No Sample,Below,0
+S802,No Sample,Above,Below,1
+S803,No Sample,Above,Below,1
+S804,No Sample,No Sample,Above,1
+S809,No Sample,No Sample,Below,0
+S810,No Sample,No Sample,Below,0
+S811,No Sample,No Sample,Below,0
+S812,No Sample,No Sample,Below,0
+S813,No Sample,No Sample,Below,0
+S814,No Sample,No Sample,Below,0
+S815,No Sample,No Sample,Above,1
+S816,No Sample,No Sample,Above,1
+S817,No Sample,No Sample,Below,0
+S818,No Sample,No Sample,Below,0
+S819,No Sample,No Sample,Below,0
+S820,No Sample,No Sample,Above,1
+S821,No Sample,No Sample,Above,1
+S822,No Sample,No Sample,Above,1
+S823,No Sample,No Sample,Above,1
+S824,No Sample,No Sample,Above,1
+S825,No Sample,No Sample,Above,1
+S826,No Sample,No Sample,Above,1
+S827,No Sample,No Sample,Above,1
+S828,No Sample,No Sample,Above,1
+S829,No Sample,No Sample,Above,1
+S830,No Sample,No Sample,Above,1
+S831,No Sample,No Sample,Above,1
+S832,No Sample,No Sample,Below,0
+S835,No Sample,No Sample,Above,1
+S838,No Sample,No Sample,Above,1
+S839,No Sample,No Sample,Above,1
+S841,No Sample,No Sample,Above,1
+S843,No Sample,No Sample,Below,0
+S845,No Sample,No Sample,Above,1
+S846,No Sample,No Sample,Above,1
+S847,No Sample,No Sample,Above,1
+S848,No Sample,No Sample,Above,1
+S849,No Sample,No Sample,Above,1
+S850,No Sample,No Sample,Below,0
+S851,No Sample,No Sample,Above,1
+S861,No Sample,No Sample,Below,0
+S862,No Sample,No Sample,Above,1
+S864,No Sample,No Sample,Above,1
+S865,No Sample,No Sample,Above,1
+S866,No Sample,No Sample,Above,1
+S867,No Sample,No Sample,Below,0
+S868,No Sample,No Sample,Above,1
+S869,No Sample,No Sample,Above,1
+S870,No Sample,No Sample,Above,1
+S872,No Sample,No Sample,Above,1
+S873,No Sample,No Sample,Below,0
+S874,No Sample,No Sample,Below,0
+S875,No Sample,No Sample,Above,1
+S876,No Sample,No Sample,Below,0
+S877,No Sample,No Sample,Above,1
+S879,No Sample,No Sample,Below,0
+S882,No Sample,No Sample,Below,0
+S883,No Sample,No Sample,Below,0
+S888,No Sample,No Sample,Below,0
+S893,No Sample,No Sample,Below,0
+S896,No Sample,No Sample,Above,1
+S897,No Sample,No Sample,Above,1
+S898,No Sample,No Sample,Below,0
+S9,No Sample,No Sample,Below,0
+S938,No Sample,No Sample,Above,1
+S987,No Sample,No Sample,Above,1
+S988,No Sample,No Sample,Above,1
+S989,No Sample,No Sample,Above,1
+S990,No Sample,No Sample,Above,1
+S994,No Sample,No Sample,Above,1
+S1476,No Sample,Above,No Sample,1
+S1477,No Sample,Below,No Sample,0
+S1480,No Sample,Above,No Sample,1
+S1481,No Sample,Above,No Sample,1
+S1482,No Sample,Above,No Sample,1
+S1536,No Sample,Below,No Sample,0
+S1537,No Sample,Below,No Sample,0
+S1538,No Sample,Above,No Sample,1
+S1539,No Sample,Above,No Sample,1
+S1609,No Sample,Above,No Sample,1
+S1610,No Sample,Above,No Sample,1
+S1617,No Sample,Above,No Sample,1
+S1967,No Sample,Below,No Sample,0
+S1968,No Sample,Below,No Sample,0
+S1969,No Sample,Above,No Sample,1
+S1970,No Sample,Above,No Sample,1
+S1971,No Sample,Above,No Sample,1
+S1972,No Sample,Below,No Sample,0
+S1973,No Sample,Below,No Sample,0
+S793,No Sample,Above,No Sample,1
+S805,No Sample,Above,No Sample,1
+S806,No Sample,Above,No Sample,1
