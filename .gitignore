@@ -2,5 +2,11 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
+
 /helper_functions/helper.py~RFc5b73.TMP
+
 /bin/helper.pyc
+#Visual Studio files
+*.sln
+*.pyproj
+*.suo
