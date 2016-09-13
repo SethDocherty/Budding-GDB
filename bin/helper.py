@@ -56,6 +56,23 @@ def Compare_Fields(fc1_path,fc2_path):
         return False
 
 
+
+def csv_to_table(input_csv, input_fc, selection_fields, ParentField, FigureExtentField,scratch_gdb):
+    #Extracting CSV stuff
+    csv_list = Extract_File_Records(input_csv,"No")
+    header = Space2Underscore(csv_list.pop(0))
+    fields = Extract_Input_fields_from_csv(selection_fields, ParentField, FigureExtentField)
+    field_index = get_column_index(header,fields)
+    csv_list = extract_list_columns(csv_list, field_index, "No")
+
+    #Creating blank table and appending csv list
+    name = "temp_csv_table"
+    header_fieldInfo = get_Data_Type_FromGIS(fields, input_fc)
+    Create_Empty_Table(header_fieldInfo, name, scratch_gdb)
+    Add_Records_to_Table(csv_list, os.path.join(scratch_gdb, name))
+    return os.path.join(scratch_gdb, name)
+
+
 def Delete_Values_From_FC(values_to_delete, key_field, FC, FC_Path):
     FC = str(FC) + "_Layer"
     Create_FL(FC,FC_Path,"")
@@ -118,6 +135,15 @@ def Extract_Table_Records(fc, fields=''):
                 records.append(row)
         return records
 
+
+def Extract_input_fields_from_csv(selection_fields, ParentField, FigureExtentField):
+    input_fields = selection_fields.split(";")
+    input_fields.append(ParentField)
+    if FigureExtentField:
+        input_fields.append(FigureExtentField)
+    return input_fields
+
+
 #Find out if a Feature Class exists
 def FC_Exist(FCname, DatasetPath, Template):
     FCpath = os.path.join(DatasetPath,FCname)
@@ -178,6 +204,22 @@ def Find_New_Features(Layer_To_Checkp, Initial_Checkp, Intermediate_Checkp, Fina
     arcpy.Delete_management(Intermediate_Check)
     arcpy.Delete_management(Initial_Check)
     arcpy.Delete_management(Layer_To_Check)
+
+
+def get_column_index(row_header,fields):
+    '''
+    Return a dictionary of field names as keys and the mapped column index for the field as the dictionary value.
+    '''
+    index_list = list()
+    for field in fields:
+        try:
+            index_list.append(row_header.index(field))
+        except ValueError:
+            arcpy.AddMessage(("{} does not exist in the header field list. Please make sure field is spelled correctly and in the header row.\n "
+                            "Exiting script.  Please correct errors and try again.").format(field))
+            print ("{} does not exist in the header field list. Please make sure field is spelled correctly and in the header row.\n "
+                            "Exiting script.  Please correct errors and try again.").format(field)
+    return index_list
 
 
 def Get_Field_Type(fc,field_to_check):
