@@ -142,22 +142,25 @@ def Update_Figures(Report_Sample, MasterSample, FigureExtent, FigureExtent_KeyFi
 try:
 
     Parent = arcpy.GetParameterAsText(0)
-    Child = arcpy.GetParameterAsText(1)
-    ParentTableField = arcpy.GetParameterAsText(2) #The Master/Source Feature Class
-    ChildTableField = arcpy.GetParameterAsText(3) #The Project/Target Feature Class
-    input_field = arcpy.GetParameterAsText(4)
-    scratch_path = arcpy.GetParameterAsText(5)
+    scratch_gdb = arcpy.GetParameterAsText(1)
+    Child = arcpy.GetParameterAsText(2)
+    ParentTableField = arcpy.GetParameterAsText(3) #The Master/Source Feature Class
+    ChildTableField = arcpy.GetParameterAsText(4) #The Project/Target Feature Class
+    input_fields = arcpy.GetParameterAsText(5)
     FigureExtent = arcpy.GetParameterAsText(6)
     FigureExtent_KeyField = arcpy.GetParameterAsText(7)
     input_figures = arcpy.GetParameterAsText(8)
     
-    #Extract contents from csv and create a temporary table
-    Child = csv_to_table(Parent, Child, input_field, ParentTableField, FigureExtent_KeyField,scratch_gdb)
+    #Check if input is Extract contents from csv and create a temporary table
+    filename, file_ext = os.path.splitext(Parent)
+    if file_ext == ".csv":
+        Parent = csv_to_table(Parent, Child, input_fields, ParentTableField, FigureExtent_KeyField,scratch_gdb)
     
-    Update_Figures(Child, Parent, FigureExtent, FigureExtent_KeyField, ParentTableField, ChildTableField, input_field, input_figures)
+    Update_Figures(Child, Parent, FigureExtent, FigureExtent_KeyField, ParentTableField, ChildTableField, input_fields, input_figures)
 
     # Delete temporary table
-    arcpy.Delete_management(Child)
+    if file_ext == ".csv":
+        arcpy.Delete_management(Parent)
 
     print "Script Runtime: ", datetime.now()-startTime
     arcpy.AddMessage("Script Runtime: " + str(datetime.now()-startTime))
