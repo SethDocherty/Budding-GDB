@@ -1,6 +1,8 @@
 import arcpy
 import sys
 import os
+import operator
+import csv
 from os.path import split, join
 from string import replace
 from datetime import datetime
@@ -13,6 +15,26 @@ arcpy.env.overwriteOutput = True
 #   to import all functions.
 #
 #..............................................................................................................................
+
+def Add_Records_to_Table(input_list, table_path):
+    '''
+    Add data from a list to a blank ArcGIS Table.
+
+    Required input:
+        Python list
+        Path to ArcGIS table
+
+    *Note*
+    Table should be empty before adding data to it.
+    '''
+    input_fields = Extract_Field_Name(table_path)
+    if "GLOBALID" in input_fields:
+        input_fields.remove('GLOBALID')
+    with arcpy.da.InsertCursor(table_path, input_fields) as iCursor:
+        for id, row in enumerate(input_list):
+            row.insert(0,id)
+            iCursor.insertRow(row)
+
 
 def buildWhereClause(table, field, value):
     """Constructs a SQL WHERE clause to select rows having the specified value
@@ -31,6 +53,34 @@ def buildWhereClause(table, field, value):
     # Format WHERE clause
     whereClause = "{} = {}".format(fieldDelimited, value)
     return whereClause
+
+
+def Create_Empty_Table(input_field_info, table_name, path):
+    '''
+    Create an empty table with from a list of input fields.
+
+    Required input:
+        List of field information - [Field Name, Field Type, Field Length] *Must be in this order
+        Name of table to be created
+        Path of workspace where table will be saved to.
+    '''
+    tmp_table = os.path.join('in_memory', 'table_template')
+    arcpy.management.CreateTable(*os.path.split(tmp_table))
+    for field in input_field_info:
+        arcpy.AddField_management(tmp_table,field[0], field_type=field[1], field_length=field[2])
+    # Create the actual output table.
+    try:
+        arcpy.CreateTable_management(path, table_name, template=tmp_table)
+    except:
+        print ("Unable to create table since it already exists at '{}'. "
+                "Please close out of the ArcMap and/or ArcCatalog session that may be accessing the table, '{}' "
+                "and re-run the script").format(path, table_name)
+        arcpy.AddWarning(("Unable to create table since it already exists at '{}'. "
+                "Please close out of the ArcMap and/or ArcCatalog session that may be accessing the table, '{}' "
+                "and re-run the script").format(path, table_name))
+        sys.exit()
+    arcpy.Delete_management(tmp_table)
+
 
 def Create_FL(LayerName, FCPath, expression =''):
     '''
@@ -56,18 +106,21 @@ def Compare_Fields(fc1_path,fc2_path):
         return False
 
 
-
 def csv_to_table(input_csv, input_fc, selection_fields, ParentField, FigureExtentField,scratch_gdb):
+    # Getting Filepath/name of input csv/fc
+    csv_path, csv_name = InputCheck(input_csv)
+    fc_path, fc_name = InputCheck(input_fc)
+    
     #Extracting CSV stuff
-    csv_list = Extract_File_Records(input_csv,"No")
+    csv_list = Extract_File_Records(csv_path,"No")
     header = Space2Underscore(csv_list.pop(0))
-    fields = Extract_Input_fields_from_csv(selection_fields, ParentField, FigureExtentField)
+    fields = Extract_input_fields_from_csv(selection_fields, ParentField, FigureExtentField, header)
     field_index = get_column_index(header,fields)
     csv_list = extract_list_columns(csv_list, field_index, "No")
 
     #Creating blank table and appending csv list
-    name = "temp_csv_table"
-    header_fieldInfo = get_Data_Type_FromGIS(fields, input_fc)
+    name = "csv2table_temp"
+    header_fieldInfo = get_Data_Type_FromGIS(fields, fc_path)
     Create_Empty_Table(header_fieldInfo, name, scratch_gdb)
     Add_Records_to_Table(csv_list, os.path.join(scratch_gdb, name))
     return os.path.join(scratch_gdb, name)
@@ -91,6 +144,15 @@ def Delete_Values_From_FC(values_to_delete, key_field, FC, FC_Path):
             arcpy.DeleteRows_management(FC)
     arcpy.Delete_management(FC)
 
+
+def Extract_Field_Name(fc):
+    '''
+    Return a list of fields name from a FC.
+    '''
+    fields = [f.name for f in arcpy.ListFields(fc)]
+    return fields
+
+
 #Extract field name and type
 def Extract_Field_NameType(fc):
     field_info=[]
@@ -104,20 +166,29 @@ def Extract_Field_NameType(fc):
             field_info.append(item)
     return field_info
 
+
 #Load a .csv file and that is convereted into a list of tuples
-def Extract_File_Records(filename):
+def Extract_File_Records(filename, tuple_list=''):
     fp = open(filename, 'Ur')
-    #reader = csv.reader(fp)
     data_list = []
     for line in fp:#reader:
-        data_list.append(tuple(line.strip().split(',')))
+        if not tuple_list:
+            data_list.append(tuple(line.strip().split(',')))
+        else:
+            data_list.append(line.strip().split(','))
     fp.close()
     return data_list
 
-def extract_list_columns(input_list,index_list):
+
+def extract_list_columns(input_list,index_list, tuple_list=''):
     my_items = operator.itemgetter(*index_list)
     new_list = [my_items(x) for x in input_list]
-    return new_list
+    if not tuple_list:
+        return new_list
+    else:
+        new_list = [list(item) for item in new_list]
+        return new_list
+
 
 #Load a ArcMap table and that is convereted into a list of tuples
 def Extract_Table_Records(fc, fields=''):
@@ -136,8 +207,15 @@ def Extract_Table_Records(fc, fields=''):
         return records
 
 
-def Extract_input_fields_from_csv(selection_fields, ParentField, FigureExtentField):
-    input_fields = selection_fields.split(";")
+def Extract_input_fields_from_csv(selection_fields, ParentField, FigureExtentField, header):
+    input_fields = list()
+    field_selection = selection_fields.split(";")
+    for field in field_selection:
+        if field in header:
+            input_fields.append(field)
+    if not input_fields:
+        arcpy.AddError("None of the user selected fields to update are in the csv document")
+        sys.exit()
     input_fields.append(ParentField)
     if FigureExtentField:
         input_fields.append(FigureExtentField)
@@ -219,7 +297,44 @@ def get_column_index(row_header,fields):
                             "Exiting script.  Please correct errors and try again.").format(field))
             print ("{} does not exist in the header field list. Please make sure field is spelled correctly and in the header row.\n "
                             "Exiting script.  Please correct errors and try again.").format(field)
+            sys.exit()
     return index_list
+
+
+def get_csv_headers(input_path):
+    with open(input_path, "rb") as f:
+        reader = csv.reader(f)
+        header_fields = reader.next()
+    return header_fields
+ 
+
+def get_Data_Type_FromGIS(input_fields, path):
+    '''
+    Return a list of pertinent field information for a list of fields from a user specfied Feature Class or Table.
+    The return list contains:
+        - Field Name
+        - Field Type
+        - Field Length
+
+    Requried Inputs:
+        List of input fields.
+        Path to Feature class or Table
+
+    *NOTE*
+    The fields in the list must be present in the feature class or table.
+    '''
+    allFields = arcpy.ListFields(path)
+    # List Formt: [Field Name (0), Field Type (1), Field Length (2)]
+    field_info = []
+    for in_field in input_fields:
+        for field in allFields:
+            if field.name == in_field:
+                temp = []
+                temp.append(field.name)
+                temp.append(field.type)
+                temp.append(field.length)
+                field_info.append(temp)
+    return field_info
 
 
 def Get_Field_Type(fc,field_to_check):
@@ -334,6 +449,22 @@ def Select_and_Append(feature_selection_path, select_from_path, append_path, cla
 
     arcpy.Delete_management("Feature_Selection")
     arcpy.Delete_management("Select_From")
+
+
+def Space2Underscore(fields):
+    '''
+    Replace spaces in strings with an underscore.
+    This is intended for header fields from that need to be compared against fields in ArcGIS.
+    '''
+    field_update=[]
+    for field in fields:
+        if field.find(" ") > 0:
+            x=field.replace(' ','_')
+            field_update.append(x)
+        else:
+            field_update.append(field)
+    return field_update
+
 
 def unique_values(fc,field):
     with arcpy.da.SearchCursor(fc,[field])as cur:
