@@ -24,6 +24,7 @@
     <Compile Include="bin\Add New Geometry.py" />
     <Compile Include="bin\Add New Table Records.py" />
     <Compile Include="bin\testing.py" />
+    <Compile Include="bin\Update Attributes.py" />
     <Compile Include="bin\Update Attributes_CSV.py" />
     <Compile Include="bin\helper.py">
       <SubType>Code</SubType>
@@ -71,6 +72,7 @@
     <Folder Include="GIS\Testing\" />
     <Folder Include="helper_functions\" />
     <Folder Include="Misc\" />
+    <Folder Include="Ref Docs\" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="{2af0f10d-7135-4994-9156-5d01c9c11b7e}\2.7" />
@@ -796,6 +798,8 @@
     <Content Include="Misc\Sitewide Data.csv" />
     <Content Include="Misc\Sitewide Data.xlsx" />
     <Content Include="README" />
+    <Content Include="Ref Docs\Font Size for Different Scales.xlsx" />
+    <Content Include="Ref Docs\Function Usage.xlsx" />
   </ItemGroup>
   <Import Project="$(PtvsTargetsFile)" Condition="Exists($(PtvsTargetsFile))" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="!Exists($(PtvsTargetsFile))" />
