@@ -33,9 +33,13 @@ def Add_Records_to_Table(input_list, table_path):
     with arcpy.da.InsertCursor(table_path, input_fields) as iCursor:
         for id, row in enumerate(input_list):
             row.insert(0,id)
+            try:
+                row = [x if x else None for x in row] #TODO Look into adding a continue statement for the else statement.
+            except:
+                print "Ran in to a Problem adding the following row to the table... {}: Likely an issues with text format i.e. unicode encoding problem. Try fixing the items and run the script again.".format(row)
             iCursor.insertRow(row)
 
-
+                
 def buildWhereClause(table, field, value):
     """Constructs a SQL WHERE clause to select rows having the specified value
     within a given field and table (or Feature Class)."""
@@ -124,7 +128,7 @@ def csv_to_table(input_csv, input_fc, selection_fields, ParentField, FigureExten
     Create_Empty_Table(header_fieldInfo, name, scratch_gdb)
     Add_Records_to_Table(csv_list, os.path.join(scratch_gdb, name))
     return os.path.join(scratch_gdb, name)
-
+   
 
 def Delete_Values_From_FC(values_to_delete, key_field, FC, FC_Path):
     FC = str(FC) + "_Layer"
@@ -282,6 +286,25 @@ def Find_New_Features(Layer_To_Checkp, Initial_Checkp, Intermediate_Checkp, Fina
     arcpy.Delete_management(Intermediate_Check)
     arcpy.Delete_management(Initial_Check)
     arcpy.Delete_management(Layer_To_Check)
+
+
+def make_unicode(input):
+    if type(input) != unicode:
+        input = unicode(input, "utf-8")
+        #input =  input.decode('utf-8')
+        return input
+    else:
+        return input
+
+def fix_unicode(data):
+    if isinstance(data, unicode):
+        return data.encode('utf-8')
+    elif isinstance(data, dict):
+        data = dict((fix_unicode(k), fix_unicode(data[k])) for k in data)
+    elif isinstance(data, list):
+        for i in xrange(0, len(data)):
+            data[i] = fix_unicode(data[i])
+    return data
 
 
 def get_column_index(row_header,fields):

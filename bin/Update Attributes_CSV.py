@@ -89,8 +89,11 @@ def Update_Field(Sourcepath, targetpath, SourceTableField, TargetTableField, fie
             source_join = updateRow
             if source_join[0] in Source_dictUpdate:
                 if source_join[1] != Source_dictUpdate[source_join[0]]:
-                    print ("Updating {} to {}".format(source_join[0], Source_dictUpdate[source_join[0]]))
-                    arcpy.AddMessage(("Updating {} to {}".format(source_join[0], Source_dictUpdate[source_join[0]])))
+                    try:
+                        print ("Updating {} to {}".format(source_join[0], Source_dictUpdate[source_join[0]]))
+                        arcpy.AddMessage(("Updating {} to {}".format(source_join[0], Source_dictUpdate[source_join[0]])))
+                    except:
+                        arcpy.AddWarning("Updated {} to the new value (UNABLE TO PRINT VALUE DUE TO STRING ENCODING ISSUE. I RECOMMEND TO CONFIRM THAT THE CHANGES HAVE BEEN MADE)".format(source_join[0]))
                     updateRow[1] = Source_dictUpdate[source_join[0]]
             updateRows.updateRow(updateRow)
         del updateRow, updateRows
@@ -158,9 +161,9 @@ try:
     
     Update_Figures(Child, Parent, FigureExtent, FigureExtent_KeyField, ParentTableField, ChildTableField, input_fields, input_figures)
 
-    # Delete temporary table
-    if file_ext == ".csv":
-        arcpy.Delete_management(Parent)
+    ## Delete temporary table
+    #if file_ext == ".csv":
+    #    arcpy.Delete_management(Parent)
 
     print "Script Runtime: ", datetime.now()-startTime
     arcpy.AddMessage("Script Runtime: " + str(datetime.now()-startTime))
