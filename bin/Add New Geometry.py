@@ -41,7 +41,7 @@ try:
 
     #The location boundary that is associated with the Figure Extent.
     #If no location boundary is used for Report Figures, please choose the Figure Extent Feature Class.
-    Group_Boundary = arcpy.GetParameterAsText(3)
+    Secondary_Boundary = arcpy.GetParameterAsText(3)
 
     #The location boundary that is associated with the Figure Extent.
     #If no location boundary is used for Report Figures, please choose the Figure Extent Feature Class.
@@ -50,14 +50,14 @@ try:
     #SQL Expression to type in the figures that need to be updated.	If all figures need to be updated, please type in '0'.
     input_figures = arcpy.GetParameterAsText(5)
 
-    #Input Feature Dataset in Scratch GDB
-    Input_ScratchFD = arcpy.GetParameterAsText(6)
-
     #Field that will be used to expression to delete necessary samples.  Please specify a field even if no values need to be deleted.
-    Delete_Field = arcpy.GetParameterAsText(7)
+    Delete_Field = arcpy.GetParameterAsText(6)
 
     #SQL Expression: Select values that need to be delted. Separate each value with a ;.  If no values need to be deleted, please type in '0'.
-    What_To_Delete_List = arcpy.GetParameterAsText(8)
+    What_To_Delete_List = arcpy.GetParameterAsText(7)
+
+    #Input Feature Dataset in Scratch GDB
+    Input_ScratchFD = arcpy.GetParameterAsText(8)
 
     #..............................................................................................................................
     #Hard Coded Data
@@ -67,11 +67,14 @@ try:
     ParentPath, ParentFC = InputCheck(Parent)
     ChildPath, ChildFC = InputCheck(Child)
     FigureExtentpath, FigureExtentFC = InputCheck(FigureExtent)
-    GroupLocationBoundarypath, GroupLocationBoundaryFC = InputCheck(Group_Boundary)
+    if Secondary_Boundary:
+        SecondaryBoundarypath, SecondaryBoundaryFC = InputCheck(Secondary_Boundary)
+    else:
+        SecondaryBoundarypath, SecondaryBoundaryFC = InputCheck(FigureExtent)
 
     #Check to see if all the Report feature classes have the FigureExtent Keyfield.
-    if not all((FieldExist(ChildPath,FigureExtent_KeyField), FieldExist(FigureExtentpath,FigureExtent_KeyField), FieldExist(GroupLocationBoundarypath,FigureExtent_KeyField))):
-        arcpy.AddError(("The field {} does not exist in {}, {} or {}".format(FigureExtent_KeyField,ChildFC,FigureExtentFC,GroupLocationBoundaryFC)))
+    if not all((FieldExist(ChildPath,FigureExtent_KeyField), FieldExist(FigureExtentpath,FigureExtent_KeyField), FieldExist(SecondaryBoundarypath,FigureExtent_KeyField))):
+        arcpy.AddError(("The field {} does not exist in {}, {} or {}".format(FigureExtent_KeyField,ChildFC,FigureExtentFC,SecondaryBoundaryFC)))
         sys.exit()
 
     #Extracting File Paths for Feature Dataset and Scratch File Geodatabase
@@ -88,14 +91,14 @@ try:
     TempCheck_Path = os.path.join(Scratch_FDPath,TempCheck)
     Figure_Extent_Selection = Scratch_FD + "_Main_Boundary"
     Figure_Extent_Selection_Path = os.path.join(Scratch_FDPath,Figure_Extent_Selection)
-    Group_Boundary_Selection = Scratch_FD + "_Secondary_Boundary"
-    Group_Boundary_Selection_Path = os.path.join(Scratch_FDPath,Group_Boundary_Selection)
+    Secondary_Boundary_Selection = Scratch_FD + "_Secondary_Boundary"
+    Secondary_Boundary_Selection_Path = os.path.join(Scratch_FDPath,Secondary_Boundary_Selection)
     Feature_Check_Selection = Scratch_FD + "_Feature_Check"
     Feature_Check_Selection_Path = os.path.join(Scratch_FDPath,Feature_Check_Selection)
 
     #Create the 3 Main Features Class's that will be stored in the Scratch GDB
     FC_Exist(Figure_Extent_Selection, Scratch_FDPath, ChildPath)
-    FC_Exist(Group_Boundary_Selection, Scratch_FDPath, ChildPath)
+    FC_Exist(Secondary_Boundary_Selection, Scratch_FDPath, ChildPath)
     FC_Exist(Feature_Check_Selection, Scratch_FDPath, ChildPath)
 
     #........................................................................................................................................
@@ -133,8 +136,8 @@ try:
     # the selected figures in the figure selection feature classes
     #..............................................................................................................................
     part1time = datetime.now()
-    print "Part 1: Selecting all locations that fall within the figure extents and deleting user specified sample types...\n...\n...\n..."
-    arcpy.AddMessage("Part 1: Selecting all locations that fall within the figure extents and deleting user specified sample types...\n...\n...\n...")
+    print "Part 1: Selecting all the features that fall within the figure extents and deleting user specified record values...\n...\n...\n..."
+    arcpy.AddMessage("Part 1: Selecting all the features that fall within the figure extents and deleting user specified record values...\n...\n...\n...")
 
     arcpy.SpatialJoin_analysis(ParentPath,FigSelectionPath,SpatialTmpPath,"JOIN_ONE_TO_MANY","KEEP_ALL","","INTERSECT", "", "" )
     Select_and_Append(FigSelectionPath, SpatialTmpPath, Figure_Extent_Selection_Path)
@@ -156,14 +159,14 @@ try:
     # figure extent but out of that 10, 5 fall in the location group boundary. If there is no location group boundary, just select the Figure Extent Feature Class.
     #.....................................................................................................................................................
     part2time = datetime.now()
-    print "Part 2: Selecting the locations within each figure extent that fall within the group boundary...\n...\n...\n..."
-    arcpy.AddMessage("Part 2: Selecting the locations within each figure extent that fall within the group boundary...\n...\n...\n...")
+    print "Part 2: Selecting the features within each figure extent that fall within the secondary boundary...\n...\n...\n..."
+    arcpy.AddMessage("Part 2: Selecting the features within each figure extent that fall within the secondary boundary...\n...\n...\n...")
 
     for value in FigureList:
         arcpy.AddMessage("Working on figure...................." + str(value))
         print "Working on figure...................." + str(value)
         clause = buildWhereClause(Figure_Extent_Selection_Path, FigureExtent_KeyField, value)
-        Select_and_Append(GroupLocationBoundarypath, Figure_Extent_Selection_Path, Group_Boundary_Selection_Path,clause)
+        Select_and_Append(SecondaryBoundarypath, Figure_Extent_Selection_Path, Secondary_Boundary_Selection_Path,clause)
 
     print "......................................................................Part 2 Runtime: {} (Total Runtime: {})".format(datetime.now()-part2time, datetime.now()-startTime)
     arcpy.AddMessage("......................................................................Part 2 Runtime: {} Total Runtime: {})".format(datetime.now()-part2time, datetime.now()-startTime))
@@ -177,8 +180,8 @@ try:
     # not selected in the intersection.  This selection are the new samples that will be added to the Report sample FC.
     #..............................................................................................................................
     part3time = datetime.now()
-    print "Part 3: Find New Locations in each figure...\n...\n...\n..."
-    arcpy.AddMessage("Part 3: Find New Locations in each figure...\n...\n...\n...")
+    print "Part 3: Find new features in each figure...\n...\n...\n..."
+    arcpy.AddMessage("Part 3: Find new feautres in each figure...\n...\n...\n...")
 
     #create feature class layer for the Sample Check FC
     OutputLayer_Feature_Check_Selection = Feature_Check_Selection + "_Layer"
@@ -187,12 +190,12 @@ try:
     #Counter for # of new locations found
     count = 0
     for value in FigureList:
-        arcpy.AddMessage("Checking for new samples in figure...................." + str(value))
-        print "Checking for new samples in figure...................." + str(value)
+        arcpy.AddMessage("Checking for new features in figure...................." + str(value))
+        print "Checking for new features in figure...................." + str(value)
         clause = buildWhereClause(ChildPath, FigureExtent_KeyField, value)
         arcpy.AddMessage(clause)
         FC_Exist(TempCheck, Scratch_FDPath, ChildPath)
-        count = Find_New_Features(ChildPath, Group_Boundary_Selection_Path, TempCheck_Path, OutputLayer_Feature_Check_Selection, clause, count)
+        count = Find_New_Features(ChildPath, Secondary_Boundary_Selection_Path, TempCheck_Path, OutputLayer_Feature_Check_Selection, clause, count)
     arcpy.Delete_management(OutputLayer_Feature_Check_Selection)
 
     print "......................................................................Part 3 Runtime: {} (Total Runtime: {})".format(datetime.now()-part3time, datetime.now()-startTime)

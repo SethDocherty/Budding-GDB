@@ -104,6 +104,7 @@ def Update_Figures(Report_Sample, MasterSample, FigureExtent, FigureExtent_KeyFi
     if not input_figures:
         #Formatting the input fields to be updated
         Field_to_update = input_field.split(";")
+        Field_to_update = convert_invalid_values(Field_to_update)
         arcpy.AddMessage("The following fields are going to be updated: {}".format(str(Field_to_update)))
         for field in Field_to_update:
             if (not FieldExist(MasterSamplepath,field)):
@@ -125,6 +126,7 @@ def Update_Figures(Report_Sample, MasterSample, FigureExtent, FigureExtent_KeyFi
 
         #Formatting the input fields to be updated
         Field_to_update = input_field.split(";")
+        Field_to_update = convert_invalid_values(Field_to_update)
         arcpy.AddMessage("The following fields are going to be updated: {}".format(str(Field_to_update)))
 
         #Loop through all figures and update Project Feature Class

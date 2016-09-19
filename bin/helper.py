@@ -51,11 +51,15 @@ def buildWhereClause(table, field, value):
     fieldType = arcpy.ListFields(table, field)[0].type
 
     ## Add single-quotes for string field values
-    #if str(fieldType) == 'String':
-    #    value = "'{}'".format(value)
+    invalid_vals = ['NULL',"''"]
+    if str(fieldType) == 'String' and value not in invalid_vals:
+        value = "'{}'".format(value)
 
     # Format WHERE clause
-    whereClause = "{} = {}".format(fieldDelimited, value)
+    if value == "NULL":
+        whereClause = "{} IS {}".format(fieldDelimited, value)
+    else:
+        whereClause = "{} = {}".format(fieldDelimited, value)
     return whereClause
 
 
@@ -110,6 +114,23 @@ def Compare_Fields(fc1_path,fc2_path):
         return False
 
 
+def convert_invalid_values(input_list):
+    '''
+    Due to python script validation, <Null> values can not be populated in a value list since <Null> is a None type in python.
+    In order to show <Null values in the value list, None type must be converted to a string so it can show up in the list
+    and must be convereted back to a None type when the values are passed on. The same issue comes up with values = ''.  These values
+    must be converted to ' ' and then back to ''.
+
+    The dictionary below can be populated with additional invalid values.  These invalid values may need to be accounted for in the BuildWhereClause function.
+    '''
+    invalid_vals = {'NULL':'NULL', "' '":''}
+    for val in invalid_vals.keys():
+        if val in input_list:    
+            input_list.remove(val)
+            input_list.append(invalid_vals[val])
+    return input_list
+
+
 def csv_to_table(input_csv, input_fc, selection_fields, ParentField, FigureExtentField,scratch_gdb):
     # Getting Filepath/name of input csv/fc
     csv_path, csv_name = InputCheck(input_csv)
@@ -140,10 +161,13 @@ def Delete_Values_From_FC(values_to_delete, key_field, FC, FC_Path):
         arcpy.AddMessage("No features were selected to be deleted")
     else:
         values_to_delete = values_to_delete.split(";")
+        values_to_delete = convert_invalid_values(values_to_delete)
+        arcpy.AddMessage(values_to_delete)
         for value in values_to_delete:
             arcpy.AddMessage("Deleting the following from {}...........................{}".format(FC,value))
             print "Deleting the following from {}...........................{}".format(FC,value)
             clause = buildWhereClause(FC_Path, key_field, value)
+            arcpy.AddMessage(clause)
             arcpy.SelectLayerByAttribute_management(FC, "NEW_SELECTION", clause)
             arcpy.DeleteRows_management(FC)
     arcpy.Delete_management(FC)
@@ -269,14 +293,14 @@ def Find_New_Features(Layer_To_Checkp, Initial_Checkp, Intermediate_Checkp, Fina
     arcpy.SelectLayerByLocation_management(Intermediate_Check, "INTERSECT", Layer_To_Check, "", "NEW_SELECTION")
     arcpy.SelectLayerByLocation_management(Intermediate_Check, "INTERSECT", Intermediate_Check, "", "SWITCH_SELECTION")
     arcpy.AddMessage("Selecting the new features that fall inside the figure")
-    print "Selecting the new records that fall inside the figure"
+    print "Selecting the new features that fall inside the figure"
     #Append selected features to Report Sample Location FC
     arcpy.Append_management(Intermediate_Check, Final_Check,"NO_TEST","","")
     out_count = int(arcpy.GetCount_management(Final_Check).getOutput(0))
-    print "Number of new locations found in the figure: " + str(out_count - in_count)
-    arcpy.AddMessage("Number of new locations found in the figure: " + str(out_count - in_count))
-    arcpy.AddMessage("Added the new locations to " + Final_Check)
-    print "Added the new locations to " + Final_Check
+    print "Number of new features found in the figure: " + str(out_count - in_count)
+    arcpy.AddMessage("Number of new features found in the figure: " + str(out_count - in_count))
+    arcpy.AddMessage("Added the new features to " + Final_Check)
+    print "Added the new features to " + Final_Check
     return out_count
 
 ##    #Search for locations that are intersect existing points.
@@ -410,6 +434,7 @@ def ListRecords(fc,fields):
         for FigureHolder in zip(*records):
             FigureHolder
     return FigureHolder
+
 
 def RecordCount(fc):
     count = int((arcpy.GetCount_management(fc)).getOutput(0))
