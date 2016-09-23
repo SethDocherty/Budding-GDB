@@ -44,7 +44,7 @@ def Does_Figure_Exist(childFCpath, childFC, figure, child_figure_list, figure_ke
     print "Figure Name: {}" + str(figure)
     arcpy.AddMessage(40*'.' + "Updating Figure: {}".format(str(figure)))
     clause = buildWhereClause(childFCpath, figure_key_field, figure)
-
+    
     # Check to see if figure name child FC
     # If does not exists, skip to next figure.
     if figure not in child_figure_list:

@@ -53,7 +53,7 @@ def buildWhereClause(table, field, value):
     ## Add single-quotes for string field values
     invalid_vals = ['NULL',"''"]
     if str(fieldType) == 'String' and value not in invalid_vals:
-        value = "'{}'".format(value)
+        value = "'{}'".format(value) #value = "'{}'".format(value.strip("'"))
 
     # Format WHERE clause
     if value == "NULL":
@@ -401,7 +401,9 @@ def Get_Figure_List(FCpath, Keyfield, User_Selected_Figures):
         arcpy.AddMessage(str(len(FigureList)) + " Figures are going to be updated")
     else:
         FigureList = [item.strip() for item in User_Selected_Figures.split(";")] #List Comprehension which splits delimited string and removes any qoutes that may be present in string.
+        FigureList = [item.strip("'") for item in FigureList]
         arcpy.AddMessage(str(len(FigureList)) + " Figure(s) are going to be updated")
+    arcpy.AddMessage(FigureList)
     return FigureList
 
 def get_geodatabase_path(input_table):

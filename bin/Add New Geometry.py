@@ -107,7 +107,9 @@ try:
 
     #Getting the number of figures to update
     FigureList = Get_Figure_List(FigureExtentpath, FigureExtent_KeyField, input_figures)
-    arcpy.AddMessage("The following figures are going to be updated: {}".format(FigureList))
+    arcpy.AddMessage("The following figures are going to be updated:")
+    for item in FigureList:
+        arcpy.AddMessage(item)
 
     #Make Feature Layer from Figure Extent FC
     OutputLayer_FigureExtentFC = FigureExtentFC + "_Layer" #InputLayer + "_Layer"
@@ -116,7 +118,6 @@ try:
     #Selecting the records found the Figure list
     for value in FigureList:
         clause = buildWhereClause(OutputLayer_FigureExtentFC, FigureExtent_KeyField, value)
-        arcpy.AddMessage(clause)
         arcpy.SelectLayerByAttribute_management(OutputLayer_FigureExtentFC,"ADD_TO_SELECTION", clause)
 
     #Copy all selected records to a standalone Feature Class which holds the all figure that will be updated.
