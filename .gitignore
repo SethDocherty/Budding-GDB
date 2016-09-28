@@ -9,6 +9,7 @@
 # Visual Studio files
 *.sln
 *.pyproj
+*.pyproj.user
 *.suo
 
 # User-specific files
