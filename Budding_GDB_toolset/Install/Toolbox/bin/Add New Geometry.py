@@ -36,15 +36,13 @@ try:
     #File path for the Report Sample locatcion Feature Class
     Child = arcpy.GetParameterAsText(1)
 
+    #The Boundary extent that is associated with the Figure.
+    Secondary_Boundary = arcpy.GetParameterAsText(2)
+
     #Figure Extent FC
-    FigureExtent = arcpy.GetParameterAsText(2)
+    FigureExtent = arcpy.GetParameterAsText(3)
 
     #The location boundary that is associated with the Figure Extent.
-    #If no location boundary is used for Report Figures, please choose the Figure Extent Feature Class.
-    Secondary_Boundary = arcpy.GetParameterAsText(3)
-
-    #The location boundary that is associated with the Figure Extent.
-    #If no location boundary is used for Report Figures, please choose the Figure Extent Feature Class.
     FigureExtent_KeyField = arcpy.GetParameterAsText(4)
 
     #SQL Expression to type in the figures that need to be updated.	If all figures need to be updated, please type in '0'.
@@ -67,6 +65,7 @@ try:
     ParentPath, ParentFC = InputCheck(Parent)
     ChildPath, ChildFC = InputCheck(Child)
     FigureExtentpath, FigureExtentFC = InputCheck(FigureExtent)
+
     if Secondary_Boundary:
         SecondaryBoundarypath, SecondaryBoundaryFC = InputCheck(Secondary_Boundary)
     else:
@@ -83,17 +82,20 @@ try:
     in_mem_path = "in_memory"
 
     #Setting the file path for the Temp FC's that will be created in the Scratch GDB.
+    #In Memory Features
     FigSelection = Scratch_FD + "_FigureSelection"
     FigSelectionPath = os.path.join(in_mem_path,FigSelection)
     SpatialTmp = Scratch_FD + "_SpatialJoinTemp"
     SpatialTmpPath = os.path.join(in_mem_path,SpatialTmp)
     TempCheck = Scratch_FD + "_Point_CheckTmp"
-    TempCheck_Path = os.path.join(Scratch_FDPath,TempCheck)
-    Figure_Extent_Selection = Scratch_FD + "_Main_Boundary"
+    TempCheck_Path = os.path.join(in_mem_path,TempCheck)
+
+    #Temporary features stored in the Scratch Database
+    Figure_Extent_Selection = Scratch_FD + "_FigureExtent_Selection"
     Figure_Extent_Selection_Path = os.path.join(Scratch_FDPath,Figure_Extent_Selection)
-    Secondary_Boundary_Selection = Scratch_FD + "_Secondary_Boundary"
+    Secondary_Boundary_Selection = Scratch_FD + "_BoundaryExtent_Selection"
     Secondary_Boundary_Selection_Path = os.path.join(Scratch_FDPath,Secondary_Boundary_Selection)
-    Feature_Check_Selection = Scratch_FD + "_Feature_Check"
+    Feature_Check_Selection = Scratch_FD + "_FinalOutput"
     Feature_Check_Selection_Path = os.path.join(Scratch_FDPath,Feature_Check_Selection)
 
     #Create the 3 Main Features Class's that will be stored in the Scratch GDB
@@ -107,7 +109,7 @@ try:
 
     #Getting the number of figures to update
     FigureList = Get_Figure_List(FigureExtentpath, FigureExtent_KeyField, input_figures)
-    arcpy.AddMessage("The following figures are going to be updated:")
+    arcpy.AddMessage("The following figure(s) are going to be updated:")
     for item in FigureList:
         arcpy.AddMessage(item)
 
@@ -133,7 +135,7 @@ try:
 
     #..............................................................................................................................
     # PART 1
-    # Samples within Figure Extent - Part of the program that performs a spatial join of sample locations from the Master GDB and
+    # Samples within Figure Extent - Part of the program that performs a spatial join of sample locations from the Source GDB and
     # the selected figures in the figure selection feature classes
     #..............................................................................................................................
     part1time = datetime.now()
@@ -144,7 +146,7 @@ try:
     Select_and_Append(FigSelectionPath, SpatialTmpPath, Figure_Extent_Selection_Path)
 
     #...................................................................................................................................
-    # Delete Samples - Part of the program that goes through Figure_Extent_Selection_Path and deletes user specified samples types.
+    # Delete Samples - Part of the program that goes through Figure Extent Selection FC and deletes user specified samples types.
     #...................................................................................................................................
 
     Delete_Values_From_FC(What_To_Delete_List, Delete_Field, Figure_Extent_Selection, Figure_Extent_Selection_Path)
@@ -154,10 +156,10 @@ try:
 
     #.....................................................................................................................................................
     # PART 2
-    # Part of the program that goes through the samples within the Figure Extent (Figure_Extent_Selection_Path)
-    # and extracts all the points that fall inside a secondary boundary e.g. group location boundary, in each figure and saves to a standalone feature class.
-    # This part of the program basically creates a sub-selection of points that fall inside the figure extent. e.g. 10 samples fall inside
-    # figure extent but out of that 10, 5 fall in the location group boundary. If there is no location group boundary, just select the Figure Extent Feature Class.
+    # Part of the program that goes through the features within the Figure Extent (Figure_Extent_Selection_Path)
+    # and extracts all the features that fall inside a secondary boundary e.g. group location boundary, in each figure and saves to a standalone feature class.
+    # This part of the program basically creates a sub-selection of features that fall inside the figure extent. e.g. 10 features fall inside
+    # figure extent but out of that 10, 5 fall in the boundary exent. If there is no boundary exent, just select the Figure Extent Feature Class.
     #.....................................................................................................................................................
     part2time = datetime.now()
     print "Part 2: Selecting the features within each figure extent that fall within the secondary boundary...\n...\n...\n..."
@@ -174,10 +176,10 @@ try:
 
     #..............................................................................................................................
     # PART 3
-    # Sample Check - Part of the program that goes through the each group of samples in the Sample Bucket FC and compares it against the
-    # Report Sample FC.
+    # Sample Check - Part of the program that goes through the each group of samples in the boundary extent feature class and compares it against the Report Sample FC.
+    # 
     # To find the difference between the Report Sample FC and the Sample Bucket FC, a spatial selection is performed to select samples in
-    # in the sample bucket FC that intersetct the Report sample FC.  An inverse selection is performed which now selects features that were
+    # in the oundary extent FC that intersetct the Report sample FC.  An inverse selection is performed which now selects features that were
     # not selected in the intersection.  This selection are the new samples that will be added to the Report sample FC.
     #..............................................................................................................................
     part3time = datetime.now()
@@ -194,10 +196,12 @@ try:
         arcpy.AddMessage("Checking for new features in figure...................." + str(value))
         print "Checking for new features in figure...................." + str(value)
         clause = buildWhereClause(ChildPath, FigureExtent_KeyField, value)
-        arcpy.AddMessage(clause)
-        FC_Exist(TempCheck, Scratch_FDPath, ChildPath)
+        FC_Exist(TempCheck, in_mem_path, ChildPath)
         count = Find_New_Features(ChildPath, Secondary_Boundary_Selection_Path, TempCheck_Path, OutputLayer_Feature_Check_Selection, clause, count)
+    arcpy.Delete_management(TempCheck_Path)
     arcpy.Delete_management(OutputLayer_Feature_Check_Selection)
+    arcpy.AddMessage("...\n...\nA total of {} new features were found which are stored in the Feature Class:\n     {} \nat the following path:\n     {}".format(count,ChildFC,Scratch_FDPath))
+    
 
     print "......................................................................Part 3 Runtime: {} (Total Runtime: {})".format(datetime.now()-part3time, datetime.now()-startTime)
     arcpy.AddMessage("......................................................................Part 3 Runtime: {} (Total Runtime: {})".format(datetime.now()-part3time, datetime.now()-startTime))

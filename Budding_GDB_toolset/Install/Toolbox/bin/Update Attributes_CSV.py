@@ -40,9 +40,9 @@ print startTime
 
 def Does_Figure_Exist(childFCpath, childFC, figure, child_figure_list, figure_key_field):
     print "Runtime: ", datetime.now()-startTime
-    arcpy.AddMessage(40*'.' + '\n' + "Runtime: {}".format((datetime.now()-startTime)))
+    arcpy.AddMessage(75*'.' + "Runtime: {}".format((datetime.now()-startTime)))
     print "Figure Name: {}" + str(figure)
-    arcpy.AddMessage(40*'.' + "Updating Figure: {}".format(str(figure)))
+    arcpy.AddMessage(75*'.' + "Updating Figure: {}".format(str(figure)))
     clause = buildWhereClause(childFCpath, figure_key_field, figure)
     
     # Check to see if figure name child FC
@@ -63,8 +63,7 @@ def Update_Field(Sourcepath, targetpath, SourceTableField, TargetTableField, fie
 
     if Get_Field_Type(SourceFCpath,field) != Get_Field_Type(targetFCpath,field):
         arcpy.AddMessage("....\n.... \
-                         \nThe field, {}, in {} and {} do not have matching data types. Please correct by updating the field data \
-                         type to {} for {} in {}. \
+                         \nThe field, {}, in {} and {} do not have matching data types. Please correct by updating the field data type to {} for the field, {}, in {}. \
                          \nSkipping to next field................. \
                          \n....\n....".format(field, SourceFC, targetFC, str(Get_Field_Type(SourceFCpath,field)), field, targetFC))
         return
