@@ -52,8 +52,9 @@ def buildWhereClause(table, field, value):
 
     ## Add single-quotes for string field values
     invalid_vals = ['NULL',"''"]
+    value = value.strip("'")
     if str(fieldType) == 'String' and value not in invalid_vals:
-        value = "'{}'".format(value) #value = "'{}'".format(value.strip("'"))
+        value = "'{}'".format(value)
 
     # Format WHERE clause
     if value == "NULL":
@@ -90,7 +91,7 @@ def Create_Empty_Table(input_field_info, table_name, path):
     arcpy.Delete_management(tmp_table)
 
 
-def Create_FL(LayerName, FCPath, expression =''):
+def Create_FL(LayerName, FCPath, expression = ''):
     '''
     Create a Feature layer from a feature class. Optionally, an expression clause can be passed in to
     filter out a subset of data.
@@ -104,6 +105,7 @@ def Create_FL(LayerName, FCPath, expression =''):
             return arcpy.MakeFeatureLayer_management(FCPath, LayerName, "", "")
     except:
         return arcpy.AddError(arcpy.GetMessages(2))
+
 
 def Compare_Fields(fc1_path,fc2_path):
     fc1_fields = [field.name for field in arcpy.ListFields(fc1_path)]
@@ -162,12 +164,10 @@ def Delete_Values_From_FC(values_to_delete, key_field, FC, FC_Path):
     else:
         values_to_delete = values_to_delete.split(";")
         values_to_delete = convert_invalid_values(values_to_delete)
-        arcpy.AddMessage(values_to_delete)
         for value in values_to_delete:
             arcpy.AddMessage("Deleting the following from {}...........................{}".format(FC,value))
             print "Deleting the following from {}...........................{}".format(FC,value)
             clause = buildWhereClause(FC_Path, key_field, value)
-            arcpy.AddMessage(clause)
             arcpy.SelectLayerByAttribute_management(FC, "NEW_SELECTION", clause)
             arcpy.DeleteRows_management(FC)
     arcpy.Delete_management(FC)
@@ -257,13 +257,16 @@ def FC_Exist(FCname, DatasetPath, Template):
     if arcpy.Exists(FCpath):
         if Compare_Fields(FCpath,Template):
             arcpy.AddMessage("Feature class, {}, already exists. Clearing records.......".format(FCname))
-            return arcpy.TruncateTable_management(FCpath)
+            try:
+                arcpy.TruncateTable_management(FCpath)
+            except:
+                arcpy.DeleteRows_management(FCpath)
         else:
             arcpy.AddMessage("Additional fields have been added since the Feature class, {}, was created. Recreating Feature class.......".format(FCname))
             arcpy.Delete_management(FCpath)
             return arcpy.CreateFeatureclass_management(DatasetPath, FCname, FCtype, Template, "SAME_AS_TEMPLATE", "SAME_AS_TEMPLATE", Template)
     else:
-        arcpy.AddMessage("Feature class, {}, does not exists. Creating now.......".format(FCname))
+        arcpy.AddMessage("Feature class, {}, does not exist. Creating now.......".format(FCname))
         return arcpy.CreateFeatureclass_management(DatasetPath, FCname, FCtype, Template, "SAME_AS_TEMPLATE", "SAME_AS_TEMPLATE", Template)
 
 
@@ -389,7 +392,7 @@ def Get_Field_Type(fc,field_to_check):
     type = [type for field,type in fields if field_to_check == field][0]
     return type
 
-#TODO Need to update my other scripts to use the BuildWhereClause Function that also use this function
+
 def Get_Figure_List(FCpath, Keyfield, User_Selected_Figures):
     '''Get_Figure_List(FCpath, Keyfield, User_Selected_Figures)
     Return a list that contains that names of figures that user has selected to edit.  If user did not specify
@@ -403,8 +406,8 @@ def Get_Figure_List(FCpath, Keyfield, User_Selected_Figures):
         FigureList = [item.strip() for item in User_Selected_Figures.split(";")] #List Comprehension which splits delimited string and removes any qoutes that may be present in string.
         FigureList = [item.strip("'") for item in FigureList]
         arcpy.AddMessage(str(len(FigureList)) + " Figure(s) are going to be updated")
-    arcpy.AddMessage(FigureList)
     return FigureList
+
 
 def get_geodatabase_path(input_table):
   '''Return the Geodatabase path from the input table or feature class.
@@ -416,15 +419,20 @@ def get_geodatabase_path(input_table):
   else:
     return os.path.dirname(workspace)
 
+
 #Check if there is a filepath from the input layers. If not, pre-pend the path. Also extract the FC names.
-def InputCheck(Input):
-    if not split(Input)[0]:
-        InputPath = arcpy.Describe(Input).catalogPath #join(arcpy.Describe(Input).catalogPath,arcpy.Describe(Input).name)
-        InputName = arcpy.Describe(Input).name
+def InputCheck(Input_Layer):
+    if not arcpy.Exists(Input_Layer):
+    #if not split(Input_Layer)[0]:
+        layer =  Input_Layer.split(r'\\')[-1]
+        arcpy.AddMessage(layer)
+        InputPath = arcpy.Describe(layer).catalogPath #join(arcpy.Describe(Input_Layer).catalogPath,arcpy.Describe(Input_Layer).name)
+        InputName = arcpy.Describe(layer).name
     else:
-        InputPath = Input
-        InputName = arcpy.Describe(Input).name
+        InputPath = Input_Layer
+        InputName = arcpy.Describe(Input_Layer).name
     return InputPath, InputName
+
 
 #Pull out records and make lists. Final List that is returned to variable
 def ListRecords(fc,fields):
@@ -438,9 +446,12 @@ def ListRecords(fc,fields):
     return FigureHolder
 
 
+# Replace a layer/table view name with a path to a dataset (which can be a layer file) or create the layer/table view within the script
+# The following inputs are layers or table views: "Report1_Sample_Locations"
 def RecordCount(fc):
     count = int((arcpy.GetCount_management(fc)).getOutput(0))
     return count
+
 
 #Remove default fields
 def Remove_DBMS_Specific_Fields(fc):

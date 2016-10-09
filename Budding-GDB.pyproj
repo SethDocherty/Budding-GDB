@@ -5,8 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{6b5d7f11-d112-4a77-a9e5-e31fde1587bb}</ProjectGuid>
     <ProjectHome />
-    <StartupFile>
-    </StartupFile>
+    <StartupFile>Budding_GDB_toolset\Install\Toolbox\bin\helper.py</StartupFile>
     <SearchPath>bin\</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
