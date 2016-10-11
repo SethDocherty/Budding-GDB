@@ -8,7 +8,7 @@
  - [ETL Toolset Overview](https://github.com/SethDocherty/Budding-GDB#etl-toolset-overview)
  - [Creating Maps with Report Specific Feature Classes](https://github.com/SethDocherty/Budding-GDB#creating-maps-with-report-specific-feature-classes)
  - [Setting up the Initial Data Structure](https://github.com/SethDocherty/Budding-GDB#setting-up-the-initial-data-structure)
- - [Installation and Other Files](https://github.com/SethDocherty/Budding-GDB/blob/master/README.md#installation-and-other-files)
+ - [Installation and Other Files](https://github.com/SethDocherty/Budding-GDB#installation-and-other-files)
 
 ## Description:
 
