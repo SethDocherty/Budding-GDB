@@ -133,7 +133,7 @@ def convert_invalid_values(input_list):
     return input_list
 
 
-def csv_to_table(input_csv, input_fc, selection_fields, ParentField, FigureExtentField,scratch_gdb):
+def csv_to_table(input_csv, input_fc, selection_fields, ParentField,scratch_gdb):
     # Getting Filepath/name of input csv/fc
     csv_path, csv_name = InputCheck(input_csv)
     fc_path, fc_name = InputCheck(input_fc)
@@ -141,7 +141,7 @@ def csv_to_table(input_csv, input_fc, selection_fields, ParentField, FigureExten
     #Extracting CSV stuff
     csv_list = Extract_File_Records(csv_path,"No")
     header = Space2Underscore(csv_list.pop(0))
-    fields = Extract_input_fields_from_csv(selection_fields, ParentField, FigureExtentField, header)
+    fields = Extract_input_fields_from_csv(selection_fields, ParentField, header)
     field_index = get_column_index(header,fields)
     csv_list = extract_list_columns(csv_list, field_index, "No")
 
@@ -216,7 +216,7 @@ def extract_list_columns(input_list,index_list, tuple_list=''):
     else:
         new_list = [list(item) for item in new_list]
         return new_list
-
+    
 
 #Load a ArcMap table and that is convereted into a list of tuples
 def Extract_Table_Records(fc, fields=''):
@@ -235,7 +235,7 @@ def Extract_Table_Records(fc, fields=''):
         return records
 
 
-def Extract_input_fields_from_csv(selection_fields, ParentField, FigureExtentField, header):
+def Extract_input_fields_from_csv(selection_fields, ParentField, header):
     input_fields = list()
     field_selection = selection_fields.split(";")
     for field in field_selection:
@@ -245,8 +245,8 @@ def Extract_input_fields_from_csv(selection_fields, ParentField, FigureExtentFie
         arcpy.AddError("None of the user selected fields to update are in the csv document")
         sys.exit()
     input_fields.append(ParentField)
-    if FigureExtentField:
-        input_fields.append(FigureExtentField)
+    #if FigureExtentField:
+    #    input_fields.append(FigureExtentField)
     return input_fields
 
 
@@ -559,21 +559,21 @@ def unique_values(fc,field):
 
 
 #FigureGeometryCheck(Layer_To_Checkp, Initial_Checkp, Final_Checkp,clause)
-def Check_Coincident_Features(Layer_To_Check, Initial_Check, Final_Check):
+#def Check_Coincident_Features(Layer_To_Check, Initial_Check, Final_Check):
        
-    #Get field names:
-    field1 = Remove_DBMS_Specific_Fields(Layer_To_Check) #[f.name for f in arcpy.ListFields(Layer_To_Checkp)]
-    field2 = Remove_DBMS_Specific_Fields(Final_Check) #[f.name for f in arcpy.ListFields(Final_Checkp)]
-    fields = list(set(field1)&set(field2))
-    fields.remove("SHAPE")
+#    #Get field names:
+#    field1 = Remove_DBMS_Specific_Fields(Layer_To_Check) #[f.name for f in arcpy.ListFields(Layer_To_Checkp)]
+#    field2 = Remove_DBMS_Specific_Fields(Final_Check) #[f.name for f in arcpy.ListFields(Final_Checkp)]
+#    fields = list(set(field1)&set(field2))
+#    fields.remove("SHAPE")
 
-    table1 = Extract_Table_Records(Layer_To_Checkp, fields)
-    table2 = Extract_Table_Records(Initial_Checkp, fields)
-    table3 = Extract_Table_Records(Final_Checkp, fields)
-    difference = list(set(table1) - set(table3) - set(table2))
+#    table1 = Extract_Table_Records(Layer_To_Checkp, fields)
+#    table2 = Extract_Table_Records(Initial_Checkp, fields)
+#    table3 = Extract_Table_Records(Final_Checkp, fields)
+#    difference = list(set(table1) - set(table3) - set(table2))
     
-    if len(difference) != 0:
-        arcpy.AddMessage("{} features have been found which were coincident".format(len(difference)))
-        #arcpy.Append_management()
+#    if len(difference) != 0:
+#        arcpy.AddMessage("{} features have been found which were coincident".format(len(difference)))
+#        #arcpy.Append_management()
 
     #append difference to final check

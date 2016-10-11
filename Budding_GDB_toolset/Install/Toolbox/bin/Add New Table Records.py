@@ -87,7 +87,7 @@ def create_schema_file(file_path, fields, csv_fields):
     schema_file = open(schema,"w")
     schema_file.write("[" + os.path.basename(os.path.normpath(file_path)) + "]\n")
     #schema_file.write("Format=Delimited(,) .csv"
-    schema_file.write("MaxScanRows=0\n")
+    #schema_file.write("MaxScanRows=0\n") https://gisnuts.com/terra/blog/2012/06/14/using-the-schemaini-file-to-import-a-csv-file-into-arcgis
     x=1
     for name,type in fields:
         if name.find(" ") > 0:
@@ -197,12 +197,13 @@ try:
 
         print "A total of " + str(len(difference)) + " new record(s) were found.  The new record(s) are:"
         arcpy.AddMessage("A total of " + str(len(difference)) + " new records were found.  The new records are:")
-        difference = sorted(difference, key=lambda sl: sl[0])
+        #difference = sorted(difference, key=lambda sl: sl[0])
         for item in difference:
             arcpy.AddMessage(item)
         difference.insert(0,header)
         for item in difference:
             OUTPUT.writerow(item)
+        #OUTPUT.writerows(difference)
         OUTFILE.close()
 
         create_schema_file(OUTFILE_PATH,FIELD_INFO,Extract_File_Records(OUTFILE_PATH).pop(0))
@@ -222,8 +223,11 @@ try:
         arcpy.Delete_management(temp_table_path)
     if os.path.exists(file_input_reorder):
         os.remove(file_input_reorder)
-    if os.path.exists(OUTFILE_PATH):
-        os.remove(OUTFILE_PATH)
+    try:
+        if os.path.exists(OUTFILE_PATH):
+            os.remove(OUTFILE_PATH)
+    except:
+        pass
 
     print "Temporary files and GDB tables have been deleted"
     arcpy.AddMessage("Temporary files and GDB tables have been deleted")

@@ -158,13 +158,13 @@ try:
     #Check if input is Extract contents from csv and create a temporary table
     filename, file_ext = os.path.splitext(Parent)
     if file_ext == ".csv":
-        Parent = csv_to_table(Parent, Child, input_fields, ParentTableField, FigureExtent_KeyField,scratch_gdb)
+        Parent = csv_to_table(Parent, Child, input_fields, ParentTableField,scratch_gdb)
     
     Update_Figures(Child, Parent, FigureExtent, FigureExtent_KeyField, ParentTableField, ChildTableField, input_fields, input_figures)
 
-    ## Delete temporary table
-    #if file_ext == ".csv":
-    #    arcpy.Delete_management(Parent)
+    # Delete temporary table
+    if file_ext == ".csv":
+        arcpy.Delete_management(Parent)
 
     print "Script Runtime: ", datetime.now()-startTime
     arcpy.AddMessage("Script Runtime: " + str(datetime.now()-startTime))
