@@ -200,7 +200,7 @@ try:
         count = Find_New_Features(ChildPath, Secondary_Boundary_Selection_Path, TempCheck_Path, OutputLayer_Feature_Check_Selection, clause, count)
     arcpy.Delete_management(TempCheck_Path)
     arcpy.Delete_management(OutputLayer_Feature_Check_Selection)
-    arcpy.AddMessage("...\n...\nA total of {} new features were found which are stored in the Feature Class:\n     {} \nat the following path:\n     {}".format(count,ChildFC,Scratch_FDPath))
+    arcpy.AddMessage("...\n...\nA total of {} new features were found which are stored in the Feature Class:\n     {} \nat the following path:\n     {}".format(count,Feature_Check_Selection,Scratch_FDPath))
     
 
     print "......................................................................Part 3 Runtime: {} (Total Runtime: {})".format(datetime.now()-part3time, datetime.now()-startTime)

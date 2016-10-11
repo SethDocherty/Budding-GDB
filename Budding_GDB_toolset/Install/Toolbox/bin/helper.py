@@ -422,15 +422,12 @@ def get_geodatabase_path(input_table):
 
 #Check if there is a filepath from the input layers. If not, pre-pend the path. Also extract the FC names.
 def InputCheck(Input_Layer):
-    if not arcpy.Exists(Input_Layer):
-    #if not split(Input_Layer)[0]:
-        layer =  Input_Layer.split(r'\\')[-1]
-        arcpy.AddMessage(layer)
-        InputPath = arcpy.Describe(layer).catalogPath #join(arcpy.Describe(Input_Layer).catalogPath,arcpy.Describe(Input_Layer).name)
-        InputName = arcpy.Describe(layer).name
-    else:
-        InputPath = Input_Layer
+    if arcpy.Exists(Input_Layer):
+        InputPath = arcpy.Describe(Input_Layer).catalogPath #join(arcpy.Describe(Input_Layer).catalogPath,arcpy.Describe(Input_Layer).name)
         InputName = arcpy.Describe(Input_Layer).name
+    else:
+        arcpy.AddError("{} Does not exist".format(Input_Layer))
+        sys.exit()
     return InputPath, InputName
 
 
