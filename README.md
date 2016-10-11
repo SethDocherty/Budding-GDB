@@ -8,7 +8,7 @@
  - [ETL Toolset Overview](https://github.com/SethDocherty/Budding-GDB#etl-toolset-overview)
  - [Creating Maps with Report Specific Feature Classes](https://github.com/SethDocherty/Budding-GDB#creating-maps-with-report-specific-feature-classes)
  - [Setting up the Initial Data Structure](https://github.com/SethDocherty/Budding-GDB#setting-up-the-initial-data-structure)
- - [Installation and Other Files](https://github.com/SethDocherty/Budding-GDB#setting-up-the-initial-data-structure)
+ - [Installation and Other Files](https://github.com/SethDocherty/Budding-GDB/blob/master/README.md#installation-and-other-files)
 
 ## Description:
 
@@ -195,7 +195,7 @@ Requirements:
 All the geo-processing scripts have conveniently been bundled into an ArcGIS Add-in.  To install, download the [add-in](https://github.com/SethDocherty/Budding-GDB/raw/master/Budding_GDB_toolset/Budding_GDB_toolset.esriaddin) and
 double click the file.  Once installed you can add the toolbar by going to customize -> Budding GDB Toolset.
 
-![toolbar](./images/toolbar.png)
+![toolbar](./images/toolbar.PNG)
 
 #### Other files 
 
