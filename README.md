@@ -213,7 +213,7 @@ Now that we have the figure and boundary extents all set up, lets add the sample
 and then adding the new features that were found to the report specific feature class. This tool acts as the replicator that goes through each figure and adds new features from the parent feature class that are not in the figure. 
 One of the neat features with this tool is that the replicated feature class inherits the attributes of the figure that it intersects.
 
-![Adding_New_Geometry_FirstTime.gif](./images/Adding_New_Geometry_FirstTime.gif])
+![Adding_New_Geometry_FirstTime](./images/Adding_New_Geometry_FirstTime.gif])
 
 At this point you can set up the label classes and create feature linked annotation. Keep in mind, text placement is scale specific.  The label size at one scale will be different for another scale.  Calculating the label sizes
 at different scales is just a matter of fractions; See [The font size calculator](./Ref Docs) to help find the necessary font sizes.
