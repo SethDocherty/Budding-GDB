@@ -185,7 +185,7 @@ def Extract_Field_Name(fc):
 def Extract_Field_NameType(fc):
     field_info=[]
     for field in arcpy.ListFields(fc):
-        if field.name == 'Shape' or field.name == 'Shape_Length' or field.name == 'OBJECTID' or field.name == 'RID':
+        if field.name == 'Shape' or field.name == 'Shape_Length' or field.name == 'OBJECTID' or field.name == 'RID' or field.name == 'GlobalID':
             pass
         else:
             item=[]
