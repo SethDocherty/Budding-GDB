@@ -166,7 +166,7 @@ footprint, will be tied to the figure using a one-to-many spatial join. The two 
  
 Those two attributes are necessary (does not have to be those names) as the replicated GIS layer will inherit the values from those fields when running the ETL tools.
 
-Using the extent to polygon add-in (found in my [repository](./Useful tools)) you can easily extract the footprint of the reference frame. Keep in mind, when the figure size changes, the footprint
+Using the extent to polygon add-in (found in my [repository](./Useful_tools)) you can easily extract the footprint of the reference frame. Keep in mind, when the figure size changes, the footprint
 size of the data frame will change.
 
 ![Creating_FigureExtent](./images/Creating_FigureExtent.gif)
