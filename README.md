@@ -235,7 +235,7 @@ Files that may be of interest for the map creation process include:
  - [The font size calculator](./Ref Docs): This is useful when creating annotation classes for feature linked annotation as text placement is scale specific.  Font size at 1:360 will be completely different when the scale is 1:900.  See [here](http://gis.stackexchange.com/questions/94356/uniform-annotation-font-size-in-multiple-data-frames)
  for more info
  - [Extent to polygon](./Useful tools): This add-in is incredibly useful in converting the footprint of your data frame to a polygon.  More info found [here](http://www.arcgis.com/home/item.html?id=a9b032f739254ebeb6221c9294ebc886#!)
- - [Sample Dataset](./Sample Data):  I've provided a sample dataset for testing so you can quickly try out the tools. 
+ - [Sample Dataset](./Sample\ Data):  I've provided a sample dataset for testing so you can quickly try out the tools. 
  - [Budding GDB Data Model](https://github.com/SethDocherty/Budding-GDB/raw/master/Ref%20Docs/Budding%20GDB%20Data%20Model.pptx): Presentation I gave on the Budding GDB data model presented at the [2016 MACURISA Conference](https://macurisa2016.sched.org/)
  
 #### Contact
