@@ -36,7 +36,7 @@ def Add_Records_to_Table(input_list, table_path):
             try:
                 row = [x if x else None for x in row] #TODO Look into adding a continue statement for the else statement.
             except:
-                print "Ran in to a Problem adding the following row to the table... {}: Likely an issues with text format i.e. unicode encoding problem. Try fixing the items and run the script again.".format(row)
+                arcpy.AddWarning("Ran in to a Problem adding the following row to the table... {}: Likely an issues with text format i.e. unicode encoding problem. Try fixing the items and run the script again.".format(row))
             iCursor.insertRow(row)
 
                 
@@ -133,7 +133,7 @@ def convert_invalid_values(input_list):
     return input_list
 
 
-def csv_to_table(input_csv, input_fc, selection_fields, ParentField,scratch_gdb):
+def csv_to_table(input_csv, input_fc, selection_fields, ParentField, scratch_gdb):
     # Getting Filepath/name of input csv/fc
     csv_path, csv_name = InputCheck(input_csv)
     fc_path, fc_name = InputCheck(input_fc)
@@ -144,6 +144,7 @@ def csv_to_table(input_csv, input_fc, selection_fields, ParentField,scratch_gdb)
     fields = Extract_input_fields_from_csv(selection_fields, ParentField, header)
     field_index = get_column_index(header,fields)
     csv_list = extract_list_columns(csv_list, field_index, "No")
+
 
     #Creating blank table and appending csv list
     name = "csv2table_temp"
@@ -185,7 +186,7 @@ def Extract_Field_Name(fc):
 def Extract_Field_NameType(fc):
     field_info=[]
     for field in arcpy.ListFields(fc):
-        if field.name == 'Shape' or field.name == 'Shape_Length' or field.name == 'OBJECTID' or field.name == 'RID':
+        if field.name == 'Shape' or field.name == 'Shape_Length' or field.name == 'OBJECTID' or field.name == 'RID' or field.name == 'GlobalID':
             pass
         else:
             item=[]
@@ -244,7 +245,8 @@ def Extract_input_fields_from_csv(selection_fields, ParentField, header):
     if not input_fields:
         arcpy.AddError("None of the user selected fields to update are in the csv document")
         sys.exit()
-    input_fields.append(ParentField)
+    if ParentField not in input_fields:
+        input_fields.append(ParentField)
     #if FigureExtentField:
     #    input_fields.append(FigureExtentField)
     return input_fields
